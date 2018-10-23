@@ -1,0 +1,21 @@
+{
+  "name": "zinggrid",
+  "version": "1.0.0-alpha.1",
+  "description": "ZingGrid - A fully-featured, native, web-component, data table and grid for Javascript applications.",
+  "main": "index.js",
+  "runkitExampleFilename": "npm_runkit_example.js",
+  "author": "ZingSoft",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zingsoft/zinggrid"
+  },
+  "homepage": "https://github.com/zingchart/ZingChart",
+  "keywords": [
+    "zinggrid",
+    "grid",
+    "datatable",
+    "javascript",
+    "data-table",
+    "zingsoft"
+  ]
+}
