@@ -32,7 +32,7 @@ import ZingGrid from 'zinggrid';
 
 # Getting Started
 
-```
+```html
 <!DOCTYPE html>
 <html>
 <head>
