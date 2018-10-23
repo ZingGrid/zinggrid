@@ -1,0 +1,9 @@
+._*
+.DS_Store
+.DS_Store?
+.idea
+.node-version
+.Trashes
+.vscode
+bower_components
+node_modules
