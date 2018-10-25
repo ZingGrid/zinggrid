@@ -1,8 +1,6 @@
 # [ZingGrid](https://www.zinggrid.com)
 
-ZingGrid is a Javascript library for rendering grids and data tables. We are a closed source grid library whose main focus is on fast, responsive, customizable grids. We achieve this through all native ES6 Javascript and native web components. We aim to solve the problem of creating a CRUD grid in under five minutes. With the appropriate REST endpoint, this is easily achievable.
-
-
+ZingGrid is a Javascript library for rendering grids and data tables. Our main focus is on fast, responsive, and customizable grids utilizing ES6 and native web components. Our goal is to solve the problem of creating a CRUD grid in under five minutes. With an appropriate REST endpoint, this is easily achievable.
 
 ### Include the library
 
@@ -67,8 +65,7 @@ ZingGrid requires **NO** wrapper for easy consumption with popular JS libraries 
 
 ## Support 
 
-If you need any assistance or would like to report any bugs found in ZingGrid, 
-please contact us directly at support@zinggrid.com or through our website https://www.zinggrid.com/contact
+If you need any assistance or would like to report a bug, please contact us directly at support@zinggrid.com or through our website https://www.zinggrid.com/contact.
 
 
 &copy; 2018 ZingSoft, Inc.
