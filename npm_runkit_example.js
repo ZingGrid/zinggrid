@@ -1,2 +1,2 @@
-/* equire ZingGrid */
+/* require ZingGrid */
 require('index.js');
