@@ -13,7 +13,7 @@ ZingGrid is a Javascript library for rendering grids and data tables. Our main f
 
 or
 
-*** Import pollyfilled Version (Suggested) ***
+***Import pollyfilled Version (Suggested)***
 
 ```js
 import ZingGrid from 'zinggrid';
@@ -21,7 +21,7 @@ import ZingGrid from 'zinggrid';
 
 or
 
-*** Import No Pollyfills ES6 Version (Smallest) ***
+***Import No Pollyfills ES6 Version (Smallest)***
 
 ```js
 import ZingGrid from 'zinggrid/es6';
@@ -29,10 +29,10 @@ import ZingGrid from 'zinggrid/es6';
 
 or
 
-*** Import Pollyfills ES5 Version (Largest) ***
+***Import Pollyfills ES5 Version (Largest)***
 
 ```js
-import ZingGrid from 'zinggrid/es6';
+import ZingGrid from 'zinggrid/es5';
 ```
 
 # Getting Started
