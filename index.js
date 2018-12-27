@@ -1,2 +1,2 @@
-require('./dist/zinggrid.min.js');
-module.exports = ZingGrid;
+import * as ZingGrid from './dist/zinggrid.min.js';
+export default ZingGrid;
