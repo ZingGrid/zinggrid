@@ -1,6 +1,6 @@
 {
   "name": "zinggrid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ZingGrid - A fully-featured, native, web-component, data table and grid for Javascript applications.",
   "main": "index.js",
   "runkitExampleFilename": "npm_runkit_example.js",
