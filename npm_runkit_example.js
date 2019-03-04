@@ -1,2 +1,2 @@
-/* require ZingGrid */
-require('index.js');
+/* import ZingGrid */
+import ZingGrid from 'zinggrid';
