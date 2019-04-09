@@ -37,6 +37,8 @@ import ZingGrid from 'zinggrid/es5';
 
 # Getting Started CDN
 
+Open the `examples/index.html` file in your browser.
+
 ```html
 <!DOCTYPE html>
 <html>
