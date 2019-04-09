@@ -8,7 +8,7 @@ ZingGrid is a Javascript library for rendering grids and data tables. Our main f
 ***Include the library through script tag***
 
 ```html
-<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
 ```
 
 or
