@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Script Reference[1]-->
+  <script type="module" src="../index.js">
+    // can use this 
+    // import ZingGrid from '../index.js';
+  </script>
+  <!-- fallback for no module support -->
+  <script nomodule src="../dist/zinggrid.min.js"></script>
+</head>
+<body>
+  <h3>Must have localhost running for modules on file system to work</h3>
+  <!--Grid Component Placement[2]-->
+  <zing-grid
+    caption="Hello Futurama"
+    search
+    layout-controls
+    columns-control
+    editor-controls
+    pager
+    page-size="2"
+    page-size-options="2,5,10"
+    data='[
+      { "firstName": "Philip", "lastName": "Fry"},
+      { "firstName": "Turanga", "lastName": "Leela"},
+      { "firstName": "Bender", "lastName": "Rodriguez"},
+      { "firstName": "Amy", "lastName": "Wong"}
+    ]'>
+  </zing-grid>
+</body>
+</html>

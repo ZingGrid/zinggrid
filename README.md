@@ -5,7 +5,7 @@ ZingGrid is a Javascript library for rendering grids and data tables. Our main f
 ### Include the library
 
 
-***Include the file***
+***Include the library through script tag***
 
 ```html
 <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
@@ -35,7 +35,7 @@ or
 import ZingGrid from 'zinggrid/es5';
 ```
 
-# Getting Started
+# Getting Started CDN
 
 ```html
 <!DOCTYPE html>
@@ -59,9 +59,49 @@ import ZingGrid from 'zinggrid/es5';
 </html>
 ```
 
+# Getting Started with Script Modules
+
+1. Need to have a server running. `http-server` to fire up localhost a simple solution. 
+  - install with `npm i http-server -g`
+  - run `http-server` from root folder
+  - traverse to localhost:xxxx/examples/index-modules.html
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Script Reference[1]-->
+  <script type="module" src="../index.js">
+    // can use this 
+    // import ZingGrid from '../index.js';
+  </script>
+  <!-- fallback for no module support -->
+  <script nomodule src="../dist/zinggrid.min.js"></script>
+</head>
+<body>
+  <!--Grid Component Placement[2]-->
+  <zing-grid
+    caption="Hello Futurama"
+    data='[
+      { "firstName": "Philip", "lastName": "Fry"},
+      { "firstName": "Turanga", "lastName": "Leela"},
+      { "firstName": "Bender", "lastName": "Rodriguez"},
+      { "firstName": "Amy", "lastName": "Wong"}
+    ]'>
+  </zing-grid>
+</body>
+</html>
+```
+
 ## Integrations
 
-ZingGrid requires **NO** wrapper for easy consumption with popular JS libraries and frameworks. Check out the following hello world demos:
+ZingGrid requires **NO** wrapper for easy consumption with popular JS libraries and frameworks. In these frameworks you can typically include the library through native imports:
+
+```js
+  import ZingGrid from 'zinggrid';
+```
+
+Please check out the following hello world tutorials for frameworks:
 
 - [Angular](https://www.zinggrid.com/docs/angular)
 - [React](https://www.zinggrid.com/docs/react)
@@ -75,4 +115,4 @@ ZingGrid requires **NO** wrapper for easy consumption with popular JS libraries 
 If you need any assistance or would like to report a bug, please contact us directly at support@zinggrid.com or through our website https://www.zinggrid.com/contact.
 
 
-&copy; 2018 ZingSoft, Inc.
+&copy; 2019 ZingSoft, Inc.
