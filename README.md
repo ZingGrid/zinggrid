@@ -11,7 +11,13 @@ ZingGrid is a Javascript library for rendering grids and data tables. Our main f
 <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
 ```
 
-or
+### Include Library with NPM
+
+```
+npm i zinggrid
+```
+
+and include one of the following imports in your code:
 
 ***Import pollyfilled Version (Suggested)***
 
