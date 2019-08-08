@@ -3,6 +3,7 @@
   "version": "1.1.0",
   "description": "ZingGrid - A fully-featured, native, web-component, data table and grid for Javascript applications.",
   "main": "index.js",
+  "module": "index.js",
   "runkitExampleFilename": "npm_runkit_example.js",
   "author": "ZingSoft",
   "repository": {
