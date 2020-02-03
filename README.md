@@ -1,5 +1,10 @@
 # [ZingGrid](https://www.zinggrid.com)
 
+![](https://img.shields.io/david/zinggrid/zinggrid)
+![](https://img.shields.io/david/peer/zinggrid/zinggrid)
+![](https://img.shields.io/david/dev/zinggrid/zinggrid)
+![](https://img.shields.io/npm/dw/zinggrid)
+
 ZingGrid (v1.1.3) is a Javascript library for rendering grids and data tables. Our main focus is on fast, responsive, and customizable grids utilizing ES6 and native web components. Our goal is to solve the problem of creating a CRUD grid in under five minutes. With an appropriate REST endpoint, this is easily achievable.
 
 [![](http://capture.zingsoft.com/99d1fb9abf6d/download/Screen%252520Recording%2525202019-09-10%252520at%25252001.45%252520PM.gif)](https://www.zinggrid.com/docs/your-first-grid)
