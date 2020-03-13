@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>zinggrid</id>
+        <version>1.2.0</version>
+        <description>A fully-featured, native, web-component, data table and grid for Javascript applications.</description>
+        <authors>ZingSoft Inc</authors>
+        <licenseUrl>https://www.zinggrid.com/pricing</licenseUrl>
+        <projectUrl>https://www.zinggrid.com</projectUrl>
+        <tags>ZingGrid grid datatable javascript javascript-grid data-table CRUD CRUD-grid zingsoft zingchart</tags>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <iconUrl>https://www.zingchart.com/assets/img/zing-logo.svg</iconUrl>
+    </metadata>
+    <files>
+        <file src="dist/zinggrid.min.js" target="content/Scripts/"/>
+        <file src="dist/zinggrid.es6.min.js" target="content/Scripts/"/>
+        <file src="dist/zinggrid.es5.min.js" target="content/Scripts/"/>
+        <file src="dist/zinggrid.zip" target="content/Scripts/"/>
+    </files>
+</package>
