@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>zinggrid</id>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
         <description>A fully-featured, native, web-component, data table and grid for Javascript applications.</description>
         <authors>ZingSoft Inc</authors>
         <licenseUrl>https://www.zinggrid.com/pricing</licenseUrl>
