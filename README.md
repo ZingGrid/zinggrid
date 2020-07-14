@@ -8,9 +8,8 @@
 ![](https://img.shields.io/david/dev/zinggrid/zinggrid)
 
 ZingGrid is a Javascript library for rendering grids and data tables. Our main focus is on fast, responsive, and customizable grids utilizing ES6 and native web components. Our goal is to solve the problem of creating a CRUD grid in under five minutes. With an appropriate REST endpoint, this is easily achievable.
-git commit -m "doc: Add License file and live demo to readme"
 
-<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
 <zing-grid
   caption="Employee CRUD Grid"
   sort
@@ -29,30 +28,7 @@ git commit -m "doc: Add License file and live demo to readme"
   <zg-column index="hourly_salary" type="currency"></zg-column>
 </zing-grid>
 
-#### HTML
-
-The HTML for the above live example. We require the script to be included on the page. You can add the `defer` attribute since the grid web component will bootstrap and render once registered to the page. 
-
-```
-<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
-<zing-grid
-  caption="Employee CRUD Grid"
-  sort
-  search
-  column-controls
-  editor-controls
-  layout="row"
-  pager
-  page-size="3"
-  page-size-options="2,3,5,10,50"
-  source="Source: https://examples.zingsoft.com/json-server/"
-  src="https://examples.zingsoft.com/json-server/employees">
-  <zg-column index="name"></zg-column>
-  <zg-column index="actor"></zg-column>
-  <zg-column index="job"></zg-column>
-  <zg-column index="hourly_salary" type="currency"></zg-column>
-</zing-grid>
-```
+[![](http://capture.zingsoft.com/99d1fb9abf6d/download/Screen%252520Recording%2525202019-09-10%252520at%25252001.45%252520PM.gif)](https://www.zinggrid.com/docs/your-first-grid)
 
 ### Include the library
 
