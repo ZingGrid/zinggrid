@@ -4,9 +4,10 @@
 name: Publish to NPM
 
 # only run when a release has been "published"
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
 
