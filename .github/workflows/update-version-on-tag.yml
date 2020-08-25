@@ -4,11 +4,10 @@
 name: Publish to NPM
 
 # only run when a tag has been "created"
-# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#create
+# https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release
 on:
-  create:
-    tags:
-      - '*'
+  release:
+    types: [prereleased]
 
 jobs:
 
