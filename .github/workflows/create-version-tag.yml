@@ -32,6 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         # context of environment variables
         with:
+          release_name: ${{ github.event.client_payload.version }}
           tag_name: ${{ github.event.client_payload.version }}
           body: |            
             ## Features
