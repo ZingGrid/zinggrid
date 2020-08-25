@@ -40,7 +40,6 @@ jobs:
           git config --local user.name "ZingSoft Admin"
           git commit -m "v${GITHUB_REF/refs\/tags\//}"
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
-      - run: npm install
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
