@@ -7,7 +7,7 @@ name: Publish to NPM
 # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release
 on:
   release:
-    types: [released]
+    types: [published]
 
 jobs:
 
@@ -40,6 +40,13 @@ jobs:
           git config --local user.name "ZingSoft Admin"
           git commit -m "v${GITHUB_REF/refs\/tags\//}"
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
-      - run: npm publish --access public
+      - name: Publish Canary TagTo NPM
+        if: "github.event.release.prerelease"
+        run: npm publish --tag canary --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Publish To NPM
+        if: "!github.event.release.prerelease"
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
