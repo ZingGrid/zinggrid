@@ -1,7 +1,7 @@
 
 # Name is optional and if present must be used
 # in the url path for badges
-name: Publish to NPM
+name: Publish Live to NPM
 
 # only run when a release has been "published"
 # https://docs.github.com/en/actions/reference/events-that-trigger-workflows#release
@@ -21,10 +21,10 @@ jobs:
 
     steps:
       - name: Checkout Repository 
-        if: "!github.event.release.prerelease"
+        if: github.event.release.prerelease == false
         uses: actions/checkout@v2
       - name: Checkout Repository Tag Branch
-        if: "github.event.release.prerelease"
+        if: github.event.release.prerelease == true
         uses: actions/checkout@v2
         with:
           ref: 'canary/${GITHUB_REF/refs\/tags\//}'
@@ -48,12 +48,12 @@ jobs:
           git commit -m "v${GITHUB_REF/refs\/tags\//}"
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
       - name: Publish Canary TagTo NPM
-        if: "github.event.release.prerelease"
+        if: github.event.release.prerelease == false
         run: npm publish --tag canary --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish To NPM
-        if: "!github.event.release.prerelease"
+        if: github.event.release.prerelease == true
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
