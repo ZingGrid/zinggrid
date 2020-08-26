@@ -55,7 +55,7 @@ jobs:
           tag_name: ${{ github.event.client_payload.version }}
           release_name: v${{ github.event.client_payload.version }}
           # Target Commish Defined here: https://developer.github.com/v3/repos/releases/#create-a-release
-          target_commitish: 'canary/${{ github.event.client_payload.version }}'
+          commitish: 'canary/${{ github.event.client_payload.version }}'
           body: |
             // @todo REPLACE ME            
             ## Features
