@@ -15,6 +15,23 @@ jobs:
 
   # publish to npm on release
   # Create release action docs -> https://github.com/actions/create-release
+  create-tag-branch:
+    name: Create External Tag Branch
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.15]
+    steps:
+      - name: Checkout Public ZingGrid Repository
+        uses: actions/checkout@v2
+      # https://github.com/marketplace/actions/create-branch
+      - name: Create Branch for tag
+        uses: peterjgrainger/action-create-branch@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+        with:
+          branch: 'canary/${{ github.event.client_payload.version }}'
+
   create-external-release:
     name: Create External Tag
     runs-on: ubuntu-latest
@@ -22,8 +39,11 @@ jobs:
       matrix:
         node-version: [10.15]
     steps:
-      - name: Checkout Public ZingGrid Repository
-        uses: actions/checkout@v1
+      # https://github.com/actions/checkout#checkout-a-different-branch
+      - name: Checkout Public ZingGrid Canary Branch 
+        uses: actions/checkout@v2
+        with: 
+          ref: 'canary/${{ github.event.client_payload.version }}'
       # https://github.com/actions/create-release
       - name: Create Public Release 
         id: create_release
@@ -34,6 +54,8 @@ jobs:
         with:
           tag_name: ${{ github.event.client_payload.version }}
           release_name: v${{ github.event.client_payload.version }}
+          # Target Commish Defined here: https://developer.github.com/v3/repos/releases/#create-a-release
+          target_commitish: 'canary/${{ github.event.client_payload.version }}'
           body: |
             // @todo REPLACE ME            
             ## Features
