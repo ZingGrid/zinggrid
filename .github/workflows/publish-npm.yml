@@ -20,7 +20,14 @@ jobs:
         node-version: [12]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout Repository 
+        if: "!github.event.release.prerelease"
+        uses: actions/checkout@v2
+      - name: Checkout Repository Tag Branch
+        if: "github.event.release.prerelease"
+        uses: actions/checkout@v2
+        with:
+          ref: 'canary/${GITHUB_REF/refs\/tags\//}'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
