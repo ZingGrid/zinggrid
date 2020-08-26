@@ -26,7 +26,20 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
-      - run: npm install
+      - name: Update Package.json Version
+        # https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#create
+        run: |
+          git config --local user.email "admin@zingsoft.com"
+          git config --local user.name "ZingSoft Admin"
+          npm version ${GITHUB_REF/refs\/tags\//}
+      # Will silently fail if previous package update was not run
+      - name: Commit files
+        run: |
+          git add .
+          git config --local user.email "admin@zingsoft.com"
+          git config --local user.name "ZingSoft Admin"
+          git commit -m "v${GITHUB_REF/refs\/tags\//}"
+          git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

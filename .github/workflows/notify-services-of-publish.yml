@@ -22,16 +22,16 @@ jobs:
       uses: peter-evans/repository-dispatch@v1
       with:
         # personal access tokens are under admin@zingsoft.com github account
-        token: ${{ secrets.ZINGSOFT_REPOS_PERSONAL_ACCESS_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         repository: zingsoftinc/zinggrid-com
-        event-type: new-zc-version
-        client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
+        event-type: new-zg-version
+        client-payload: '{"ref": "${{ github.ref }}", "version": "${GITHUB_REF/refs\/tags\//}"}'
     # push master (live) branch of site
     - name: Dispatch CDN Build
       uses: peter-evans/repository-dispatch@v1
       with:
         # personal access tokens are under admin@zingsoft.com  github account
-        token: ${{ secrets.ZINGSOFT_REPOS_PERSONAL_ACCESS_TOKEN }}
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         repository: zingsoftinc/zinggrid-cdn
-        event-type: new-zc-version
-        client-payload: '{"ref": "${{ github.ref }}", "version": "${GITHUB_REF/refs\/tags\//}", "date": "July 25, 2020"}'
+        event-type: new-zg-version
+        client-payload: '{"ref": "${{ github.ref }}", "version": "${GITHUB_REF/refs\/tags\//}"}'

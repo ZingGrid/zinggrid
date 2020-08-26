@@ -32,9 +32,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         # context of environment variables
         with:
-          release_name: ${{ github.event.client_payload.version }}
           tag_name: ${{ github.event.client_payload.version }}
-          body: |            
+          release_name: v${{ github.event.client_payload.version }}
+          body: |
+            // @todo REPLACE ME            
             ## Features
             - xxxx`<zing-grid draggable` 
 
@@ -46,5 +47,5 @@ jobs:
           # draft true by default so it doesn't trigger the build directly
           # needs human review
           draft: true
-          # public release by default
+          # public release by default. Make prerelease if you want to deploy a canary version of lib
           prerelease: false
