@@ -17,6 +17,7 @@ jobs:
   # Create release action docs -> https://github.com/actions/create-release
   create-tag-branch:
     name: Create External Tag Branch
+    if: github.event.client_payload.prerelease == true
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -41,11 +42,16 @@ jobs:
     steps:
       # https://github.com/actions/checkout#checkout-a-different-branch
       - name: Checkout Public ZingGrid Canary Branch 
+        if: github.event.client_payload.prerelease == true
         uses: actions/checkout@v2
         with: 
           ref: 'canary/${{ github.event.client_payload.version }}'
+      - name: Checkout Public ZingGrid Repository
+        if: github.event.client_payload.prerelease == false
+        uses: actions/checkout@v2    
       # https://github.com/actions/create-release
-      - name: Create Public Release 
+      - name: Create Public Prerelease 
+        if: github.event.client_payload.prerelease == true
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -56,6 +62,34 @@ jobs:
           release_name: v${{ github.event.client_payload.version }}
           # Target Commish Defined here: https://developer.github.com/v3/repos/releases/#create-a-release
           commitish: 'canary/${{ github.event.client_payload.version }}'
+          body: |
+            // @todo REPLACE ME            
+            ## Features
+            - xxxx`<zing-grid draggable` 
+
+            ## Notable Fixes
+            - IOS device multiple resize events firing causing performance issues
+              
+            ## New Documentation 
+            - [ZingGrid Docs](https://www.zinggrid.com/docs)
+          # draft true by default so it doesn't trigger the build directly
+          # needs human review
+          draft: true
+          # public release by default. Make prerelease if you want to deploy a canary version of lib
+          prerelease: true
+      - name: Create Public Release 
+        if: github.event.client_payload.prerelease == false
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        # context of environment variables
+        with:
+          tag_name: ${{ github.event.client_payload.version }}
+          release_name: v${{ github.event.client_payload.version }}
+          # Target Commish Defined here: https://developer.github.com/v3/repos/releases/#create-a-release
+          # assume master branch
+          # commitish: 'canary/${{ github.event.client_payload.version }}'
           body: |
             // @todo REPLACE ME            
             ## Features
