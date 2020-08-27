@@ -20,6 +20,8 @@ jobs:
         node-version: [12]
 
     steps:
+      - name: Set Tag Version ENV Variable
+        run: echo ::set-env name=ZG_VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Checkout Repository 
         if: github.event.release.prerelease == false
         uses: actions/checkout@v2
@@ -27,7 +29,7 @@ jobs:
         if: github.event.release.prerelease == true
         uses: actions/checkout@v2
         with:
-          ref: 'canary/${GITHUB_REF/refs\/tags\//}'
+          ref: 'canary/${{ env.ZG_VERSION }}'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -38,14 +40,14 @@ jobs:
         run: |
           git config --local user.email "admin@zingsoft.com"
           git config --local user.name "ZingSoft Admin"
-          npm version ${GITHUB_REF/refs\/tags\//}
+          npm version ${ZG_VERSION}
       # Will silently fail if previous package update was not run
       - name: Commit files
         run: |
           git add .
           git config --local user.email "admin@zingsoft.com"
           git config --local user.name "ZingSoft Admin"
-          git commit -m "v${GITHUB_REF/refs\/tags\//}"
+          git commit -m "v${ZG_VERSION}"
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
       - name: Publish Canary TagTo NPM
         if: github.event.release.prerelease == false
