@@ -52,7 +52,7 @@ jobs:
       # https://github.com/actions/create-release
       - name: Create Public Prerelease 
         if: github.event.client_payload.prerelease == true
-        id: create_release
+        id: create_prerelease
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
