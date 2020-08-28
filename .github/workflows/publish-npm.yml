@@ -25,6 +25,8 @@ jobs:
       - name: Checkout Repository 
         if: github.event.release.prerelease == false
         uses: actions/checkout@v1
+        with:
+          ref: refs/heads/master
       - name: Checkout Repository Tag Branch
         if: github.event.release.prerelease == true
         uses: actions/checkout@v1
