@@ -38,6 +38,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
       - name: Update Package.json Version
+        if: github.event.release.prerelease == false
+        # https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#create
+        # git commit implicitly called by npm version
+        run: |
+          git config --local user.email "admin@zingsoft.com"
+          git config --local user.name "ZingSoft Admin"
+          npm version ${ZG_VERSION}
+          git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git HEAD:master --force
+      - name: Update Package.json Version Canary
+        if: github.event.release.prerelease == true
         # https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#create
         # git commit implicitly called by npm version
         run: |
