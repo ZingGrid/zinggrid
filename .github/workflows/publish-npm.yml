@@ -24,12 +24,10 @@ jobs:
         run: echo ::set-env name=ZG_VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Checkout Repository 
         if: github.event.release.prerelease == false
-        uses: actions/checkout@v2
-        with:
-          ref: 'refs/head/master'
+        uses: actions/checkout@v1
       - name: Checkout Repository Tag Branch
         if: github.event.release.prerelease == true
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
         with:
           ref: 'canary/${{ env.ZG_VERSION }}'
       - name: Use Node.js ${{ matrix.node-version }}
