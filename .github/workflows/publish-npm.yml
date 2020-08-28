@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12]
-
+ 
     steps:
       - name: Set Tag Version ENV Variable
         run: echo ::set-env name=ZG_VERSION::${GITHUB_REF/refs\/tags\//}
