@@ -31,7 +31,7 @@ jobs:
         if: github.event.release.prerelease == true
         uses: actions/checkout@v1
         with:
-          ref: 'canary/${{ ZG_VERSION }}'
+          ref: 'canary/${{ env.ZG_VERSION }}'
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
@@ -44,7 +44,7 @@ jobs:
         run: |
           git config --local user.email "admin@zingsoft.com"
           git config --local user.name "ZingSoft Admin"
-          npm version ${{ZG_VERSION}}
+          npm version ${{env.ZG_VERSION}}
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git HEAD:master --force
       - name: Update Package.json Version Canary
         if: github.event.release.prerelease == true
@@ -53,7 +53,7 @@ jobs:
         run: |
           git config --local user.email "admin@zingsoft.com"
           git config --local user.name "ZingSoft Admin"
-          npm version ${{ZG_VERSION}}
+          npm version ${{env.ZG_VERSION}}
           git push https://zingsoftadmin:${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/zinggrid/zinggrid.git
       - name: Publish Canary TagTo NPM
         if: github.event.release.prerelease == true
