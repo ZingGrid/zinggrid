@@ -1,3 +1,2 @@
-import './dist/zinggrid.min.js';
+import ZingGrid from './dist/zinggrid.min.js';
 export default ZingGrid;
-
