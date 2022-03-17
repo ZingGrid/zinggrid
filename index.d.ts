@@ -15,17 +15,13 @@ type KebabKeys<T> = { [K in keyof T as K extends string ? Kebab<K> : K]: T[K] };
 
 declare namespace ZSoft {
   interface ZingGridElementEventMap {
+    'element:ready': CustomEvent;
+    'element:ready': CustomEvent;
     'menu:click': CustomEvent;
-    'cell:beforerender': CustomEvent;
-    'cell:click': CustomEvent;
-    'cell:closeedit': CustomEvent;
-    'cell:copy': CustomEvent;
-    'cell:mouseout': CustomEvent;
-    'cell:mouseover': CustomEvent;
-    'cell:openedit': CustomEvent;
-    'cell:paste': CustomEvent;
-    'cell:rightclick': CustomEvent;
+    'menu-item:ready': CustomEvent;
+    'grid:afterpaint': CustomEvent;
     'grid:beforerender': CustomEvent;
+    'grid:childrenready': CustomEvent;
     'grid:contextmenuclose': CustomEvent;
     'grid:contextmenuopen': CustomEvent;
     'grid:deselect': CustomEvent;
@@ -44,9 +40,20 @@ declare namespace ZSoft {
     'grid:search': CustomEvent;
     'grid:select': CustomEvent;
     'grid:selectall': CustomEvent;
+    'cell:beforerender': CustomEvent;
+    'cell:click': CustomEvent;
+    'cell:closeedit': CustomEvent;
+    'cell:copy': CustomEvent;
+    'cell:mouseout': CustomEvent;
+    'cell:mouseover': CustomEvent;
+    'cell:openedit': CustomEvent;
+    'cell:paste': CustomEvent;
+    'cell:ready': CustomEvent;
+    'cell:rightclick': CustomEvent;
     'data:cell:beforechange': CustomEvent;
     'data:cell:change': CustomEvent;
     'data:load': CustomEvent;
+    'data:ready': CustomEvent;
     'data:record:beforechange': CustomEvent;
     'data:record:beforedelete': CustomEvent;
     'data:record:beforeinsert': CustomEvent;
@@ -57,65 +64,88 @@ declare namespace ZSoft {
     'row:click': CustomEvent;
     'row:mouseout': CustomEvent;
     'row:mouseover': CustomEvent;
+    'row:ready': CustomEvent;
     'row:select': CustomEvent;
     'column:click': CustomEvent;
     'column:filter': CustomEvent;
     'column:mouseout': CustomEvent;
     'column:mouseover': CustomEvent;
+    'column:ready': CustomEvent;
     'card:click': CustomEvent;
     'card:mouseout': CustomEvent;
     'card:mouseover': CustomEvent;
+    'card:ready': CustomEvent;
     'record:click': CustomEvent;
     'record:mouseout': CustomEvent;
     'record:mouseover': CustomEvent;
     'header:click': CustomEvent;
+    'header:ready': CustomEvent;
+    'button:ready': CustomEvent;
+    'body:ready': CustomEvent;
+    'caption:ready': CustomEvent;
+    'checkbox:ready': CustomEvent;
+    'colgroup:ready': CustomEvent;
+    'column-resize:ready': CustomEvent;
+    'control-bar:ready': CustomEvent;
+    'dialog:ready': CustomEvent;
+    'editor-row:ready': CustomEvent;
+    'filter:ready': CustomEvent;
+    'focus:ready': CustomEvent;
+    'foot:ready': CustomEvent;
+    'footer:ready': CustomEvent;
+    'frozen-colgroup:ready': CustomEvent;
+    'head:ready': CustomEvent;
+    'head-cell:ready': CustomEvent;
+    'icon:ready': CustomEvent;
+    'input:ready': CustomEvent;
+    'layout-controls:ready': CustomEvent;
+    'load-mask:ready': CustomEvent;
+    'menu:ready': CustomEvent;
+    'menu-group:ready': CustomEvent;
+    'no-data:ready': CustomEvent;
+    'option-list:ready': CustomEvent;
+    'pager:ready': CustomEvent;
+    'param:ready': CustomEvent;
+    'search:ready': CustomEvent;
+    'select:ready': CustomEvent;
+    'selector-mask:ready': CustomEvent;
+    'separator:ready': CustomEvent;
+    'source:ready': CustomEvent;
+    'status:ready': CustomEvent;
+    'text:ready': CustomEvent;
+    'tooltip:ready': CustomEvent;
+    'watermark:ready': CustomEvent;
   }
 
   interface ZingGridEventHandlers {
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onElementReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onElementReady'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event when custom menu item is clicked.
      */
     'onMenuClick'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event before a cell is rendered.
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
      */
-    'onCellBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
+    'onMenu-itemReady'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event when a click occurs to a cell.
+     * @description Fired after the grid is displayed properly on the screen
      */
-    'onCellClick'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when the cell editor is closed.
-     */
-    'onCellCloseedit'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when copying (ctrl+c) occurs in a cell.
-     */
-    'onCellCopy'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when mouse is moved out of a cell.
-     */
-    'onCellMouseout'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when mouse is moved over a cell.
-     */
-    'onCellMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when the cell editor is opened.
-     */
-    'onCellOpenedit'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when pasting (ctrl+p) occurs in a cell.
-     */
-    'onCellPaste'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when right click occurs on a cell.
-     */
-    'onCellRightclick'?: ((this: Window, ev: CustomEvent) => any) | null;
+    'onGridAfterpaint'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event once before the grid renders.
      */
     'onGridBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the main ZingGrid component is ready for the children to manipulate the DOM
+     */
+    'onGridChildrenready'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the  event when the contextmenu is closed.
      */
@@ -189,6 +219,46 @@ declare namespace ZSoft {
      */
     'onGridSelectall'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Fires the event before a cell is rendered.
+     */
+    'onCellBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a click occurs to a cell.
+     */
+    'onCellClick'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when the cell editor is closed.
+     */
+    'onCellCloseedit'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when copying (ctrl+c) occurs in a cell.
+     */
+    'onCellCopy'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when mouse is moved out of a cell.
+     */
+    'onCellMouseout'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when mouse is moved over a cell.
+     */
+    'onCellMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when the cell editor is opened.
+     */
+    'onCellOpenedit'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when pasting (ctrl+p) occurs in a cell.
+     */
+    'onCellPaste'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onCellReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when right click occurs on a cell.
+     */
+    'onCellRightclick'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires the event before a single cell value is changed.
      */
     'onDataCellBeforechange'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -200,6 +270,10 @@ declare namespace ZSoft {
      * @description Fires the event every time a new dataset is loaded in the grid.
      */
     'onDataLoad'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onDataReady'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event before a record (row) is changed.
      */
@@ -241,6 +315,10 @@ declare namespace ZSoft {
      */
     'onRowMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onRowReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires when the row selector changes
      */
     'onRowSelect'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -261,6 +339,10 @@ declare namespace ZSoft {
      */
     'onColumnMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onColumnReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires the "card:click" and "record:click" event when a click occurs on a record (card).
      */
     'onCardClick'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -272,6 +354,10 @@ declare namespace ZSoft {
      * @description Fires the event when mouse is moved over a record (card).
      */
     'onCardMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onCardReady'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the "row:click" and "record:click" event when a click occurs on a record (row).
      */
@@ -288,6 +374,150 @@ declare namespace ZSoft {
      * @description Fires event when click on a header cell.
      */
     'onHeaderClick'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onHeaderReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onButtonReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onBodyReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onCaptionReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onCheckboxReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onColgroupReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onColumn-resizeReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onControl-barReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onDialogReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onEditor-rowReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onFilterReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onFocusReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onFootReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onFooterReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onFrozen-colgroupReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onHeadReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onHead-cellReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onIconReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onInputReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onLayout-controlsReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onLoad-maskReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onMenuReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onMenu-groupReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onNo-dataReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onOption-listReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onPagerReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onParamReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onSearchReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onSelectReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onSelector-maskReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onSeparatorReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onSourceReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onStatusReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onTextReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onTooltipReady'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Indicates that the component is ready to use DOM events and attach children to LightDOM
+     */
+    'onWatermarkReady'?: ((this: Window, ev: CustomEvent) => any) | null;
   }
 
   interface CatchAll {
@@ -331,7 +561,7 @@ declare namespace ZSoft {
       editor?: string;
 
       /**
-       * @description Points to an external template element to be used as the template for the card's editor
+       * @description Points to an external template element to be used as the template for the card's editor.
        */
       editorTemplate?: string;
 
@@ -909,6 +1139,13 @@ declare namespace ZSoft {
       open?: string;
     }
 
+    interface ZGFilter {
+      /**
+       * @description The index of the cell with the filter
+       */
+      cellindex?: number;
+    }
+
     interface ZGIcon {
       /**
        * @description Sets the icon type of "<zg-icon>"
@@ -986,6 +1223,23 @@ declare namespace ZSoft {
 
       /**
        * @description The value for given data key.  If the value is an object, format as JSON encoded version of string.
+       */
+      value?: string;
+    }
+
+    interface ZGSelect {
+      /**
+       * @description The actions of the select dropdown. The current option is pagesize.
+       */
+      action?: string;
+
+      /**
+       * @description The comma separated string list of options to go into the Select Element
+       */
+      options?: string;
+
+      /**
+       * @description The default value of the select dropdown
        */
       value?: string;
     }
@@ -1101,7 +1355,8 @@ declare namespace ZSoft {
       columnDragAction?: 'reorder' | 'hide' | 'both';
 
       /**
-       * @description Presence of attribute turns on column resizing for all columns
+       * @description Presence of attribute turns on column resizing for all columns.
+       * This excludes internal column types (), which requires setting ZGColumn[resizable] on the column.
        */
       columnResizable?: boolean;
 
@@ -1203,6 +1458,34 @@ declare namespace ZSoft {
       footClass?: string;
 
       /**
+       * @description Sets the number of columns to freeze to the left
+       */
+      frozenColumnsLeft?: number;
+
+      /**
+       * @description Sets the number of columns to freeze to the right
+       */
+      frozenColumnsRight?: number;
+
+      /**
+       * @description Adds a class to each "<zg-row>" element. To
+       * apply a class conditionally, set the value to the name of the function to run
+       * on each cell value. The function takes the parameters "data", "rowIndex" (1-based),
+       *  "domRow", and "rowObject", "rowParent", and returns a string which is the class name to apply.
+       */
+      frozenRowClass?: string;
+
+      /**
+       * @description Sets the number of rows to freeze to the bottom
+       */
+      frozenRowsBottom?: number;
+
+      /**
+       * @description Sets the number of rows to freeze to the top
+       */
+      frozenRowsTop?: number;
+
+      /**
        * @description Sets vertical, horizontal or both grid lines to the grid
        */
       gridlines?: 'both' | 'horz' | 'horizontal' | 'vert' | 'vertical';
@@ -1277,11 +1560,6 @@ declare namespace ZSoft {
        * To use a custom icon set, the icon set must first be registered.
        */
       iconSet?: string;
-
-      /**
-       * @description If setting [icon-set="custom"], points to the custom JSON key/value mapping
-       */
-      iconSetData?: string;
 
       /**
        * @description Sets the language to use for the grid
@@ -1378,7 +1656,7 @@ declare namespace ZSoft {
        * @description Adds a class to each "<zg-row>" element. To
        * apply a class conditionally, set the value to the name of the function to run
        * on each cell value. The function takes the parameters "data", "rowIndex" (1-based),
-       *  "domRow", and "rowObject", and returns a string which is the class name to apply.
+       *  "domRow", and "rowObject", "rowParent", "bodyRowIndex" (1 based), and returns a string which is the class name to apply.
        */
       rowClass?: string;
 
@@ -1552,18 +1830,19 @@ declare namespace ZSoft {
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
     | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'autocapitalize'
-    | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset' | 'dir'
-    | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert' | 'innerText'
-    | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId' | 'itemProp' | 'itemRef' | 'itemScope'
-    | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'oncopy' | 'oncut' | 'onpaste' | 'outerText'
-    | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event' | 'pointerover_event'
-    | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event' | 'transitionend_event'
-    | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
+    | 'autofocus' | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset'
+    | 'dir' | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert'
+    | 'innerText' | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId' | 'itemProp' | 'itemRef'
+    | 'itemScope' | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight'
+    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'oncopy' | 'oncut' | 'onpaste'
+    | 'outerText' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event'
+    | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event'
+    | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
   interface ZGDialog extends ZingGridAttributes.ZGDialog, CatchAll, HTMLElement {}
   interface ZGEditorRow extends CatchAll, HTMLElement {}
+  interface ZGFilter extends ZingGridAttributes.ZGFilter, CatchAll, HTMLElement {}
   interface ZGFocus extends CatchAll, HTMLElement {}
   interface ZGFoot extends CatchAll, HTMLElement {}
   interface ZGFooter extends CatchAll, HTMLElement {}
@@ -1583,6 +1862,7 @@ declare namespace ZSoft {
   interface ZGParam extends ZingGridAttributes.ZGParam, CatchAll, HTMLElement {}
   interface ZGRow extends CatchAll, HTMLElement {}
   interface ZGSearch extends CatchAll, HTMLElement {}
+  interface ZGSelect extends ZingGridAttributes.ZGSelect, CatchAll, HTMLElement {}
   interface ZGSelectorMask extends CatchAll, HTMLElement {}
   interface ZGSeparator extends CatchAll, HTMLElement {}
   interface ZGSource extends ZingGridAttributes.ZGSource, CatchAll, HTMLElement {}
@@ -2029,6 +2309,21 @@ declare namespace ZSoft {
 
     // ZGRow
     /**
+     * @description Gets the value of the "frozen-row-class" attribute
+     */
+    getFrozenRowClass: () => string;
+
+    /**
+     * @description Gets the value of the "frozen-rows-bottom" attribute
+     */
+    getFrozenRowsBottom: () => string;
+
+    /**
+     * @description Gets the value of the "frozen-rows-top" attribute
+     */
+    getFrozenRowsTop: () => string;
+
+    /**
      * @description Gets the value of the "row-class" attribute
      */
     getRowClass: () => string;
@@ -2043,6 +2338,24 @@ declare namespace ZSoft {
      * @param rowContainerIndex The index of the row to fetch.
      */
     row: (rowContainerIndex: number) => any;
+
+    /**
+     * @description Sets the "frozen-row-class" attribute
+     * @param type Class name or function name
+     */
+    setFrozenRowClass: (type: string) => ZingGrid;
+
+    /**
+     * @description Sets the "frozen-rows-bottom" attribute
+     * @param type The number of rows to freeze to the bottom
+     */
+    setFrozenRowsBottom: (type: number) => ZingGrid;
+
+    /**
+     * @description Sets the "frozen-rows-top" attribute
+     * @param type The number of rows to freeze to the top
+     */
+    setFrozenRowsTop: (type: number) => ZingGrid;
 
     /**
      * @description Sets the "row-class" attribute
@@ -2281,10 +2594,21 @@ declare namespace ZSoft {
     getIconSet: () => string;
 
     /**
+     * @description Gets the value of the "icon-set-data" attribute
+     */
+    getIconSetData: () => string;
+
+    /**
      * @description Sets the "icon-set" attribute
      * @param type Icon set to use in the grid
      */
     setIconSet: (type: string) => ZingGrid;
+
+    /**
+     * @description Sets the "icon-set-data" attribute
+     * @param type Reference to icon-set-data object
+     */
+    setIconSetData: (type: string) => ZingGrid;
 
     // ZGLayout
     /**
@@ -2411,14 +2735,14 @@ declare namespace ZSoft {
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
     | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'autocapitalize'
-    | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset' | 'dir'
-    | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert' | 'innerText'
-    | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId' | 'itemProp' | 'itemRef' | 'itemScope'
-    | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'oncopy' | 'oncut' | 'onpaste' | 'outerText'
-    | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event' | 'pointerover_event'
-    | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event' | 'transitionend_event'
-    | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
+    | 'autofocus' | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset'
+    | 'dir' | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert'
+    | 'innerText' | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId' | 'itemProp' | 'itemRef'
+    | 'itemScope' | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight'
+    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'oncopy' | 'oncut' | 'onpaste'
+    | 'outerText' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event'
+    | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event'
+    | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
@@ -2434,6 +2758,7 @@ interface HTMLElementTagNameMap {
   'zg-data': ZSoft.ZGData;
   'zg-dialog': ZSoft.ZGDialog;
   'zg-editor-row': ZSoft.ZGEditorRow;
+  'zg-filter': ZSoft.ZGFilter;
   'zg-focus': ZSoft.ZGFocus;
   'zg-foot': ZSoft.ZGFoot;
   'zg-footer': ZSoft.ZGFooter;
@@ -2453,6 +2778,7 @@ interface HTMLElementTagNameMap {
   'zg-param': ZSoft.ZGParam;
   'zg-row': ZSoft.ZGRow;
   'zg-search': ZSoft.ZGSearch;
+  'zg-select': ZSoft.ZGSelect;
   'zg-selector-mask': ZSoft.ZGSelectorMask;
   'zg-separator': ZSoft.ZGSeparator;
   'zg-source': ZSoft.ZGSource;
@@ -2488,6 +2814,8 @@ declare namespace JSX {
     ZGDialog: ZSoft.ZingGridAttributes.ZGDialog | ZSoft.CatchAll;
     'zg-editor-row': ZSoft.CatchAll;
     ZGEditorRow: ZSoft.CatchAll;
+    'zg-filter': KebabKeys<ZSoft.ZingGridAttributes.ZGFilter> | ZSoft.CatchAll;
+    ZGFilter: ZSoft.ZingGridAttributes.ZGFilter | ZSoft.CatchAll;
     'zg-focus': ZSoft.CatchAll;
     ZGFocus: ZSoft.CatchAll;
     'zg-foot': ZSoft.CatchAll;
@@ -2526,6 +2854,8 @@ declare namespace JSX {
     ZGRow: ZSoft.CatchAll;
     'zg-search': ZSoft.CatchAll;
     ZGSearch: ZSoft.CatchAll;
+    'zg-select': KebabKeys<ZSoft.ZingGridAttributes.ZGSelect> | ZSoft.CatchAll;
+    ZGSelect: ZSoft.ZingGridAttributes.ZGSelect | ZSoft.CatchAll;
     'zg-selector-mask': ZSoft.CatchAll;
     ZGSelectorMask: ZSoft.CatchAll;
     'zg-separator': ZSoft.CatchAll;
