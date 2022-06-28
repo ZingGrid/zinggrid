@@ -1616,6 +1616,11 @@
               "type": "string"
             },
             {
+              "name": "filter-key",
+              "description": "Sets the key for server side filtering.  By default the filterKey is set to the filterIndex value.",
+              "type": "string"
+            },
+            {
               "name": "foot-cell",
               "description": "The aggregate function, tokenized string, or function to evaluate for the foot cell of the column. If using a function, the function takes the parameters `columnData` and `columnFieldIndex`.",
               "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string"
@@ -1788,7 +1793,7 @@
             {
               "name": "type",
               "description": "The type of the data stored in the column.  The column renderer/editor will behave based on the column type.",
-              "type": "'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+              "type": "'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
             },
             {
               "name": "type-button-disabled",
@@ -6086,6 +6091,11 @@
               "type": "string"
             },
             {
+              "name": "button-tooltip-disabled",
+              "description": "Turns off the tooltips on all buttons in the grid",
+              "type": "boolean"
+            },
+            {
               "name": "caption",
               "description": "The caption for the grid",
               "type": "string"
@@ -6396,6 +6406,11 @@
               "type": "'disabled'"
             },
             {
+              "name": "nested-data-separator",
+              "description": "Indicates separator that should be used for nested headers and data paths.  By default, the '.' is used: 'fullName.first' Setting to `disabled` will turn off parsing for nested headers and will not look at pathing for data",
+              "type": "string"
+            },
+            {
               "name": "no-data",
               "description": "Sets the message that appears in the `<zg-no-data>` element when there are no records",
               "type": "string"
@@ -6446,9 +6461,39 @@
               "type": "any"
             },
             {
+              "name": "preserve-state-id",
+              "description": "The ID to use as the key in storing the state.  Each grid should have a unique ID or else the state data  will be shared across grids.",
+              "type": "string"
+            },
+            {
+              "name": "preserve-state-load",
+              "description": "The method to call when state is ready to be retrieved.  Must also set preserveStateSave and preserveStateId",
+              "type": "string"
+            },
+            {
+              "name": "preserve-state-options",
+              "description": "Comma separated list of features to save in state preservation.   Options are 'search', 'filter', 'sort', 'pagesize', 'page', 'layout', 'columnvisibility', 'columnposition'",
+              "type": "string"
+            },
+            {
+              "name": "preserve-state-save",
+              "description": "The method to call when state is ready to be saved.  Must also set preserveStateLoad and preserveStateId.",
+              "type": "string"
+            },
+            {
               "name": "record-count",
               "description": "Sets the total record count.  Useful for `loadByPage` when the response packet does not return total count of records.",
               "type": "number"
+            },
+            {
+              "name": "record-duplicate",
+              "description": "Adds the duplicate control to the end of the row before the edit controls",
+              "type": "boolean"
+            },
+            {
+              "name": "record-key",
+              "description": "Adds the record key column to the grid.  If set to a string, the string is the header text.",
+              "type": "string | boolean"
             },
             {
               "name": "row-class",
@@ -6924,6 +6969,20 @@
               }
             },
             {
+              "name": "grid:columnmove",
+              "description": "Fires the event when a column is moved to a frozen spot or within a fram",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "grid:columntogglevisiblity",
+              "description": "Fires the event when a column is hidden or shown",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
               "name": "grid:contextmenuclose",
               "description": "Fires the  event when the contextmenu is closed.",
               "type": {
@@ -7045,6 +7104,13 @@
             {
               "name": "grid:selectall",
               "description": "Fires the event when selecting every cell (ctrl+a) in the grid.",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "grid:sort",
+              "description": "Fires the event when a the grid is sorted",
               "type": {
                 "text": "Event"
               }
@@ -7612,6 +7678,16 @@
             },
             {
               "kind": "method",
+              "name": "getNestedDataSeparator",
+              "description": "Gets the value of the `nested-data-separator` attribute",
+              "parameters": false,
+              "return": {
+                "type": "boolean",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getNodata",
               "description": "Gets the value of the `no-data` attribute",
               "parameters": false,
@@ -7664,6 +7740,56 @@
               "kind": "method",
               "name": "getPager",
               "description": "Gets the value of the `pager` attribute",
+              "parameters": false,
+              "return": {
+                "type": "boolean",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getPreserveStateId",
+              "description": "Gets the value of the `preserve-state-id` attribute",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getPreserveStateLoad",
+              "description": "Gets the value of the `preserve-state-load` attribute",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getPreserveStateOptions",
+              "description": "Gets the value of the `preserve-state-options` attribute",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getPreserveStateSave",
+              "description": "Gets the value of the `preserve-state-save` attribute",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getRecordDuplicate",
+              "description": "Gets the value of the `record-duplicate` attribute",
               "parameters": false,
               "return": {
                 "type": "boolean",
@@ -8627,6 +8753,23 @@
             },
             {
               "kind": "method",
+              "name": "setNestedDataSeparator",
+              "description": "Sets the `nested-data-separator` attribute",
+              "parameters": [
+                {
+                  "name": "separator",
+                  "optional": false,
+                  "description": "The separator value",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setNoData",
               "description": "Sets the `no-data` attribute",
               "parameters": [
@@ -8746,6 +8889,74 @@
             },
             {
               "kind": "method",
+              "name": "setPreserveStateId",
+              "description": "Sets the `preserve-state-id` attribute",
+              "parameters": [
+                {
+                  "name": "id",
+                  "optional": false,
+                  "description": "Value setting the id",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setPreserveStateLoad",
+              "description": "Sets the `preserve-state-load` attribute as a reference of the user defined method to call on state load",
+              "parameters": [
+                {
+                  "name": "functionName",
+                  "optional": false,
+                  "description": "Value setting the function",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setPreserveStateOptions",
+              "description": "Sets the `preserve-state-options` attribute as a comma separated string of the options",
+              "parameters": [
+                {
+                  "name": "options",
+                  "optional": false,
+                  "description": "Value setting the options",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setPreserveStateSave",
+              "description": "Sets the `preserve-state-save` attribute as a reference of the user defined method to call on state save",
+              "parameters": [
+                {
+                  "name": "functionName",
+                  "optional": false,
+                  "description": "Value setting the function",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setRecordCount",
               "description": "Sets the `record-count` attribute",
               "parameters": [
@@ -8754,6 +8965,23 @@
                   "optional": false,
                   "description": "Value setting the count",
                   "type": "number"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setRecordDuplicate",
+              "description": "Sets the `record-duplicate` attribute",
+              "parameters": [
+                {
+                  "name": "duplicate",
+                  "optional": false,
+                  "description": "Value to add or remove",
+                  "type": "boolean"
                 }
               ],
               "return": {
@@ -8896,6 +9124,38 @@
                 "type": "ZingGrid",
                 "description": "Returns the component so that you can chain methods together"
               }
+            },
+            {
+              "kind": "method",
+              "name": "setState",
+              "description": "Sets the grid state with the options passed in",
+              "parameters": [
+                {
+                  "name": "state",
+                  "optional": false,
+                  "description": "JSON string or object setting the state",
+                  "type": "string"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "setStateField",
+              "description": "Sets the grid state for the given field",
+              "parameters": [
+                {
+                  "name": "stateName",
+                  "optional": false,
+                  "description": "Name of the state to set",
+                  "type": "string"
+                },
+                {
+                  "name": "state",
+                  "optional": false,
+                  "description": "String, JSON string or object setting the state",
+                  "type": "string"
+                }
+              ]
             },
             {
               "kind": "method",

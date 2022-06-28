@@ -17,6 +17,8 @@ declare namespace ZSoft {
   interface ZingGridElementEventMap {
     'menu:click': CustomEvent;
     'grid:beforerender': CustomEvent;
+    'grid:columnmove': CustomEvent;
+    'grid:columntogglevisiblity': CustomEvent;
     'grid:contextmenuclose': CustomEvent;
     'grid:contextmenuopen': CustomEvent;
     'grid:deselect': CustomEvent;
@@ -35,6 +37,7 @@ declare namespace ZSoft {
     'grid:search': CustomEvent;
     'grid:select': CustomEvent;
     'grid:selectall': CustomEvent;
+    'grid:sort': CustomEvent;
     'cell:beforerender': CustomEvent;
     'cell:click': CustomEvent;
     'cell:closeedit': CustomEvent;
@@ -80,6 +83,14 @@ declare namespace ZSoft {
      * @description Fires the event once before the grid renders.
      */
     'onGridBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a column is moved to a frozen spot or within a fram
+     */
+    'onGridColumnmove'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a column is hidden or shown
+     */
+    'onGridColumntogglevisiblity'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the  event when the contextmenu is closed.
      */
@@ -152,6 +163,10 @@ declare namespace ZSoft {
      * @description Fires the event when selecting every cell (ctrl+a) in the grid.
      */
     'onGridSelectall'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a the grid is sorted
+     */
+    'onGridSort'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event before a cell is rendered.
      */
@@ -482,6 +497,11 @@ declare namespace ZSoft {
       filterIndex?: string;
 
       /**
+       * @description Sets the key for server side filtering.  By default the filterKey is set to the filterIndex value.
+       */
+      filterKey?: string;
+
+      /**
        * @description The aggregate function, tokenized string, or function to evaluate for the foot cell of the column.
        * If using a function, the function takes the parameters "columnData" and "columnFieldIndex".
        */
@@ -666,8 +686,8 @@ declare namespace ZSoft {
       /**
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
-      type?: 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-number'
-        | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+      type?: 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' 
+         'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
 
       /**
        * @description Presence of attribute sets the button to be in a disabled state. Can also set to "true" or "false".
@@ -1056,6 +1076,11 @@ declare namespace ZSoft {
       align?: string;
 
       /**
+       * @description Turns off the tooltips on all buttons in the grid
+       */
+      buttonTooltipDisabled?: boolean;
+
+      /**
        * @description The caption for the grid
        */
       caption?: string;
@@ -1396,6 +1421,12 @@ declare namespace ZSoft {
       loadmask?: 'disabled';
 
       /**
+       * @description Indicates separator that should be used for nested headers and data paths.  By default, the '.' is used: 'fullName.first'
+       * Setting to "disabled" will turn off parsing for nested headers and will not look at pathing for data
+       */
+      nestedDataSeparator?: string;
+
+      /**
        * @description Sets the message that appears in the "<zg-no-data>" element when there are no records
        */
       noData?: string;
@@ -1447,10 +1478,42 @@ declare namespace ZSoft {
       params?: any;
 
       /**
+       * @description The ID to use as the key in storing the state.  Each grid should have a unique ID or else the state data
+       * will be shared across grids.
+       */
+      preserveStateId?: string;
+
+      /**
+       * @description The method to call when state is ready to be retrieved.  Must also set preserveStateSave and preserveStateId
+       */
+      preserveStateLoad?: string;
+
+      /**
+       * @description Comma separated list of features to save in state preservation.
+       * Options are 'search', 'filter', 'sort', 'pagesize', 'page', 'layout', 'columnvisibility', 'columnposition'
+       */
+      preserveStateOptions?: string;
+
+      /**
+       * @description The method to call when state is ready to be saved.  Must also set preserveStateLoad and preserveStateId.
+       */
+      preserveStateSave?: string;
+
+      /**
        * @description Sets the total record count.  Useful for "loadByPage" when the response packet
        * does not return total count of records.
        */
       recordCount?: number;
+
+      /**
+       * @description Adds the duplicate control to the end of the row before the edit controls
+       */
+      recordDuplicate?: boolean;
+
+      /**
+       * @description Adds the record key column to the grid.  If set to a string, the string is the header text.
+       */
+      recordKey?: string | boolean;
 
       /**
        * @description Adds a class to each "<zg-row>" element. To
@@ -1629,15 +1692,15 @@ declare namespace ZSoft {
   interface ZGCheckbox extends ZingGridAttributes.ZGCheckbox, CatchAll, HTMLElement {}
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
-    | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'autocapitalize'
-    | 'autofocus' | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'copy_event'
-    | 'cut_event' | 'dataset' | 'dir' | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event'
-    | 'hidden' | 'inert' | 'innerText' | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId'
-    | 'itemProp' | 'itemRef' | 'itemScope' | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event'
-    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
-    | 'paste_event' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event'
-    | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event'
-    | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'attributeStyleMap'
+    | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event' | 'blur' | 'click' | 'contentEditable'
+    | 'contextMenu' | 'copy_event' | 'cut_event' | 'dataset' | 'dir' | 'draggable' | 'enterKeyHint'
+    | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert' | 'innerText' | 'inputMode' | 'input_event'
+    | 'isContentEditable' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
+    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'paste_event' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event'
+    | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event' | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck'
+    | 'style' | 'tabIndex' | 'title' | 'transitioncancel_event' | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event'
+    | 'translate'>, CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
   interface ZGDialog extends ZingGridAttributes.ZGDialog, CatchAll, HTMLElement {}
@@ -1743,6 +1806,11 @@ declare namespace ZSoft {
     getHeaderAutoFormat: () => boolean;
 
     /**
+     * @description Gets the value of the "nested-data-separator" attribute
+     */
+    getNestedDataSeparator: () => boolean;
+
+    /**
      * @description Hides a column based on index
      * @param columnIndex Index of column to hide
      */
@@ -1783,6 +1851,12 @@ declare namespace ZSoft {
      * @param activate Value to add or remove
      */
     setHeaderAutoFormat: (activate: boolean) => ZingGrid;
+
+    /**
+     * @description Sets the "nested-data-separator" attribute
+     * @param separator The separator value
+     */
+    setNestedDataSeparator: (separator: string) => ZingGrid;
 
     /**
      * @description Sets column to be visible
@@ -2264,6 +2338,26 @@ declare namespace ZSoft {
     getLang: () => string;
 
     /**
+     * @description Gets the value of the "preserve-state-id" attribute
+     */
+    getPreserveStateId: () => ZingGrid;
+
+    /**
+     * @description Gets the value of the "preserve-state-load" attribute
+     */
+    getPreserveStateLoad: () => ZingGrid;
+
+    /**
+     * @description Gets the value of the "preserve-state-options" attribute
+     */
+    getPreserveStateOptions: () => ZingGrid;
+
+    /**
+     * @description Gets the value of the "preserve-state-save" attribute
+     */
+    getPreserveStateSave: () => ZingGrid;
+
+    /**
      * @description Gets the value of the "width" attribute
      */
     getWidth: () => string;
@@ -2311,10 +2405,47 @@ declare namespace ZSoft {
     setLang: (lang: string) => ZingGrid;
 
     /**
+     * @description Sets the "preserve-state-id" attribute
+     * @param id Value setting the id
+     */
+    setPreserveStateId: (id: string) => ZingGrid;
+
+    /**
+     * @description Sets the "preserve-state-load" attribute as a reference of the user defined method to call on state load
+     * @param functionName Value setting the function
+     */
+    setPreserveStateLoad: (functionName: string) => ZingGrid;
+
+    /**
+     * @description Sets the "preserve-state-options" attribute as a comma separated string of the options
+     * @param options Value setting the options
+     */
+    setPreserveStateOptions: (options: string) => ZingGrid;
+
+    /**
+     * @description Sets the "preserve-state-save" attribute as a reference of the user defined method to call on state save
+     * @param functionName Value setting the function
+     */
+    setPreserveStateSave: (functionName: string) => ZingGrid;
+
+    /**
      * @description Sets the "record-count" attribute
      * @param count Value setting the count
      */
     setRecordCount: (count: number) => ZingGrid;
+
+    /**
+     * @description Sets the grid state with the options passed in
+     * @param state JSON string or object setting the state
+     */
+    setState: (state: string) => void;
+
+    /**
+     * @description Sets the grid state for the given field
+     * @param stateName Name of the state to set
+     * @param state String, JSON string or object setting the state
+     */
+    setStateField: (stateName: string, state: string) => void;
 
     /**
      * @description Sets the "width" attribute
@@ -2344,6 +2475,11 @@ declare namespace ZSoft {
     getEditorControls: () => string;
 
     /**
+     * @description Gets the value of the "record-duplicate" attribute
+     */
+    getRecordDuplicate: () => boolean;
+
+    /**
      * @description Gets the value of the "row-selector" attribute
      */
     getRowSelector: () => boolean;
@@ -2365,6 +2501,12 @@ declare namespace ZSoft {
      * @param types Boolean value to indicate add or remove, or string value to indicate what editor controls to add
      */
     setEditorControls: (types: boolean | string) => ZingGrid;
+
+    /**
+     * @description Sets the "record-duplicate" attribute
+     * @param duplicate Value to add or remove
+     */
+    setRecordDuplicate: (duplicate: boolean) => ZingGrid;
 
     /**
      * @description Sets the "row-selector" attribute
@@ -2544,15 +2686,15 @@ declare namespace ZSoft {
   }
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
-    | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'autocapitalize'
-    | 'autofocus' | 'beforeinput_event' | 'blur' | 'click' | 'contentEditable' | 'contextMenu' | 'copy_event'
-    | 'cut_event' | 'dataset' | 'dir' | 'draggable' | 'enterKeyHint' | 'focus' | 'gotpointercapture_event'
-    | 'hidden' | 'inert' | 'innerText' | 'input_event' | 'inputMode' | 'isContentEditable' | 'itemId'
-    | 'itemProp' | 'itemRef' | 'itemScope' | 'itemType' | 'itemValue' | 'lang' | 'lostpointercapture_event'
-    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
-    | 'paste_event' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event' | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event'
-    | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck' | 'tabIndex' | 'title' | 'transitioncancel_event'
-    | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event' | 'translate' | 'attributeStyleMap' | 'style'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'animationcancel_event' | 'animationend_event' | 'animationiteration_event' | 'animationstart_event' | 'attachInternals' | 'attributeStyleMap'
+    | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event' | 'blur' | 'click' | 'contentEditable'
+    | 'contextMenu' | 'copy_event' | 'cut_event' | 'dataset' | 'dir' | 'draggable' | 'enterKeyHint'
+    | 'focus' | 'gotpointercapture_event' | 'hidden' | 'inert' | 'innerText' | 'inputMode' | 'input_event'
+    | 'isContentEditable' | 'lang' | 'lostpointercapture_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
+    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'paste_event' | 'pointercancel_event' | 'pointerdown_event' | 'pointerenter_event'
+    | 'pointerleave_event' | 'pointermove_event' | 'pointerout_event' | 'pointerover_event' | 'pointerrawupdate_event' | 'pointerup_event' | 'spellcheck'
+    | 'style' | 'tabIndex' | 'title' | 'transitioncancel_event' | 'transitionend_event' | 'transitionrun_event' | 'transitionstart_event'
+    | 'translate'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
