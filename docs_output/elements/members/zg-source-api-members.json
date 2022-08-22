@@ -1,0 +1,1 @@
+[{"name":"position","description":"Indicates where to position the source","type":"String","fullName":"zg-source-position","demoLink":"https://app.zingsoft.com/demos/create/7EDEO4QO","default":"\"bottom\"","acceptedValues":["Enum"],"displayValues":["\"top\"","\"bottom\"","\"both\""],"values":[],"category":"Attribute","tsType":"","internalDocs":"","tagName":"zg-source"}]

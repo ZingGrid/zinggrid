@@ -1,0 +1,1 @@
+[{"name":"","memberof":"ZGMenu","fullName":"zg-menu-","description":"Menu content. Overwrites default menu when `[replace]` is present, else appends to the end of the default menu.\nAccepts ZGMenuGroup, ZGMenuItem, and ZGSeparator to construct custom menu.","tagName":"zg-menu","category":"Slot","demoLink":"https://app.zingsoft.com/demos/create/U6G2PG0L"}]
