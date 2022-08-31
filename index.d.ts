@@ -1325,6 +1325,11 @@ declare namespace ZSoft {
       headerAutoFormat?: string;
 
       /**
+       * @description Hides any header rows
+       */
+      headerRowHide?: string;
+
+      /**
        * @description Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon
        */
       headerTooltipAction?: 'click' | 'hover';

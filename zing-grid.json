@@ -6311,6 +6311,11 @@
               "type": "string"
             },
             {
+              "name": "header-row-hide",
+              "description": "Hides any header rows",
+              "type": "string"
+            },
+            {
               "name": "header-tooltip-action",
               "description": "Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon",
               "type": "'click' | 'hover'"
