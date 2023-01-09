@@ -1,6 +1,6 @@
 {
   "name": "zinggrid",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "ZingGrid - A fully-featured, native, web-component, data table and grid for Javascript applications.",
   "main": "index-commonjs.js",
   "module": "index.js",
