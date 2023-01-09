@@ -692,7 +692,7 @@ declare namespace ZSoft {
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
       type?: 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' 
-         'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+         'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
 
       /**
        * @description Presence of attribute sets the button to be in a disabled state. Can also set to "true" or "false".
@@ -762,6 +762,11 @@ declare namespace ZSoft {
        * If "type-element-attribute-name" is set, it will set the attribute to the indexed value.
        */
       typeElementTagName?: string;
+
+      /**
+       * @description Presence of the attribute disables the display of the row count on the row-group column
+       */
+      typeGroupHideCount?: boolean;
 
       /**
        * @description Sets a "square" ratio instead of the default "16:9"
@@ -1311,6 +1316,11 @@ declare namespace ZSoft {
       gridlines?: 'both' | 'horz' | 'horizontal' | 'vert' | 'vertical';
 
       /**
+       * @description Sets the index fields to group on.
+       */
+      groupBy?: string;
+
+      /**
        * @description Adds a class to each "<zg-cell>" in the "<zg-head>". To
        * apply a class conditionally, set the value to the name of the function to run
        * on each cell value. The function takes the parameters "fieldIndex", "domContainer",
@@ -1323,6 +1333,11 @@ declare namespace ZSoft {
        * Setting to "disabled" will turn off formatting on headers.  Set to a function name to customize formatting of headers.
        */
       headerAutoFormat?: string;
+
+      /**
+       * @description Hides any header rows
+       */
+      headerRowHide?: string;
 
       /**
        * @description Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon
@@ -2289,6 +2304,14 @@ declare namespace ZSoft {
 
     // ZingGrid
     /**
+     * @description Calculates aggregate values
+     * @param method The method to calculate.  Options are 'sum', 'avg', 'min', 'max', and 'count'
+     * @param options The options to be used in calculating the value.  Currently fieldIndex is only option.
+     * @param data The data to calculate the value on.  If this is not set, it uses the grids full dataset
+     */
+    calculate: (method: string, options: any, data: any[]) => string;
+
+    /**
      * @description Clears the grid state
      */
     clearState: () => void;
@@ -2332,6 +2355,11 @@ declare namespace ZSoft {
      * @description Gets the value of the "gridlines" attribute
      */
     getGridlines: () => string;
+
+    /**
+     * @description Gets the indexes of the current row groupings.  Returns false if none
+     */
+    getGroupBy: () => string | boolean;
 
     /**
      * @description Gets the value of the "height" attribute
@@ -2397,6 +2425,12 @@ declare namespace ZSoft {
      * @param type Type of gridlines to set on the grid
      */
     setGridlines: (type: 'both' | 'horz' | 'horizontal' | 'vert' | 'vertical') => ZingGrid;
+
+    /**
+     * @description Sets the "group-by" attribute
+     * @param index Index to set the group-by
+     */
+    setGroupBy: (index: string) => ZingGrid;
 
     /**
      * @description Sets the "height" attribute

@@ -13,86 +13,20 @@
           "tagName": "ZGBody",
           "cssProperties": [
             {
-              "name": "--zg-body-card-display",
-              "description": "Sets display of grid body in 'card' layout-mode",
-              "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
-              "default": "grid"
+              "name": "--zg-body-background",
+              "description": "Styles the background of grid body",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "transparent"
             },
             {
-              "name": "--zg-body-border-bottom",
-              "description": "Styles the bottom border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-border, 0)"
-            },
-            {
-              "name": "--zg-body-card-border-left",
-              "description": "Styles the left border of grid body in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-card-border, 0)"
-            },
-            {
-              "name": "--zg-body-card-border-bottom",
-              "description": "Styles the bottom border of grid body in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-card-border, 0)"
-            },
-            {
-              "name": "--zg-body-card-border",
-              "description": "Styles the border of grid body in 'card' layout-mode",
+              "name": "--zg-body-border",
+              "description": "Styles the border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "0"
             },
             {
-              "name": "--zg-body-card-background",
-              "description": "Styles the background of grid body in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "linear-gradient(45deg, #f9fafb 20%, #fff)"
-            },
-            {
-              "name": "--zg-body-line-height",
-              "description": "Sets the line-height of contents inside of grid body",
-              "syntax": "normal | <number> | <length> | <percentage>",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-font-weight",
-              "description": "Sets the font weight of contents inside grid body",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-font-style",
-              "description": "Sets the font style of contents inside grid body",
-              "syntax": "normal | italic | oblique <angle>?",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-font-size",
-              "description": "Sets the font size of contents inside grid body",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-font-family",
-              "description": "Sets the font family of contents inside grid body",
-              "syntax": "[ <'family-name'> | <generic-family> ]#",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-color",
-              "description": "Sets the font color of contents inside grid body",
-              "syntax": "<color>",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-body-border-top",
-              "description": "Styles the top border of grid body. Note: If `--zg-row-border-top` set, it will override `--zg-body-border-top`.",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-border, 0)"
-            },
-            {
-              "name": "--zg-body-border-right",
-              "description": "Styles the right border of grid body",
+              "name": "--zg-body-border-bottom",
+              "description": "Styles the bottom border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-body-border, 0)"
             },
@@ -103,10 +37,82 @@
               "default": "var(--zg-body-border, 0)"
             },
             {
-              "name": "--zg-body-background",
-              "description": "Styles the background of grid body",
+              "name": "--zg-body-border-right",
+              "description": "Styles the right border of grid body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-border, 0)"
+            },
+            {
+              "name": "--zg-body-border-top",
+              "description": "Styles the top border of grid body. Note: If `--zg-row-border-top` set, it will override `--zg-body-border-top`.",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-border, 0)"
+            },
+            {
+              "name": "--zg-body-color",
+              "description": "Sets the font color of contents inside grid body",
+              "syntax": "<color>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-font-family",
+              "description": "Sets the font family of contents inside grid body",
+              "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-font-size",
+              "description": "Sets the font size of contents inside grid body",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-font-style",
+              "description": "Sets the font style of contents inside grid body",
+              "syntax": "normal | italic | oblique <angle>?",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-font-weight",
+              "description": "Sets the font weight of contents inside grid body",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-line-height",
+              "description": "Sets the line-height of contents inside of grid body",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-body-card-background",
+              "description": "Styles the background of grid body in 'card' layout-mode",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "transparent"
+              "default": "linear-gradient(45deg, #f9fafb 20%, #fff)"
+            },
+            {
+              "name": "--zg-body-card-border",
+              "description": "Styles the border of grid body in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-body-card-border-bottom",
+              "description": "Styles the bottom border of grid body in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-card-border, 0)"
+            },
+            {
+              "name": "--zg-body-card-border-left",
+              "description": "Styles the left border of grid body in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-card-border, 0)"
+            },
+            {
+              "name": "--zg-body-card-border-right",
+              "description": "Styles the right border of grid body in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-card-border, 0)"
             },
             {
               "name": "--zg-body-card-border-top",
@@ -115,16 +121,10 @@
               "default": "var(--zg-body-card-border, 0)"
             },
             {
-              "name": "--zg-body-border",
-              "description": "Styles the border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-body-card-border-right",
-              "description": "Styles the right border of grid body in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-card-border, 0)"
+              "name": "--zg-body-card-display",
+              "description": "Sets display of grid body in 'card' layout-mode",
+              "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
+              "default": "grid"
             }
           ]
         }
@@ -176,15 +176,33 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-button-background",
+              "description": "Styles the background of button",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-button-border",
+              "description": "Styles the border of a button",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-button-border-bottom",
+              "description": "Styles the bottom border of a button",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-button-border-left",
               "description": "Styles the left border of a button",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-button-color_custom_hover",
-              "description": "Sets the font color of custom button on hover",
-              "syntax": "<color>",
+              "name": "--zg-button-border-right",
+              "description": "Styles the right border of a button",
+              "syntax": "<line-width> || <line-style> || <color>",
               "default": "Browser's default value"
             },
             {
@@ -482,9 +500,9 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-button-border-bottom",
-              "description": "Styles the bottom border of a button",
-              "syntax": "<line-width> || <line-style> || <color>",
+              "name": "--zg-button-color_custom_hover",
+              "description": "Sets the font color of custom button on hover",
+              "syntax": "<color>",
               "default": "Browser's default value"
             },
             {
@@ -509,24 +527,6 @@
               "name": "--zg-button-color_custom_active",
               "description": "Sets the font color of custom button on active state",
               "syntax": "<color>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-button-background",
-              "description": "Styles the background of button",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-button-border",
-              "description": "Styles the border of a button",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-button-border-right",
-              "description": "Styles the right border of a button",
-              "syntax": "<line-width> || <line-style> || <color>",
               "default": "Browser's default value"
             }
           ],
@@ -588,14 +588,32 @@
           ],
           "cssProperties": [
             {
-              "name": "--zg-caption-toolbar-justify-content",
-              "description": "Sets the horizontal alignment of contents in caption toolbar",
-              "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
-              "default": "flex-start"
+              "name": "--zg-caption-background",
+              "description": "Styles the background of caption",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-caption-border",
+              "description": "Styles the border of caption",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-caption-border-bottom",
+              "description": "Styles the bottom border of caption",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-caption-border, 0)"
             },
             {
               "name": "--zg-caption-border-left",
               "description": "Styles the left border of caption",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-caption-border, 0)"
+            },
+            {
+              "name": "--zg-caption-border-right",
+              "description": "Styles the right border of caption",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-caption-border, 0)"
             },
@@ -774,10 +792,10 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-caption-border-bottom",
-              "description": "Styles the bottom border of caption",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-caption-border, 0)"
+              "name": "--zg-caption-toolbar-justify-content",
+              "description": "Sets the horizontal alignment of contents in caption toolbar",
+              "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
+              "default": "flex-start"
             },
             {
               "name": "--zg-caption-toolbar-left",
@@ -844,24 +862,6 @@
               "description": "Styles the background of button in caption when the button is in an `active` state",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
               "default": "var(--zg-caption-button-background, var(--zg-button-background))"
-            },
-            {
-              "name": "--zg-caption-background",
-              "description": "Styles the background of caption",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-caption-border",
-              "description": "Styles the border of caption",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-caption-border-right",
-              "description": "Styles the right border of caption",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-caption-border, 0)"
             }
           ],
           "slots": [
@@ -932,8 +932,26 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-cell-background_layout_card",
+              "description": "Styles the background of cards in 'card' layout-mode",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-cell-border_layout_card",
+              "description": "Styles the border of cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
               "name": "--zg-cell-border-bottom_layout_card",
               "description": "Styles the bottom border of cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-card-border, 0)"
+            },
+            {
+              "name": "--zg-cell-border-left_layout_card",
+              "description": "Styles the left border of cards in 'card' layout-mode",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-card-border, 0)"
             },
@@ -974,10 +992,10 @@
               "default": "inherit"
             },
             {
-              "name": "--zg-cell-border-left_layout_card",
-              "description": "Styles the left border of cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-card-border, 0)"
+              "name": "--zg-cell-font-weight_layout_card",
+              "description": "Sets the font weight of cards in 'card' layout-mode",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "inherit"
             },
             {
               "name": "--zg-cell-height_layout_card",
@@ -1008,24 +1026,6 @@
               "description": "Sets the word break of items in cards in 'card' layout-mode",
               "syntax": "",
               "default": "break-all"
-            },
-            {
-              "name": "--zg-cell-border_layout_card",
-              "description": "Styles the border of cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-cell-background_layout_card",
-              "description": "Styles the background of cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-cell-font-weight_layout_card",
-              "description": "Sets the font weight of cards in 'card' layout-mode",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "inherit"
             }
           ],
           "slots": [
@@ -1065,6 +1065,18 @@
           "description": "`<zg-cell>` is the container for a single cell; it corresponds to the `<td>` tag on an HTML table.  It is automatically inserted and should not  be placed directly in the user's HTML.  `<zg-cell>` can be styled via CSS.",
           "tagName": "ZGCell",
           "cssProperties": [
+            {
+              "name": "--zg-cell-background",
+              "description": "Styles the background of cells",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-cell-background)"
+            },
+            {
+              "name": "--zg-cell-background_layout_row",
+              "description": "Styles the background of cells in 'row' layout-mode",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-cell-background)"
+            },
             {
               "name": "--zg-cell-border",
               "description": "Styles the border of cells",
@@ -1138,10 +1150,10 @@
               "default": "var(--zg-cell-color, inherit)"
             },
             {
-              "name": "--zg-cell-background",
-              "description": "Styles the background of cells",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-cell-background)"
+              "name": "--zg-cell-font-family",
+              "description": "Sets the font family in cells",
+              "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "inherit"
             },
             {
               "name": "--zg-cell-font-family_layout_row",
@@ -1376,18 +1388,6 @@
               "description": "Sets the padding of cards in 'card' layout-mode",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "3px 0"
-            },
-            {
-              "name": "--zg-cell-background_layout_row",
-              "description": "Styles the background of cells in 'row' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-cell-background)"
-            },
-            {
-              "name": "--zg-cell-font-family",
-              "description": "Sets the font family in cells",
-              "syntax": "[ <'family-name'> | <generic-family> ]#",
-              "default": "inherit"
             }
           ]
         }
@@ -1793,7 +1793,7 @@
             {
               "name": "type",
               "description": "The type of the data stored in the column.  The column renderer/editor will behave based on the column type.",
-              "type": "'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+              "type": "'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
             },
             {
               "name": "type-button-disabled",
@@ -1859,6 +1859,11 @@
               "name": "type-element-tag-name",
               "description": "Sets the tag to wrap content when `<zg-column>` has `type` set to `element`. If `type-element-attribute-name` isn't set, it will put the rendered data into the body of the element. If `type-element-attribute-name` is set, it will set the attribute to the indexed value.",
               "type": "string"
+            },
+            {
+              "name": "type-group-hide-count",
+              "description": "Presence of the attribute disables the display of the row count on the row-group column",
+              "type": "boolean"
             },
             {
               "name": "type-iframe-ratio",
@@ -2024,16 +2029,34 @@
           "tagName": "ZGControlBar",
           "cssProperties": [
             {
+              "name": "--zg-control-bar-background",
+              "description": "Styles the background of control-bar",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-control-bar-border",
+              "description": "Styles the border of control-bar",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
               "name": "--zg-control-bar-border-bottom",
               "description": "Styles the bottom border of control-bar",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-control-bar-border, 1px solid var(--theme-border-color))"
             },
             {
-              "name": "--zg-control-bar-background",
-              "description": "Styles the background of control-bar",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
+              "name": "--zg-control-bar-border-left",
+              "description": "Styles the left border of control-bar",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-control-bar-border, 0)"
+            },
+            {
+              "name": "--zg-control-bar-border-right",
+              "description": "Styles the right border of control-bar",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-control-bar-border, 0)"
             },
             {
               "name": "--zg-control-bar-border-top",
@@ -2076,24 +2099,6 @@
               "description": "Sets the before 'content' of inner layout container",
               "syntax": "normal | none | [ <content-replacement> | <content-list> ] [/ [ <string> | <counter> ]+ ]?",
               "default": "\"\""
-            },
-            {
-              "name": "--zg-control-bar-border-left",
-              "description": "Styles the left border of control-bar",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-control-bar-border, 0)"
-            },
-            {
-              "name": "--zg-control-bar-border",
-              "description": "Styles the border of control-bar",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-control-bar-border-right",
-              "description": "Styles the right border of control-bar",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-control-bar-border, 0)"
             }
           ]
         }
@@ -2259,14 +2264,32 @@
           ],
           "cssProperties": [
             {
-              "name": "--zg-dialog-footer-border-left",
-              "description": "Styles the left border of dialog footer",
+              "name": "--zg-dialog-background",
+              "description": "Styles the background of dialog header",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "#fff"
+            },
+            {
+              "name": "--zg-dialog-header-background",
+              "description": "Styles the background of dialog header",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-dialog-background)"
+            },
+            {
+              "name": "--zg-dialog-header-border",
+              "description": "Styles the border of dialog header",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-dialog-footer-border, 0)"
+              "default": "0"
             },
             {
               "name": "--zg-dialog-header-border-bottom",
               "description": "Styles the bottom border of dialog header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-dialog-header-border, 0)"
+            },
+            {
+              "name": "--zg-dialog-header-border-left",
+              "description": "Styles the left border of dialog header",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-dialog-header-border, 0)"
             },
@@ -2331,10 +2354,10 @@
               "default": "var(--zg-dialog-body-border, 0)"
             },
             {
-              "name": "--zg-dialog-header-border",
-              "description": "Styles the border of dialog header",
+              "name": "--zg-dialog-body-border-top",
+              "description": "Styles the top border of dialog body",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
+              "default": "var(--zg-dialog-body-border, 0)"
             },
             {
               "name": "--zg-dialog-body-margin",
@@ -2367,10 +2390,10 @@
               "default": "var(--zg-dialog-footer-border, 0)"
             },
             {
-              "name": "--zg-dialog-header-border-left",
-              "description": "Styles the left border of dialog header",
+              "name": "--zg-dialog-footer-border-left",
+              "description": "Styles the left border of dialog footer",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-dialog-header-border, 0)"
+              "default": "var(--zg-dialog-footer-border, 0)"
             },
             {
               "name": "--zg-dialog-footer-border-right",
@@ -2401,24 +2424,6 @@
               "description": "Sets the padding of dialog footer",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": ".875rem 0 0"
-            },
-            {
-              "name": "--zg-dialog-background",
-              "description": "Styles the background of dialog header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "#fff"
-            },
-            {
-              "name": "--zg-dialog-header-background",
-              "description": "Styles the background of dialog header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-dialog-background)"
-            },
-            {
-              "name": "--zg-dialog-body-border-top",
-              "description": "Styles the top border of dialog body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-dialog-body-border, 0)"
             }
           ],
           "slots": [
@@ -2459,10 +2464,28 @@
           "tagName": "ZGEditorRow",
           "cssProperties": [
             {
+              "name": "--zg-editor-row-input-background",
+              "description": "Styles the background of editor row",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "#f5f5f5"
+            },
+            {
+              "name": "--zg-editor-row-input-border",
+              "description": "Styles the border of editor row",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid rgba(82, 168, 236, 0.8)"
+            },
+            {
               "name": "--zg-editor-row-input-border-bottom",
               "description": "Styles the bottom border of editor row",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-editor-row-input-border, 1px solid rgba(82, 168, 236, 0.8))"
+            },
+            {
+              "name": "--zg-editor-row-input-border-left",
+              "description": "Styles the left border of editor row",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-editor-row-input-border, 0)"
             },
             {
               "name": "--zg-editor-row-input-border-right",
@@ -2483,10 +2506,10 @@
               "default": "var(--zg-editor-row-input-color, #fff)"
             },
             {
-              "name": "--zg-editor-row-input-border-left",
-              "description": "Styles the left border of editor row",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-editor-row-input-border, 0)"
+              "name": "--zg-editor-row-input-padding",
+              "description": "Sets the padding of editor row",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "12px 15px"
             },
             {
               "name": "--zg-editor-row-input-background_focus",
@@ -2499,24 +2522,6 @@
               "description": "Applies a box shadow behind editor row input on focus",
               "syntax": "none | <shadow>#",
               "default": "inset 0 0 5px #ccc"
-            },
-            {
-              "name": "--zg-editor-row-input-border",
-              "description": "Styles the border of editor row",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid rgba(82, 168, 236, 0.8)"
-            },
-            {
-              "name": "--zg-editor-row-input-background",
-              "description": "Styles the background of editor row",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "#f5f5f5"
-            },
-            {
-              "name": "--zg-editor-row-input-padding",
-              "description": "Sets the padding of editor row",
-              "syntax": "[ <length> | <percentage> ]{1,4}",
-              "default": "12px 15px"
             }
           ]
         }
@@ -2558,6 +2563,18 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-filter-background",
+              "description": "Styles the background of filter",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-border",
+              "description": "Styles the border of filter",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
               "name": "--zg-filter-border-bottom",
               "description": "Styles the bottom border of filter",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -2582,10 +2599,10 @@
               "default": "var(--zg-filter-border, 1px solid var(--theme-border-color))"
             },
             {
-              "name": "--zg-filter-background",
-              "description": "Styles the background of filter",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
+              "name": "--zg-filter-color",
+              "description": "Sets the font color of text inputted in filter",
+              "syntax": "<color>",
+              "default": "var(--theme-color_alt)"
             },
             {
               "name": "--zg-filter-height",
@@ -2754,18 +2771,6 @@
               "description": "Sets the width of the select dropdown filter",
               "syntax": "[ <length> | <percentage> | auto ]{1,4}",
               "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-filter-border",
-              "description": "Styles the border of filter",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-filter-color",
-              "description": "Sets the font color of text inputted in filter",
-              "syntax": "<color>",
-              "default": "var(--theme-color_alt)"
             }
           ]
         }
@@ -2800,10 +2805,22 @@
           "tagName": "ZGFocus",
           "cssProperties": [
             {
+              "name": "--zg-focus-border",
+              "description": "Styles the border of cells on focus",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "2px solid var(--theme-color-primary)"
+            },
+            {
               "name": "--zg-focus-border-bottom",
               "description": "Sets the bottom border of cells on focus",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-focus-border, 2px solid var(--theme-color-primary))"
+            },
+            {
+              "name": "--zg-focus-bottom-transform",
+              "description": "Sets the transform of bottom border of cells on focus",
+              "syntax": "none | <transform-list>",
+              "default": "none"
             },
             {
               "name": "--zg-focus-border-left",
@@ -2840,18 +2857,6 @@
               "description": "Sets the transform of top border of cells on focus",
               "syntax": "none | <transform-list>",
               "default": "none"
-            },
-            {
-              "name": "--zg-focus-border",
-              "description": "Styles the border of cells on focus",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "2px solid var(--theme-color-primary)"
-            },
-            {
-              "name": "--zg-focus-bottom-transform",
-              "description": "Sets the transform of bottom border of cells on focus",
-              "syntax": "none | <transform-list>",
-              "default": "none"
             }
           ]
         }
@@ -2885,6 +2890,18 @@
           "description": "The `<zg-foot>` tag contains the foot cells (`<zg-foot-cell>`) of the data  grid specified via the `foot-cell` attribute found on `<zg-column>` tags.  The tag roughly corresponds to the idea of the `<tfoot>` tag used in HTML tables.  The `<zg-foot>` tag is  generated by the library and should not be placed in a grid manually by a developer, but instead is used as a styling target for CSS.",
           "tagName": "ZGFoot",
           "cssProperties": [
+            {
+              "name": "--zg-foot-background",
+              "description": "Styles the background of grid foot",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-foot-border",
+              "description": "Styles the border of grid foot",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
             {
               "name": "--zg-foot-border-bottom",
               "description": "Styles the bottom border of grid foot",
@@ -2920,18 +2937,6 @@
               "description": "Sets the padding of grid foot",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "0"
-            },
-            {
-              "name": "--zg-foot-border",
-              "description": "Styles the border of grid foot",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-foot-background",
-              "description": "Styles the background of grid foot",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
             }
           ]
         }
@@ -2966,6 +2971,18 @@
           "tagName": "ZGFooter",
           "cssProperties": [
             {
+              "name": "--zg-footer-background",
+              "description": "Styles the background of footer",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-footer-border-bottom",
+              "description": "Styles the bottom border of footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-footer-border, 0)"
+            },
+            {
               "name": "--zg-footer-border-left",
               "description": "Styles the left border of footer",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -2982,18 +2999,6 @@
               "description": "Styles the top border of footer",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-footer-border, 0)"
-            },
-            {
-              "name": "--zg-footer-border-bottom",
-              "description": "Styles the bottom border of footer",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-footer-border, 0)"
-            },
-            {
-              "name": "--zg-footer-background",
-              "description": "Styles the background of footer",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "0"
             }
           ],
           "slots": [
@@ -3064,96 +3069,6 @@
           "tagName": "ZGHead",
           "cssProperties": [
             {
-              "name": "--zg-row-head-height_odd",
-              "description": "Sets the height of 'odd' grid head rows",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "var(--zg-row-head-height, var(--zg-row-height))"
-            },
-            {
-              "name": "--zg-row-head-color_odd",
-              "description": "Sets the font color of 'odd' grid head rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-head-color, var(--zg-row-color))"
-            },
-            {
-              "name": "--zg-row-head-background_odd",
-              "description": "Styles the background of 'odd' grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-head-background, var(--zg-head-background))"
-            },
-            {
-              "name": "--zg-row-head-color_even_hover",
-              "description": "Styles the font color of 'even' grid head rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-head-color_hover, var(--zg-row-color_hover, var(--zg-row-color)))"
-            },
-            {
-              "name": "--zg-row-head-background_even_hover",
-              "description": "Styles the background of 'even' grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
-            },
-            {
-              "name": "--zg-row-head-height_even",
-              "description": "Sets the height of 'even' grid head rows",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "var(--zg-row-head-height, var(--zg-row-height))"
-            },
-            {
-              "name": "--zg-row-head-color_even",
-              "description": "Styles the font color of 'even' grid head rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-head-color, var(--zg-row-color))"
-            },
-            {
-              "name": "--zg-row-head-background_even",
-              "description": "Styles the background of 'even' grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-head-background, var(--zg-head-background))"
-            },
-            {
-              "name": "--zg-row-head-color_hover",
-              "description": "Styles the font color of grid head rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color_hover)"
-            },
-            {
-              "name": "--zg-row-head-background_hover",
-              "description": "Styles the background of grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-row-head-color",
-              "description": "Styles the font color of grid head rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color)"
-            },
-            {
-              "name": "--zg-row-head-border-top",
-              "description": "Styles the top border of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-head-border, var(--zg-row-border-top, var(--zg-row-border, var(--zg-row-border, 0))))"
-            },
-            {
-              "name": "--zg-row-head-border-right",
-              "description": "Styles the right border of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-head-border, var(--zg-row-border-right, var(--zg-row-border, var(--zg-row-border, 0))))"
-            },
-            {
-              "name": "--zg-row-head-color_odd_hover",
-              "description": "Styles the font color of 'odd' grid head rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-head-color_hover, var(--zg-row-color_hover, var(--zg-row-color)))"
-            },
-            {
-              "name": "--zg-row-head-background_odd_hover",
-              "description": "Styles the background of 'odd' grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
-            },
-            {
               "name": "--zg-head-background",
               "description": "Styles the background of grid head rows",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
@@ -3202,10 +3117,10 @@
               "default": "var(--zg-head-background)"
             },
             {
-              "name": "--zg-row-head-border-left",
-              "description": "Styles the left border of grid head rows",
+              "name": "--zg-row-head-border",
+              "description": "Styles the border of grid head rows",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-head-border, var(--zg-row-border-left, var(--zg-row-border, var(--zg-row-border, 0))))"
+              "default": "var(--zg-row-border-bottom, var(--zg-row-border, var(--zg-row-border, 0)))"
             },
             {
               "name": "--zg-row-head-border-bottom",
@@ -3214,10 +3129,100 @@
               "default": "var(--zg-row-head-border, var(--zg-row-border-bottom, var(--zg-row-border, var(--zg-row-border, 0))))"
             },
             {
-              "name": "--zg-row-head-border",
-              "description": "Styles the border of grid head rows",
+              "name": "--zg-row-head-border-left",
+              "description": "Styles the left border of grid head rows",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-border-bottom, var(--zg-row-border, var(--zg-row-border, 0)))"
+              "default": "var(--zg-row-head-border, var(--zg-row-border-left, var(--zg-row-border, var(--zg-row-border, 0))))"
+            },
+            {
+              "name": "--zg-row-head-border-right",
+              "description": "Styles the right border of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-head-border, var(--zg-row-border-right, var(--zg-row-border, var(--zg-row-border, 0))))"
+            },
+            {
+              "name": "--zg-row-head-border-top",
+              "description": "Styles the top border of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-head-border, var(--zg-row-border-top, var(--zg-row-border, var(--zg-row-border, 0))))"
+            },
+            {
+              "name": "--zg-row-head-color",
+              "description": "Styles the font color of grid head rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color)"
+            },
+            {
+              "name": "--zg-row-head-background_hover",
+              "description": "Styles the background of grid head rows on hover",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-row-head-color_hover",
+              "description": "Styles the font color of grid head rows on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color_hover)"
+            },
+            {
+              "name": "--zg-row-head-background_even",
+              "description": "Styles the background of 'even' grid head rows",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-head-background, var(--zg-head-background))"
+            },
+            {
+              "name": "--zg-row-head-color_even",
+              "description": "Styles the font color of 'even' grid head rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-head-color, var(--zg-row-color))"
+            },
+            {
+              "name": "--zg-row-head-height_even",
+              "description": "Sets the height of 'even' grid head rows",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "var(--zg-row-head-height, var(--zg-row-height))"
+            },
+            {
+              "name": "--zg-row-head-background_even_hover",
+              "description": "Styles the background of 'even' grid head rows on hover",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
+            },
+            {
+              "name": "--zg-row-head-color_even_hover",
+              "description": "Styles the font color of 'even' grid head rows on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-row-head-color_hover, var(--zg-row-color_hover, var(--zg-row-color)))"
+            },
+            {
+              "name": "--zg-row-head-background_odd",
+              "description": "Styles the background of 'odd' grid head rows",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-head-background, var(--zg-head-background))"
+            },
+            {
+              "name": "--zg-row-head-color_odd",
+              "description": "Sets the font color of 'odd' grid head rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-head-color, var(--zg-row-color))"
+            },
+            {
+              "name": "--zg-row-head-height_odd",
+              "description": "Sets the height of 'odd' grid head rows",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "var(--zg-row-head-height, var(--zg-row-height))"
+            },
+            {
+              "name": "--zg-row-head-background_odd_hover",
+              "description": "Styles the background of 'odd' grid head rows on hover",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
+            },
+            {
+              "name": "--zg-row-head-color_odd_hover",
+              "description": "Styles the font color of 'odd' grid head rows on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-row-head-color_hover, var(--zg-row-color_hover, var(--zg-row-color)))"
             }
           ]
         }
@@ -3252,16 +3257,28 @@
           "tagName": "ZGHeadCell",
           "cssProperties": [
             {
-              "name": "--zg-head-cell-parent-font-weight",
-              "description": "Sets the font weight of parent head cells",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "var(--zg-h -cell-font-weight)"
-            },
-            {
               "name": "--zg-head-cell-background",
               "description": "Styles the background of head cells",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
               "default": "transparent"
+            },
+            {
+              "name": "--zg-head-cell-border",
+              "description": "Styles the border of head cells",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-head-cell-border-bottom",
+              "description": "Styles the bottom border of head cells",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-cell-border, 0)"
+            },
+            {
+              "name": "--zg-head-cell-border-left",
+              "description": "Styles the left border of head cells",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-cell-border, 0)"
             },
             {
               "name": "--zg-head-cell-border-right",
@@ -3372,10 +3389,10 @@
               "default": "var(--zg-head-cell-font-size)"
             },
             {
-              "name": "--zg-head-cell-border-left",
-              "description": "Styles the left border of head cells",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-head-cell-border, 0)"
+              "name": "--zg-head-cell-parent-font-weight",
+              "description": "Sets the font weight of parent head cells",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "var(--zg-h -cell-font-weight)"
             },
             {
               "name": "--zg-head-cell-parent-padding",
@@ -3480,18 +3497,6 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-head-cell-border-bottom",
-              "description": "Styles the bottom border of head cells",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-head-cell-border, 0)"
-            },
-            {
-              "name": "--zg-head-cell-border",
-              "description": "Styles the border of head cells",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
               "name": "--zg-head-cell-icon-color_sorted",
               "description": "Sets the fill color of icon in sorted head cells",
               "syntax": "<'background'>",
@@ -3530,6 +3535,18 @@
           "tagName": "ZGHeader",
           "cssProperties": [
             {
+              "name": "--zg-header-background",
+              "description": "Styles the background of header",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-header-border",
+              "description": "Styles the border of header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
               "name": "--zg-header-border-bottom",
               "description": "Styles the bottom border of header",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -3557,18 +3574,6 @@
               "name": "--zg-header-border-radius",
               "description": "Applies border radius to header",
               "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
-              "default": "0"
-            },
-            {
-              "name": "--zg-header-background",
-              "description": "Styles the background of header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-header-border",
-              "description": "Styles the border of header",
-              "syntax": "<line-width> || <line-style> || <color>",
               "default": "0"
             }
           ]
@@ -3617,15 +3622,15 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-icon-init-fill",
-              "description": "Sets fill color of icon when element has [init] attribute. This indicates that column is sortable. The [init] is removed when column is sorted.",
-              "syntax": "<'background'>",
-              "default": "Browser's default value"
-            },
-            {
               "name": "--zg-icon-width",
               "description": "Sets the width of icon. Also set height using --zg-icon-height to scale icon.",
               "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-icon-init-fill",
+              "description": "Sets fill color of icon when element has [init] attribute. This indicates that column is sortable. The [init] is removed when column is sorted.",
+              "syntax": "<'background'>",
               "default": "Browser's default value"
             },
             {
@@ -3690,16 +3695,22 @@
           ],
           "cssProperties": [
             {
-              "name": "--zg-input-border_focus",
-              "description": "Styles the border of input field on focus",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid rgba(82, 168, 236, 0.8)"
+              "name": "--zg-input-height",
+              "description": "Sets the height of input field",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "28px"
             },
             {
               "name": "--zg-input-width",
               "description": "Sets the width of input field",
               "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
               "default": "28px"
+            },
+            {
+              "name": "--zg-input-background",
+              "description": "Styles the background of input field",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "#fff"
             },
             {
               "name": "--zg-input-border",
@@ -3792,10 +3803,10 @@
               "default": "0 6px"
             },
             {
-              "name": "--zg-input-height",
-              "description": "Sets the height of input field",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "28px"
+              "name": "--zg-input-text-align",
+              "description": "Sets the text alignment of input field",
+              "syntax": "start | end | left | right | center | justify | match-parent",
+              "default": "center"
             },
             {
               "name": "--zg-input-transform",
@@ -3804,10 +3815,10 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-input-background",
-              "description": "Styles the background of input field",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "#fff"
+              "name": "--zg-input-border_focus",
+              "description": "Styles the border of input field on focus",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid rgba(82, 168, 236, 0.8)"
             },
             {
               "name": "--zg-input-border-bottom_focus",
@@ -3850,12 +3861,6 @@
               "description": "Sets the transform of input field in modal on focus",
               "syntax": "none | <transform-list>",
               "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-input-text-align",
-              "description": "Sets the text alignment of input field",
-              "syntax": "start | end | left | right | center | justify | match-parent",
-              "default": "center"
             }
           ],
           "slots": [
@@ -3981,6 +3986,12 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-menu-background",
+              "description": "Styles background of menu dropdown",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's defaul value"
+            },
+            {
               "name": "--zg-menu-border",
               "description": "Styles the border of menu dropdown",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -3999,10 +4010,10 @@
               "default": "var(--zg-menu-border, 1px solid var(--theme-border-color))"
             },
             {
-              "name": "--zg-menu-background",
-              "description": "Styles background of menu dropdown",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's defaul value"
+              "name": "--zg-menu-border-right",
+              "description": "Styles the right border of menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-border, 1px solid var(--theme-border-color))"
             },
             {
               "name": "--zg-menu-border-top",
@@ -4027,12 +4038,6 @@
               "description": "Sets the padding of menu dropdown",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "0"
-            },
-            {
-              "name": "--zg-menu-border-right",
-              "description": "Styles the right border of menu dropdown",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-menu-border, 1px solid var(--theme-border-color))"
             }
           ],
           "slots": [
@@ -4271,16 +4276,22 @@
           "tagName": "ZGNoData",
           "cssProperties": [
             {
-              "name": "--zg-no-data-font-size",
-              "description": "Sets the font size of empty message",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "inherit"
-            },
-            {
               "name": "--zg-no-data-background",
               "description": "Styles the background of empty message when in `<zg-header>`",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
               "default": "var(--theme-color-light)"
+            },
+            {
+              "name": "--zg-no-data-border",
+              "description": "Styles the border of empty message when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-no-data-border-bottom",
+              "description": "Styles the bottom border of empty message when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-no-data-border, 0)"
             },
             {
               "name": "--zg-no-data-border-left",
@@ -4313,10 +4324,10 @@
               "default": "var(--theme-font-size)"
             },
             {
-              "name": "--zg-no-data-border-bottom",
-              "description": "Styles the bottom border of empty message when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-no-data-border, 0)"
+              "name": "--zg-no-data-font-size",
+              "description": "Sets the font size of empty message",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "inherit"
             },
             {
               "name": "--zg-no-data-font-style",
@@ -4353,12 +4364,6 @@
               "description": "Sets text alignment of content inside of empty message",
               "syntax": "start | end | left | right | center | justify | match-parent",
               "default": "left"
-            },
-            {
-              "name": "--zg-no-data-border",
-              "description": "Styles the border of empty message when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
             }
           ],
           "slots": [
@@ -4435,12 +4440,6 @@
             }
           ],
           "cssProperties": [
-            {
-              "name": "--zg-pager-border_button_active",
-              "description": "Styles the bottom border of active pager buttons in 'button-pagination' mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
             {
               "name": "--zg-pager-background",
               "description": "Styles the background of pager",
@@ -4584,6 +4583,12 @@
               "description": "Styles the background of active pager buttons in 'button-pagination` mode",
               "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
               "default": "var(--theme-color-primary)"
+            },
+            {
+              "name": "--zg-pager-border_button_active",
+              "description": "Styles the bottom border of active pager buttons in 'button-pagination' mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
             },
             {
               "name": "--zg-pager-border-bottom_button_active",
@@ -4780,130 +4785,10 @@
           "tagName": "ZGRow",
           "cssProperties": [
             {
-              "name": "--zg-row-card-border_even",
-              "description": "Styles the border of 'even' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color)))"
-            },
-            {
-              "name": "--zg-row-card-border",
-              "description": "Styles the border of cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-row-card-background_even",
-              "description": "Styles the background of 'even' cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-card-background, var(--zg-row-body-background_even, var(--zg-row-body-background, #fff)))"
-            },
-            {
-              "name": "--zg-row-card-box-shadow_odd",
-              "description": "Applies a box shadow behind 'odd' cards in 'card' layout-mode",
-              "syntax": "none | <shadow>#",
-              "default": "var(--zg-row-card-box-shadow, none)"
-            },
-            {
-              "name": "--zg-row-card-box-shadow",
-              "description": "Applies a box shadow behind cards in 'card' layout-mode",
-              "syntax": "none | <shadow>#",
-              "default": "none"
-            },
-            {
-              "name": "--zg-row-card-border-top_odd",
-              "description": "Styles the top border of 'odd' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-top, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-right_odd",
-              "description": "Styles the right border of 'odd' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-right, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-left_odd",
-              "description": "Styles the left border of 'odd' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-left, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-bottom_odd",
-              "description": "Styles the bottom border of 'odd' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border_odd",
-              "description": "Styles the border of 'odd' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color)))"
-            },
-            {
-              "name": "--zg-row-card-background_odd",
-              "description": "Styles the background of cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-row-card-background, var(--zg-row-body-background_odd, var(--zg-row-body-background, #fff)))"
-            },
-            {
-              "name": "--zg-row-border-bottom",
-              "description": "Styles the bottom border of row",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-border, var(--zg-row-border, 0))"
-            },
-            {
-              "name": "--zg-row-card-border-top_even",
-              "description": "Styles the top border of 'even' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-top, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-right_even",
-              "description": "Styles the right border of 'even' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-right, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-left_even",
-              "description": "Styles the left border of 'even' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-left, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-card-border-bottom_even",
-              "description": "Styles the bottom border of 'even' cards in 'card' layout-mode",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
-            },
-            {
-              "name": "--zg-row-border",
-              "description": "Styles the border of row",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-row-color",
-              "description": "Sets the font color of all rows",
-              "syntax": "<color>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-row-color_hover",
-              "description": "Sets the font color of all rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color)"
-            },
-            {
-              "name": "--zg-row-card-display",
-              "description": "Sets the display of cards in 'card' layout-mode",
-              "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
-              "default": "grid"
-            },
-            {
-              "name": "--zg-row-card-flex-basis",
-              "description": "Sets the flex-basis of cards in 'card' layout-mode",
-              "syntax": "content | <width>",
-              "default": "100%"
+              "name": "--zg-row-card-grid-gap",
+              "description": "Sets the gap between cards in 'card' layout-mode",
+              "syntax": "<'row-gap'> <'column-gap'>?",
+              "default": "10px"
             },
             {
               "name": "--zg-row-body-background",
@@ -5038,10 +4923,130 @@
               "default": "10px 0 5px"
             },
             {
-              "name": "--zg-row-card-grid-gap",
-              "description": "Sets the gap between cards in 'card' layout-mode",
-              "syntax": "<'row-gap'> <'column-gap'>?",
-              "default": "10px"
+              "name": "--zg-row-card-background_odd",
+              "description": "Styles the background of cards in 'card' layout-mode",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-card-background, var(--zg-row-body-background_odd, var(--zg-row-body-background, #fff)))"
+            },
+            {
+              "name": "--zg-row-card-border_odd",
+              "description": "Styles the border of 'odd' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color)))"
+            },
+            {
+              "name": "--zg-row-card-border-bottom_odd",
+              "description": "Styles the bottom border of 'odd' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-left_odd",
+              "description": "Styles the left border of 'odd' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-left, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-right_odd",
+              "description": "Styles the right border of 'odd' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-right, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-top_odd",
+              "description": "Styles the top border of 'odd' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_odd, var(--zg-row-card-border-top, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-box-shadow",
+              "description": "Applies a box shadow behind cards in 'card' layout-mode",
+              "syntax": "none | <shadow>#",
+              "default": "none"
+            },
+            {
+              "name": "--zg-row-card-box-shadow_odd",
+              "description": "Applies a box shadow behind 'odd' cards in 'card' layout-mode",
+              "syntax": "none | <shadow>#",
+              "default": "var(--zg-row-card-box-shadow, none)"
+            },
+            {
+              "name": "--zg-row-card-background_even",
+              "description": "Styles the background of 'even' cards in 'card' layout-mode",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-row-card-background, var(--zg-row-body-background_even, var(--zg-row-body-background, #fff)))"
+            },
+            {
+              "name": "--zg-row-card-border",
+              "description": "Styles the border of cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-row-card-border_even",
+              "description": "Styles the border of 'even' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color)))"
+            },
+            {
+              "name": "--zg-row-card-border-bottom_even",
+              "description": "Styles the bottom border of 'even' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-bottom, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-left_even",
+              "description": "Styles the left border of 'even' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-left, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-right_even",
+              "description": "Styles the right border of 'even' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-right, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-card-border-top_even",
+              "description": "Styles the top border of 'even' cards in 'card' layout-mode",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-card-border_even, var(--zg-row-card-border-top, var(--zg-row-card-border, 1px solid var(--theme-border-color))))"
+            },
+            {
+              "name": "--zg-row-border",
+              "description": "Styles the border of row",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-border-bottom",
+              "description": "Styles the bottom border of row",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-border, var(--zg-row-border, 0))"
+            },
+            {
+              "name": "--zg-row-color",
+              "description": "Sets the font color of all rows",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-row-color_hover",
+              "description": "Sets the font color of all rows on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color)"
+            },
+            {
+              "name": "--zg-row-card-display",
+              "description": "Sets the display of cards in 'card' layout-mode",
+              "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
+              "default": "grid"
+            },
+            {
+              "name": "--zg-row-card-flex-basis",
+              "description": "Sets the flex-basis of cards in 'card' layout-mode",
+              "syntax": "content | <width>",
+              "default": "100%"
             }
           ]
         }
@@ -5076,10 +5081,10 @@
           "tagName": "ZGSearch",
           "cssProperties": [
             {
-              "name": "--zg-search-transform",
-              "description": "Sets the transform property of search input",
-              "syntax": "none | <transform-list>",
-              "default": "translateY(-50%)"
+              "name": "--zg-search-background",
+              "description": "Styles the background of search input field",
+              "syntax": "<color>",
+              "default": "Browser's default value"
             },
             {
               "name": "--zg-search-border",
@@ -5112,10 +5117,10 @@
               "default": "var(--zg-search-border, 0)"
             },
             {
-              "name": "--zg-search-background",
-              "description": "Styles the background of search input field",
-              "syntax": "<color>",
-              "default": "Browser's default value"
+              "name": "--zg-search-border-top",
+              "description": "Styles the top border of search input field",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-search-border, 0)"
             },
             {
               "name": "--zg-search-color",
@@ -5154,10 +5159,10 @@
               "default": "50%"
             },
             {
-              "name": "--zg-search-border-top",
-              "description": "Styles the top border of search input field",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-search-border, 0)"
+              "name": "--zg-search-transform",
+              "description": "Sets the transform property of search input",
+              "syntax": "none | <transform-list>",
+              "default": "translateY(-50%)"
             }
           ]
         }
@@ -5209,14 +5214,62 @@
           ],
           "cssProperties": [
             {
-              "name": "--zg-select-arrow-color",
-              "description": "Sets the color select arrow icon",
+              "name": "--zg-select-background",
+              "description": "Styles the background of the entire select parent wrapper",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-font-family",
+              "description": "Sets the font family of the select option",
+              "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-font-size",
+              "description": "Sets the font size of the select option",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-font-weight",
+              "description": "Sets the font weight of the select option",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-line-height",
+              "description": "Sets the line height of the select option",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-outline",
+              "description": "Sets the outline of the select option",
+              "syntax": "[ <'outline-color'> || <'outline-style'> || <'outline-width'> ]",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-select-transform",
+              "description": "Sets the transform of the select option",
+              "syntax": "none | <transform-list>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-select-border",
+              "description": "Styles the border of the select",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "#000"
+              "default": "1px solid var(--theme-border-color))"
             },
             {
               "name": "--zg-select-border-bottom",
               "description": "Styles the bottom border of the select",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-select-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-select-border-left",
+              "description": "Styles the left border of the select",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-select-border, 1px solid var(--theme-border-color))"
             },
@@ -5299,58 +5352,10 @@
               "default": "var(--zg-select-arrow-border, 0)"
             },
             {
-              "name": "--zg-select-background",
-              "description": "Styles the background of the entire select parent wrapper",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-font-family",
-              "description": "Sets the font family of the select option",
-              "syntax": "[ <'family-name'> | <generic-family> ]#",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-font-size",
-              "description": "Sets the font size of the select option",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-font-weight",
-              "description": "Sets the font weight of the select option",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-line-height",
-              "description": "Sets the line height of the select option",
-              "syntax": "normal | <number> | <length> | <percentage>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-outline",
-              "description": "Sets the outline of the select option",
-              "syntax": "[ <'outline-color'> || <'outline-style'> || <'outline-width'> ]",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-select-transform",
-              "description": "Sets the transform of the select option",
-              "syntax": "none | <transform-list>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-border",
-              "description": "Styles the border of the select",
+              "name": "--zg-select-arrow-color",
+              "description": "Sets the color select arrow icon",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color))"
-            },
-            {
-              "name": "--zg-select-border-left",
-              "description": "Styles the left border of the select",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-select-border, 1px solid var(--theme-border-color))"
+              "default": "#000"
             }
           ]
         }
@@ -5435,12 +5440,6 @@
               "default": "1px solid var(--theme-border-color)"
             },
             {
-              "name": "--zg-separator-margin",
-              "description": "Sets the margin of separator in the menu",
-              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
-              "default": "5px 0"
-            },
-            {
               "name": "--zg-separator-border-bottom",
               "description": "Styles the bottom border of separator in the menu",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -5463,6 +5462,12 @@
               "description": "Styles the top border of separator in the menu",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-separator-border, 0)"
+            },
+            {
+              "name": "--zg-separator-margin",
+              "description": "Sets the margin of separator in the menu",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "5px 0"
             }
           ]
         }
@@ -5504,10 +5509,148 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-source-background",
+              "description": "Styles the background of source when in `<zg-header>`",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--theme-color-light)"
+            },
+            {
+              "name": "--zg-source-border",
+              "description": "Styles the border of source when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-source-border-bottom",
+              "description": "Styles the bottom border of source when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border, 0)"
+            },
+            {
+              "name": "--zg-source-border-left",
+              "description": "Styles the left border of source when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border, 0)"
+            },
+            {
+              "name": "--zg-source-border-right",
+              "description": "Styles the right border of source when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border, 0)"
+            },
+            {
+              "name": "--zg-source-border-top",
+              "description": "Styles the top border of source when in `<zg-header>`",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border, 1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-source-border-radius",
+              "description": "Styles the border radius of source",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
+              "name": "--zg-source-color",
+              "description": "Sets the font color content inside of source when in `<zg-header>`",
+              "syntax": "<color>",
+              "default": "var(--theme-font-size)"
+            },
+            {
+              "name": "--zg-source-font-size",
+              "description": "Sets the font size of source",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-source-font-style",
+              "description": "Sets the font style of source",
+              "syntax": "normal | italic | oblique <angle>?",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-source-font-weight",
+              "description": "Sets the font weight of source",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-source-line-height",
+              "description": "Setes the line height of source",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-source-min-height",
+              "description": "Sets the min-height of source",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "auto"
+            },
+            {
               "name": "--zg-source-padding",
               "description": "Sets the padding of source",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "5px var(--theme-padding_x)"
+            },
+            {
+              "name": "--zg-source-text-align",
+              "description": "Sets text alignment of content inside of source",
+              "syntax": "start | end | left | right | center | justify | match-parent",
+              "default": "left"
+            },
+            {
+              "name": "--zg-source-background_top",
+              "description": "Styles the background of source in grid header",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "var(--zg-source-background, var(--theme-color-light))"
+            },
+            {
+              "name": "--zg-source-border_top",
+              "description": "Styles the border of source in grid header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-source-border-bottom_top",
+              "description": "Styles the bottom border of source in grid header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border-bottom, var(--zg-source-border, 1px solid var(--theme-border-color)))"
+            },
+            {
+              "name": "--zg-source-border-left_top",
+              "description": "Styles the left border of source in grid header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border-left, var(--zg-source-border, 0))"
+            },
+            {
+              "name": "--zg-source-border-right_top",
+              "description": "Styles the right border of source in grid header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border-right, var(--zg-source-border, 0))"
+            },
+            {
+              "name": "--zg-source-border-top_top",
+              "description": "Styles the top border of source in grid header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-source-border-top, var(--zg-source-border, 0))"
+            },
+            {
+              "name": "--zg-source-border-radius_top",
+              "description": "Sets the border radius of source in grid header",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "var(--zg-source-border-radius, 0)"
+            },
+            {
+              "name": "--zg-source-color_top",
+              "description": "Sets the font color of source in grid header",
+              "syntax": "<color>",
+              "default": "var(--zg-source-color, var(--zg-source-border, 0))"
+            },
+            {
+              "name": "--zg-source-font-size_top",
+              "description": "Sets the font size of source in grid header",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "var(--zg-source-font-size, .8rem)"
             },
             {
               "name": "--zg-source-font-style_top",
@@ -5624,154 +5767,16 @@
               "default": "var(--zg-source-min-height, var(--zg-source-border, 0))"
             },
             {
-              "name": "--zg-source-min-height",
-              "description": "Sets the min-height of source",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "auto"
-            },
-            {
-              "name": "--zg-source-text-align_bottom",
-              "description": "Sets the text alignment of source in grid footer",
-              "syntax": "start | end | left | right | center | justify | match-parent",
-              "default": "var(--zg-source-text-align, var(--zg-source-border, 0))"
-            },
-            {
               "name": "--zg-source-padding_bottom",
               "description": "Sets the padding of source when in grid footer",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "var(--zg-source-padding, 5px var(--theme-padding_x))"
             },
             {
-              "name": "--zg-source-background_top",
-              "description": "Styles the background of source in grid header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--zg-source-background, var(--theme-color-light))"
-            },
-            {
-              "name": "--zg-source-border_top",
-              "description": "Styles the border of source in grid header",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-source-border-bottom_top",
-              "description": "Styles the bottom border of source in grid header",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border-bottom, var(--zg-source-border, 1px solid var(--theme-border-color)))"
-            },
-            {
-              "name": "--zg-source-border-left_top",
-              "description": "Styles the left border of source in grid header",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border-left, var(--zg-source-border, 0))"
-            },
-            {
-              "name": "--zg-source-border-right_top",
-              "description": "Styles the right border of source in grid header",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border-right, var(--zg-source-border, 0))"
-            },
-            {
-              "name": "--zg-source-border-top_top",
-              "description": "Styles the top border of source in grid header",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border-top, var(--zg-source-border, 0))"
-            },
-            {
-              "name": "--zg-source-border-radius_top",
-              "description": "Sets the border radius of source in grid header",
-              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
-              "default": "var(--zg-source-border-radius, 0)"
-            },
-            {
-              "name": "--zg-source-color_top",
-              "description": "Sets the font color of source in grid header",
-              "syntax": "<color>",
-              "default": "var(--zg-source-color, var(--zg-source-border, 0))"
-            },
-            {
-              "name": "--zg-source-font-size_top",
-              "description": "Sets the font size of source in grid header",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "var(--zg-source-font-size, .8rem)"
-            },
-            {
-              "name": "--zg-source-background",
-              "description": "Styles the background of source when in `<zg-header>`",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "var(--theme-color-light)"
-            },
-            {
-              "name": "--zg-source-border",
-              "description": "Styles the border of source when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-source-border-bottom",
-              "description": "Styles the bottom border of source when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border, 0)"
-            },
-            {
-              "name": "--zg-source-border-left",
-              "description": "Styles the left border of source when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border, 0)"
-            },
-            {
-              "name": "--zg-source-border-right",
-              "description": "Styles the right border of source when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border, 0)"
-            },
-            {
-              "name": "--zg-source-border-top",
-              "description": "Styles the top border of source when in `<zg-header>`",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-source-border, 1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-source-border-radius",
-              "description": "Styles the border radius of source",
-              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
-              "default": "0"
-            },
-            {
-              "name": "--zg-source-text-align",
-              "description": "Sets text alignment of content inside of source",
+              "name": "--zg-source-text-align_bottom",
+              "description": "Sets the text alignment of source in grid footer",
               "syntax": "start | end | left | right | center | justify | match-parent",
-              "default": "left"
-            },
-            {
-              "name": "--zg-source-color",
-              "description": "Sets the font color content inside of source when in `<zg-header>`",
-              "syntax": "<color>",
-              "default": "var(--theme-font-size)"
-            },
-            {
-              "name": "--zg-source-font-size",
-              "description": "Sets the font size of source",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-source-font-style",
-              "description": "Sets the font style of source",
-              "syntax": "normal | italic | oblique <angle>?",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-source-font-weight",
-              "description": "Sets the font weight of source",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-source-line-height",
-              "description": "Setes the line height of source",
-              "syntax": "normal | <number> | <length> | <percentage>",
-              "default": "inherit"
+              "default": "var(--zg-source-text-align, var(--zg-source-border, 0))"
             }
           ],
           "slots": [
@@ -5812,16 +5817,10 @@
           "tagName": "ZGStatus",
           "cssProperties": [
             {
-              "name": "--zg-status-min-height",
-              "description": "Sets the min-height of status",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "27px"
-            },
-            {
-              "name": "--zg-status-font-size",
-              "description": "Sets the font size of contents in status",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "inherit"
+              "name": "--zg-status-background",
+              "description": "Styles the background of status",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "#333"
             },
             {
               "name": "--zg-status-border",
@@ -5872,10 +5871,10 @@
               "default": "0"
             },
             {
-              "name": "--zg-status-background",
-              "description": "Styles the background of status",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "#333"
+              "name": "--zg-status-min-height",
+              "description": "Sets the min-height of status",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "27px"
             },
             {
               "name": "--zg-status-error-background",
@@ -5920,10 +5919,16 @@
               "default": "var(--theme-font-family)"
             },
             {
-              "name": "--zg-status-padding",
-              "description": "Sets the padding of status",
-              "syntax": "[ <length> | <percentage> ]{1,4}",
-              "default": "14px var(--theme-padding_x)"
+              "name": "--zg-status-font-size",
+              "description": "Sets the font size of contents in status",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-status-line-height",
+              "description": "Sets the line height of status",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "1"
             },
             {
               "name": "--zg-status-max-width",
@@ -5932,10 +5937,10 @@
               "default": "300px"
             },
             {
-              "name": "--zg-status-line-height",
-              "description": "Sets the line height of status",
-              "syntax": "normal | <number> | <length> | <percentage>",
-              "default": "1"
+              "name": "--zg-status-padding",
+              "description": "Sets the padding of status",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "14px var(--theme-padding_x)"
             }
           ]
         }
@@ -5977,9 +5982,21 @@
           ],
           "cssProperties": [
             {
+              "name": "--zg-text-color",
+              "description": "Sets the font color of text",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-text-font-family",
               "description": "Sets the font family of text",
               "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-text-font-size",
+              "description": "Sets the font size of text",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
               "default": "Browser's default value"
             },
             {
@@ -5989,28 +6006,16 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-text-line-height",
-              "description": "Sets the line height of text",
-              "syntax": "normal | <number> | <length> | <percentage>",
-              "default": ".8"
-            },
-            {
-              "name": "--zg-text-font-size",
-              "description": "Sets the font size of text",
-              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
-              "default": "Browser's default value"
-            },
-            {
               "name": "--zg-text-font-weight",
               "description": "Sets the font weight of text",
               "syntax": "<font-weight-absolute> | bolder | lighter",
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-text-color",
-              "description": "Sets the font color of text",
-              "syntax": "<color>",
-              "default": "Browser's default value"
+              "name": "--zg-text-line-height",
+              "description": "Sets the line height of text",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": ".8"
             }
           ],
           "slots": [
@@ -6301,6 +6306,11 @@
               "type": "'both' | 'horz' | 'horizontal' | 'vert' | 'vertical'"
             },
             {
+              "name": "group-by",
+              "description": "Sets the index fields to group on.",
+              "type": "string"
+            },
+            {
               "name": "head-class",
               "description": "Adds a class to each `<zg-cell>` in the `<zg-head>`. To apply a class conditionally, set the value to the name of the function to run  on each cell value. The function takes the parameters `fieldIndex`, `domContainer`, and `colObject`, and returns a string which is the class name to apply.",
               "type": "string"
@@ -6308,6 +6318,11 @@
             {
               "name": "header-auto-format",
               "description": "Converts camel, dash, and kebab case to properly spaced and capitalized typography. Setting to `disabled` will turn off formatting on headers.  Set to a function name to customize formatting of headers.",
+              "type": "string"
+            },
+            {
+              "name": "header-row-hide",
+              "description": "Hides any header rows",
               "type": "string"
             },
             {
@@ -6629,56 +6644,38 @@
               "default": "var(--zing-grid-body-border, 0)"
             },
             {
-              "name": "--zing-grid-border-top",
-              "description": "Styles the top border of grid",
+              "name": "--zing-grid-body-border-right",
+              "description": "Styles the right border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+              "default": "var(--zing-grid-body-border, 0)"
             },
             {
-              "name": "--zing-grid-box-shadow",
-              "description": "Applies a box shadow behind grid",
-              "syntax": "none | <shadow>#",
-              "default": "none"
-            },
-            {
-              "name": "--zing-grid-color",
-              "description": "The font color of grid",
-              "syntax": "<color>",
-              "default": "--theme-color"
-            },
-            {
-              "name": "--zing-grid-font-family",
-              "description": "Sets the font family of grid text",
-              "syntax": "[ <'family-name'> | <generic-family> ]#",
-              "default": "--theme-font-family"
-            },
-            {
-              "name": "--zing-grid-border-right",
-              "description": "Styles the right border of grid",
+              "name": "--zing-grid-body-border-left",
+              "description": "Styles the left border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+              "default": "var(--zing-grid-body-border, 0)"
             },
             {
-              "name": "--zing-grid-font-style",
-              "description": "Sets the font style of grid text",
-              "syntax": "normal | italic | oblique <angle>?",
-              "default": "--theme-font-style"
+              "name": "--zing-grid-body-border-bottom",
+              "description": "Styles the bottom border of grid body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-body-border, 0)"
             },
             {
-              "name": "--zing-grid-font-weight",
-              "description": "Sets the font weight of grid text",
-              "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "--theme-font-weight"
-            },
-            {
-              "name": "--zing-grid-table-border",
-              "description": "Styles the border of grid table contents",
+              "name": "--zing-grid-body-border",
+              "description": "Styles the border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "0"
             },
             {
-              "name": "--zing-grid-table-border-bottom",
-              "description": "Styles the bottom border of grid table contents",
+              "name": "--zing-grid-table-border-top",
+              "description": "Styles the top border of grid table contents",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-table-border, 0)"
+            },
+            {
+              "name": "--zing-grid-table-border-right",
+              "description": "Styles the right border of grid table contents",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zing-grid-table-border, 0)"
             },
@@ -6689,76 +6686,28 @@
               "default": "var(--zing-grid-table-border, 0)"
             },
             {
-              "name": "--zing-grid-border-radius",
-              "description": "Applies border radious to grid",
-              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
-              "default": "0"
-            },
-            {
-              "name": "--zing-grid-body-border-right",
-              "description": "Styles the right border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-border-left",
-              "description": "Styles the left border of grid",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
-            },
-            {
-              "name": "--zing-grid-body-border-left",
-              "description": "Styles the left border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-border-bottom",
-              "description": "Styles the bottom border of grid",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
-            },
-            {
-              "name": "--zing-grid-body-border-bottom",
-              "description": "Styles the bottom border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-border",
-              "description": "Styles the border of grid",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zing-grid-body-border",
-              "description": "Styles the border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zing-grid-background",
-              "description": "Styles the background of grid",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
-              "default": "#fff"
-            },
-            {
-              "name": "--zing-grid-table-border-top",
-              "description": "Styles the top border of grid table contents",
+              "name": "--zing-grid-table-border-bottom",
+              "description": "Styles the bottom border of grid table contents",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zing-grid-table-border, 0)"
             },
             {
-              "name": "--zing-grid-freeze-style-border",
-              "description": "Styles the border of the frozen column styling element",
+              "name": "--zing-grid-table-border",
+              "description": "Styles the border of grid table contents",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid #d6e9ff"
+              "default": "0"
             },
             {
-              "name": "--zing-grid-table-border-right",
-              "description": "Styles the right border of grid table contents",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-table-border, 0)"
+              "name": "--zing-grid-font-weight",
+              "description": "Sets the font weight of grid text",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "--theme-font-weight"
+            },
+            {
+              "name": "--zing-grid-font-style",
+              "description": "Sets the font style of grid text",
+              "syntax": "normal | italic | oblique <angle>?",
+              "default": "--theme-font-style"
             },
             {
               "name": "--zing-grid-font-size",
@@ -6767,10 +6716,76 @@
               "default": "--theme-font-size"
             },
             {
+              "name": "--zing-grid-font-family",
+              "description": "Sets the font family of grid text",
+              "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "--theme-font-family"
+            },
+            {
+              "name": "--zing-grid-color",
+              "description": "The font color of grid",
+              "syntax": "<color>",
+              "default": "--theme-color"
+            },
+            {
+              "name": "--zing-grid-box-shadow",
+              "description": "Applies a box shadow behind grid",
+              "syntax": "none | <shadow>#",
+              "default": "none"
+            },
+            {
+              "name": "--zing-grid-border-top",
+              "description": "Styles the top border of grid",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zing-grid-border-right",
+              "description": "Styles the right border of grid",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zing-grid-border-radius",
+              "description": "Applies border radious to grid",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
+              "name": "--zing-grid-border-left",
+              "description": "Styles the left border of grid",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zing-grid-border-bottom",
+              "description": "Styles the bottom border of grid",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zing-grid-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zing-grid-border",
+              "description": "Styles the border of grid",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zing-grid-background",
+              "description": "Styles the background of grid",
+              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "default": "#fff"
+            },
+            {
               "name": "--zing-grid-freeze-style-box-shadow",
               "description": "Styles the box-shadow of the frozen column styling element",
               "syntax": "none | <shadow>#",
               "default": "inset 0 0 6px #99caff"
+            },
+            {
+              "name": "--zing-grid-freeze-style-border",
+              "description": "Styles the border of the frozen column styling element",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid #d6e9ff"
             }
           ],
           "events": [
@@ -7182,6 +7197,35 @@
             }
           ],
           "members": [
+            {
+              "kind": "method",
+              "name": "calculate",
+              "description": "Calculates aggregate values",
+              "parameters": [
+                {
+                  "name": "method",
+                  "optional": false,
+                  "description": "The method to calculate.  Options are 'sum', 'avg', 'min', 'max', and 'count'",
+                  "type": "string"
+                },
+                {
+                  "name": "options",
+                  "optional": false,
+                  "description": "The options to be used in calculating the value.  Currently fieldIndex is only option.",
+                  "type": "any"
+                },
+                {
+                  "name": "data",
+                  "optional": false,
+                  "description": "The data to calculate the value on.  If this is not set, it uses the grids full dataset",
+                  "type": "any[]"
+                }
+              ],
+              "return": {
+                "type": "string",
+                "description": "The calculated value or empty string if the parameters don't make sense"
+              }
+            },
             {
               "kind": "method",
               "name": "cell",
@@ -7612,6 +7656,16 @@
               "return": {
                 "type": "string",
                 "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getGroupBy",
+              "description": "Gets the indexes of the current row groupings.  Returns false if none",
+              "parameters": false,
+              "return": {
+                "type": "string | boolean",
+                "description": "Index value of the row-group or false if none."
               }
             },
             {
@@ -8633,6 +8687,23 @@
                   "optional": false,
                   "description": "Type of gridlines to set on the grid",
                   "type": "'both' | 'horz' | 'horizontal' | 'vert' | 'vertical'"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setGroupBy",
+              "description": "Sets the `group-by` attribute",
+              "parameters": [
+                {
+                  "name": "index",
+                  "optional": false,
+                  "description": "Index to set the group-by",
+                  "type": "string"
                 }
               ],
               "return": {
