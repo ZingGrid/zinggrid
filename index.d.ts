@@ -718,7 +718,7 @@ declare namespace ZSoft {
       /**
        * @description The token or aggregate value to use to display if the column is an aggregation column
        */
-      typeAggregateValue?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | string;
+      typeAggregateValue?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
 
       /**
        * @description Presence of attribute sets the button to be in a disabled state. Can also set to "true" or "false".
@@ -1553,7 +1553,7 @@ declare namespace ZSoft {
 
       /**
        * @description Comma separated list of features to save in state preservation.
-       * Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort'
+       * Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowgroup', 'rowselector', 'search', 'selector', 'sort'
        * NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well
        */
       preserveStateOptions?: string;

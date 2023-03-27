@@ -1833,7 +1833,7 @@
             {
               "name": "type-aggregate-value",
               "description": "The token or aggregate value to use to display if the column is an aggregation column",
-              "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | string"
+              "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string"
             },
             {
               "name": "type-button-disabled",
@@ -6740,7 +6740,7 @@
             },
             {
               "name": "preserve-state-options",
-              "description": "Comma separated list of features to save in state preservation.   Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort' NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well",
+              "description": "Comma separated list of features to save in state preservation.   Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowgroup', 'rowselector', 'search', 'selector', 'sort' NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well",
               "type": "string"
             },
             {
