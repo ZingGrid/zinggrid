@@ -586,6 +586,20 @@
               "type": "string"
             }
           ],
+          "cssParts": [
+            {
+              "name": "caption",
+              "description": "Caption container"
+            },
+            {
+              "name": "title",
+              "description": "The title container"
+            },
+            {
+              "name": "toolbar",
+              "description": "The toolbar container"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-caption-background",
@@ -1427,6 +1441,12 @@
               "type": "boolean"
             }
           ],
+          "cssParts": [
+            {
+              "name": "text",
+              "description": "The text container"
+            }
+          ],
           "slots": [
             {
               "name": "",
@@ -1621,6 +1641,11 @@
               "type": "string"
             },
             {
+              "name": "filterer",
+              "description": "Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer",
+              "type": "function"
+            },
+            {
               "name": "foot-cell",
               "description": "The aggregate function, tokenized string, or function to evaluate for the foot cell of the column. If using a function, the function takes the parameters `columnData` and `columnFieldIndex`.",
               "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string"
@@ -1629,6 +1654,11 @@
               "name": "frozen",
               "description": "Moves the column to the frozen panel specified",
               "type": "'left' | 'right' | string"
+            },
+            {
+              "name": "group",
+              "description": "Includes the column to the row-group column. To enable features on grouped row columns, set attributes on `ZGColumn[type=\"row-group\"]`. All other attributes on the `[group]` column(s) are ignored.",
+              "type": "boolean"
             },
             {
               "name": "head-cell",
@@ -1793,7 +1823,17 @@
             {
               "name": "type",
               "description": "The type of the data stored in the column.  The column renderer/editor will behave based on the column type.",
-              "type": "'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+              "type": "'aggregate' | 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+            },
+            {
+              "name": "type-aggregate-omit",
+              "description": "Presence of attribute ignores the column in aggregation calculations",
+              "type": "boolean"
+            },
+            {
+              "name": "type-aggregate-value",
+              "description": "The token or aggregate value to use to display if the column is an aggregation column",
+              "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | string"
             },
             {
               "name": "type-button-disabled",
@@ -1836,6 +1876,11 @@
               "type": "boolean"
             },
             {
+              "name": "type-color-spaces",
+              "description": "By default, spaces are added into the color when in RGB or HSL mode.  Turn the spaces off by setting to `disabled`",
+              "type": "string"
+            },
+            {
               "name": "type-currency",
               "description": "The currency to be used in currency formatting. Currency is set using using the 3 letter currency code specified by ISO 4217 specification (https://en.wikipedia.org/wiki/ISO_4217)",
               "type": "string"
@@ -1864,6 +1909,11 @@
               "name": "type-group-hide-count",
               "description": "Presence of the attribute disables the display of the row count on the row-group column",
               "type": "boolean"
+            },
+            {
+              "name": "type-group-plural",
+              "description": "Indicates the word to use if the count is plural or singular.  Comma separated with singular first. The word can be referenced by the token `group.plural` and is used in a renderer or template.",
+              "type": "string"
             },
             {
               "name": "type-iframe-ratio",
@@ -1961,6 +2011,11 @@
               "type": "string"
             },
             {
+              "name": "type-url-target",
+              "description": "If the column type is `url`, use this attribute to set the target window of the click.   Uses the same values as HTML `<a>` `[target]` attribute.  `_blank` by default",
+              "type": "string"
+            },
+            {
               "name": "type-url-text",
               "description": "If the column type is `url`, use the `type-url-text` attribute to set the text displayed for the link.",
               "type": "string"
@@ -2027,6 +2082,24 @@
           "customElement": true,
           "description": "The `<zg-control-bar>` is inserted dynamically by the ZingGrid library and serves as a container for the grid's interface controls.  As a generated element, developers should not manually place `<zg-control-bar>` in their grid; however, they may style the bar and its internal elements using CSS.",
           "tagName": "ZGControlBar",
+          "cssParts": [
+            {
+              "name": "control-bar - Control",
+              "description": "bar container."
+            },
+            {
+              "name": "card-action",
+              "description": "Container for the card action controls."
+            },
+            {
+              "name": "row-action",
+              "description": "Container for the row action controls."
+            },
+            {
+              "name": "layout",
+              "description": "Container for the layout controls."
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-control-bar-background",
@@ -2462,6 +2535,16 @@
           "customElement": true,
           "description": "`<zg-editor-row>` holds the details of the edit mode for the grid. `<zg-editor-row>` is created internally and should not be placed directly in the user's HTML.",
           "tagName": "ZGEditorRow",
+          "cssParts": [
+            {
+              "name": "editor-row - Editor",
+              "description": "row container."
+            },
+            {
+              "name": "inputs",
+              "description": "Container for the input fields"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-editor-row-input-background",
@@ -2559,6 +2642,16 @@
               "name": "cellindex",
               "description": "The index of the cell with the filter",
               "type": "number"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "filter",
+              "description": "Filter container."
+            },
+            {
+              "name": "filter-wrapper",
+              "description": "Wrapper for the filter field"
             }
           ],
           "cssProperties": [
@@ -2803,6 +2896,28 @@
           "customElement": true,
           "description": "The `<zg-focus>` element is a generated element added to `<zing-grid>` when the `selector` attribute is defined.  It is used as a container for the focus of cell(s)  and used as a CSS target for styling by the developer.  It should not be accessed specifically beyond styling.",
           "tagName": "ZGFocus",
+          "cssParts": [
+            {
+              "name": "focus",
+              "description": "Focus container"
+            },
+            {
+              "name": "bottom",
+              "description": "The bottom edge of the focus"
+            },
+            {
+              "name": "top",
+              "description": "The top edge of the focus"
+            },
+            {
+              "name": "right",
+              "description": "The right edge of the focus"
+            },
+            {
+              "name": "left",
+              "description": "The left edge of the focus"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-focus-border",
@@ -3255,6 +3370,16 @@
           "customElement": true,
           "description": "The `<zg-head-cell>` contains header information for a column and is roughly equivalent to the `<th>`  tag used for HTML tables.  The `<zg-head-cell>` tag is generated by the library and should not be placed in a grid  manually by a developer. It can be used as a styling target for CSS.",
           "tagName": "ZGHeadCell",
+          "cssParts": [
+            {
+              "name": "cell - The head",
+              "description": "cell container"
+            },
+            {
+              "name": "cell-inner",
+              "description": "The content container"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-head-cell-background",
@@ -3485,6 +3610,12 @@
               "default": "Browser's default value"
             },
             {
+              "name": "--zg-head-cell-inner-padding",
+              "description": "Sets the padding of head cells inner content",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-head-cell-icon-margin",
               "description": "Sets the margin of child icons in head cells",
               "syntax": "[ <length> | <percentage> | auto ]{1,4}",
@@ -3691,6 +3822,12 @@
               "name": "value",
               "description": "The value of the input",
               "type": "string"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "input",
+              "description": "The input field wrapper"
             }
           ],
           "cssProperties": [
@@ -3984,6 +4121,12 @@
               "type": "boolean"
             }
           ],
+          "cssParts": [
+            {
+              "name": "menu",
+              "description": "The container for the menu"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-menu-background",
@@ -4076,6 +4219,20 @@
           "customElement": true,
           "description": "A group wrapper for multiple menu items found in the context  menu.  ZingGrid dynamically creates this element to hold various `<zg-menu-item>`  tags together for organizational purposes.  As it is a visual element, it can be  styled via CSS.",
           "tagName": "ZGMenuGroup",
+          "cssParts": [
+            {
+              "name": "group",
+              "description": "The container for the menu group"
+            },
+            {
+              "name": "label",
+              "description": "The container for the menu group label"
+            },
+            {
+              "name": "items",
+              "description": "The container for the menu group items"
+            }
+          ],
           "slots": [
             {
               "name": "zgMenuGroupLabel",
@@ -4274,6 +4431,12 @@
           "customElement": true,
           "description": "`<zg-no-data>` is used to display a message when there are no records.  The  element internally wraps any text in a `<div role=\"any\">` tag.  The element is stylable with CSS like most ZingGrid elements.",
           "tagName": "ZGNoData",
+          "cssParts": [
+            {
+              "name": "status",
+              "description": "The container for the no data status message"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-no-data-background",
@@ -4437,6 +4600,28 @@
               "name": "size-options",
               "description": "Sets the options for page size in `zg-option-list`",
               "type": "string"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "pager",
+              "description": "The container for the entire pager"
+            },
+            {
+              "name": "pager-inner",
+              "description": "The inner container for the pager"
+            },
+            {
+              "name": "left",
+              "description": "The container for the left content of the pager"
+            },
+            {
+              "name": "center",
+              "description": "The container for the center content of the pager"
+            },
+            {
+              "name": "right",
+              "description": "The container for the right content of the pager"
             }
           ],
           "cssProperties": [
@@ -5079,6 +5264,16 @@
           "customElement": true,
           "description": "The `<zg-search>` element is used to encapsulate the interface widget necessary for searching the grid --  typically a text field and a button to trigger the search.  The element is added dynamically when search is specified and  should not be directly inserted by the developer.  The element and its contents can be styled using CSS.",
           "tagName": "ZGSearch",
+          "cssParts": [
+            {
+              "name": "search",
+              "description": "The container for the search"
+            },
+            {
+              "name": "input",
+              "description": "The container for the search input field"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-search-background",
@@ -5210,6 +5405,20 @@
               "name": "value",
               "description": "The default value of the select dropdown",
               "type": "string"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "select",
+              "description": "The container for selection"
+            },
+            {
+              "name": "select-inner",
+              "description": "The inner container for selection"
+            },
+            {
+              "name": "mask",
+              "description": "The container for the selection mask"
             }
           ],
           "cssProperties": [
@@ -5388,6 +5597,12 @@
           "customElement": true,
           "description": "`<zg-selector-mask>` is used to wrap the cells during user selection for  styling purposes.  The element is dynamically added to the grid based upon the presence of the  `selector` attribute on the `<zing-grid>` element.  The element should not be manually inserted,  though it can be styled using CSS.",
           "tagName": "ZGSelectorMask",
+          "cssParts": [
+            {
+              "name": "selector-mask",
+              "description": "The container for the selector mask"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-selector-mask-opacity",
@@ -5505,6 +5720,12 @@
               "name": "position",
               "description": "Indicates where to position the source",
               "type": "string"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "source",
+              "description": "The container for the source"
             }
           ],
           "cssProperties": [
@@ -5815,6 +6036,32 @@
           "customElement": true,
           "description": "`<zg-status>` is a custom element used to display messages to the  user, such as errors and verifications of CRUD actions.  `<zg-status>` is created  dynamically and should not be inserted manually.  The `<zg-status>` element is  stylable with CSS.",
           "tagName": "ZGStatus",
+          "cssParts": [
+            {
+              "name": "status",
+              "description": "The container for the status"
+            },
+            {
+              "name": "message",
+              "description": "The container for the status message"
+            },
+            {
+              "name": "text",
+              "description": "The status text"
+            },
+            {
+              "name": "action",
+              "description": "The container for the status action area"
+            },
+            {
+              "name": "close",
+              "description": "The container for the close icon"
+            },
+            {
+              "name": "close-icon",
+              "description": "The close icon"
+            }
+          ],
           "cssProperties": [
             {
               "name": "--zg-status-background",
@@ -6053,7 +6300,13 @@
           "kind": "class",
           "customElement": true,
           "description": "`<zg-tooltip>` elements are inserted dynamically by the ZingGrid library and serves as a container for the grid's tooltips.  As a generated element, developers should not manually place `<zg-tooltip>` in their grid; however, they may style the tooltips and its internal elements using CSS.",
-          "tagName": "ZGTooltip"
+          "tagName": "ZGTooltip",
+          "cssParts": [
+            {
+              "name": "close",
+              "description": "The tooltip close icon"
+            }
+          ]
         }
       ],
       "exports": [
@@ -6085,6 +6338,11 @@
           "description": "The most important tag in the library. Contains most of the attributes to turn grid features on/off.  Set `zing-grid:not(:defined) {display:none;}` to hide <zing-grid> instances until they are ready.  This stops child elements from appearing unstyled for a brief moment.",
           "tagName": "ZingGrid",
           "attributes": [
+            {
+              "name": "aggregate",
+              "description": "Adds aggregate column and sets the type-aggregate-value to the specified value",
+              "type": "string"
+            },
             {
               "name": "align",
               "description": "Aligns the contents of all column cells (center|left|right)",
@@ -6482,7 +6740,7 @@
             },
             {
               "name": "preserve-state-options",
-              "description": "Comma separated list of features to save in state preservation.   Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort' NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well",
+              "description": "Comma separated list of features to save in state preservation.   Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort' NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well",
               "type": "string"
             },
             {
@@ -6897,6 +7155,13 @@
             {
               "name": "column:mouseover",
               "description": "Fires event when mouseover on a column.",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "data:afterfetch",
+              "description": "Fires the event every time data is fetched",
               "type": {
                 "text": "Event"
               }
@@ -7317,6 +7582,16 @@
             },
             {
               "kind": "method",
+              "name": "deselect",
+              "description": "Deselects all cells",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "executeOnLoad",
               "description": "Executes callback function when grid completes load. If grid is already loaded, it will execute immediately.",
               "parameters": [
@@ -7409,6 +7684,16 @@
               "return": {
                 "type": "string",
                 "description": "The formatted date"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getAggregate",
+              "description": "Get the value of the `aggregate` attribute.  Does not return any user defined aggregate columns.",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the aggregate attribute."
               }
             },
             {
@@ -7920,6 +8205,16 @@
             },
             {
               "kind": "method",
+              "name": "getSortedColumn",
+              "description": "Gets the current sorted column as well as the sort direction",
+              "parameters": false,
+              "return": {
+                "type": "any",
+                "description": "Object containing: fieldIndex - the currently sorted column, order - the sort direction"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getSorter",
               "description": "Gets the value of the `sorter` attribute",
               "parameters": false,
@@ -8261,6 +8556,33 @@
                   "name": "endColIndex",
                   "optional": true,
                   "description": "Optional end cell column for multi-cell selection",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectAll",
+              "description": "Selects all cells",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setAggregate",
+              "description": "Sets the `aggregate` attribute",
+              "parameters": [
+                {
+                  "name": "aggregate",
+                  "optional": false,
+                  "description": "Value to set aggregate to",
                   "type": "string"
                 }
               ],
@@ -9567,7 +9889,20 @@
               "kind": "method",
               "name": "updateSize",
               "description": "Forces a resize event to be triggered and to partially repaint the grid. Useful when the container updates size without the window updating.",
-              "parameters": false,
+              "parameters": [
+                {
+                  "name": "showLoading",
+                  "optional": false,
+                  "description": "Display the loading screen while updating the grid.  False by default",
+                  "type": "boolean"
+                },
+                {
+                  "name": "delay",
+                  "optional": false,
+                  "description": "The time to delay the action.  This should be > the time it takes to do the CSS transition.  Value in seconds",
+                  "type": "number"
+                }
+              ],
               "return": {
                 "type": "ZingGrid",
                 "description": "Returns the component so that you can chain methods together"

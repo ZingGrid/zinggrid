@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.2
+// Type definitions for zinggrid 1.5.1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -47,6 +47,7 @@ declare namespace ZSoft {
     'cell:openedit': CustomEvent;
     'cell:paste': CustomEvent;
     'cell:rightclick': CustomEvent;
+    'data:afterfetch': CustomEvent;
     'data:cell:beforechange': CustomEvent;
     'data:cell:change': CustomEvent;
     'data:load': CustomEvent;
@@ -204,6 +205,10 @@ declare namespace ZSoft {
      * @description Fires the event when right click occurs on a cell.
      */
     'onCellRightclick'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event every time data is fetched
+     */
+    'onDataAfterfetch'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event before a single cell value is changed.
      */
@@ -507,6 +512,11 @@ declare namespace ZSoft {
       filterKey?: string;
 
       /**
+       * @description Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer
+       */
+      filterer?: string;
+
+      /**
        * @description The aggregate function, tokenized string, or function to evaluate for the foot cell of the column.
        * If using a function, the function takes the parameters "columnData" and "columnFieldIndex".
        */
@@ -516,6 +526,12 @@ declare namespace ZSoft {
        * @description Moves the column to the frozen panel specified
        */
       frozen?: 'left' | 'right' | string;
+
+      /**
+       * @description Includes the column to the row-group column. To enable features on grouped row columns, set attributes on "ZGColumn[type="row-group"]".
+       * All other attributes on the "[group]" column(s) are ignored.
+       */
+      group?: boolean;
 
       /**
        * @description The aggregate function to evaluate for the head cell of the column.
@@ -691,8 +707,18 @@ declare namespace ZSoft {
       /**
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
-      type?: 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' 
-         'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+      type?: 'aggregate' | 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 
+        'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+
+      /**
+       * @description Presence of attribute ignores the column in aggregation calculations
+       */
+      typeAggregateOmit?: boolean;
+
+      /**
+       * @description The token or aggregate value to use to display if the column is an aggregation column
+       */
+      typeAggregateValue?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | string;
 
       /**
        * @description Presence of attribute sets the button to be in a disabled state. Can also set to "true" or "false".
@@ -736,6 +762,11 @@ declare namespace ZSoft {
       typeColorPreview?: boolean;
 
       /**
+       * @description By default, spaces are added into the color when in RGB or HSL mode.  Turn the spaces off by setting to "disabled"
+       */
+      typeColorSpaces?: string;
+
+      /**
        * @description The currency to be used in currency formatting.
        * Currency is set using using the 3 letter currency code specified by ISO 4217 specification (https://en.wikipedia.org/wiki/ISO_4217)
        */
@@ -767,6 +798,12 @@ declare namespace ZSoft {
        * @description Presence of the attribute disables the display of the row count on the row-group column
        */
       typeGroupHideCount?: boolean;
+
+      /**
+       * @description Indicates the word to use if the count is plural or singular.  Comma separated with singular first.
+       * The word can be referenced by the token "group.plural" and is used in a renderer or template.
+       */
+      typeGroupPlural?: string;
 
       /**
        * @description Sets a "square" ratio instead of the default "16:9"
@@ -866,6 +903,12 @@ declare namespace ZSoft {
        * @description If the column type is "url", use the "type-url-src" attribute to set the src for the link.  The link will be the index value by default.
        */
       typeUrlSrc?: string;
+
+      /**
+       * @description If the column type is "url", use this attribute to set the target window of the click.
+       * Uses the same values as HTML "<a>" "[target]" attribute.  "_blank" by default
+       */
+      typeUrlTarget?: string;
 
       /**
        * @description If the column type is "url", use the "type-url-text" attribute to set the text displayed for the link.
@@ -1075,6 +1118,11 @@ declare namespace ZSoft {
     }
 
     interface ZingGrid {
+      /**
+       * @description Adds aggregate column and sets the type-aggregate-value to the specified value
+       */
+      aggregate?: string;
+
       /**
        * @description Aligns the contents of all column cells (center|left|right)
        */
@@ -1505,7 +1553,7 @@ declare namespace ZSoft {
 
       /**
        * @description Comma separated list of features to save in state preservation.
-       * Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort'
+       * Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowselector', 'search', 'selector', 'sort'
        * NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well
        */
       preserveStateOptions?: string;
@@ -1687,12 +1735,6 @@ declare namespace ZSoft {
      */
     hidden: boolean;
     /**
-     * @description Enables the default "<zing-grid>" context menu or set to the id name of a custom "<zg-menu>".  If
-     * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context menu.
-     * Otherwise the contents of the custom menu is appended to the end of context menu.
-     */
-    contextMenu: string | boolean;
-    /**
      * @description The HTML standard direction to indicate direction of grid's columns and text
      */
     dir: string;
@@ -1711,12 +1753,12 @@ declare namespace ZSoft {
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
     | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset' | 'dir'
-    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
-    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText'
-    | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex'
-    | 'title' | 'translate'>, CatchAll, HTMLElement {}
+    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
+    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
+    | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText' | 'inputMode'
+    | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
+    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
   interface ZGDialog extends ZingGridAttributes.ZGDialog, CatchAll, HTMLElement {}
@@ -1896,6 +1938,11 @@ declare namespace ZSoft {
 
     // ZGSelector
     /**
+     * @description Deselects all cells
+     */
+    deselect: () => ZingGrid;
+
+    /**
      * @description Returns an array of selected rows
      */
     getSelectedRows: () => any[];
@@ -1913,6 +1960,11 @@ declare namespace ZSoft {
      * @param endColIndex Optional end cell column for multi-cell selection
      */
     select: (rowIndex: string, colIndex: string, endRowIndex?: string, endColIndex?: string) => ZingGrid;
+
+    /**
+     * @description Selects all cells
+     */
+    selectAll: () => ZingGrid;
 
     /**
      * @description Sets the "selector" attribute
@@ -2337,6 +2389,11 @@ declare namespace ZSoft {
     fromNow: (date: Date, raw: boolean) => string;
 
     /**
+     * @description Get the value of the "aggregate" attribute.  Does not return any user defined aggregate columns.
+     */
+    getAggregate: () => string;
+
+    /**
      * @description Gets the value of the "column-drag-action" attribute
      */
     getColumnDragAction: () => string;
@@ -2395,6 +2452,12 @@ declare namespace ZSoft {
      * @description Gets the value of the "width" attribute
      */
     getWidth: () => string;
+
+    /**
+     * @description Sets the "aggregate" attribute
+     * @param aggregate Value to set aggregate to
+     */
+    setAggregate: (aggregate: string) => ZingGrid;
 
     /**
      * @description Sets the "column-drag" attribute
@@ -2495,8 +2558,10 @@ declare namespace ZSoft {
 
     /**
      * @description Forces a resize event to be triggered and to partially repaint the grid. Useful when the container updates size without the window updating.
+     * @param showLoading Display the loading screen while updating the grid.  False by default
+     * @param delay The time to delay the action.  This should be > the time it takes to do the CSS transition.  Value in seconds
      */
-    updateSize: () => ZingGrid;
+    updateSize: (showLoading: boolean, delay: number) => ZingGrid;
 
     // ZGEditor
     /**
@@ -2644,6 +2709,11 @@ declare namespace ZSoft {
     getSort: () => string;
 
     /**
+     * @description Gets the current sorted column as well as the sort direction
+     */
+    getSortedColumn: () => any;
+
+    /**
      * @description Gets the value of the "sorter" attribute
      */
     getSorter: () => string;
@@ -2727,12 +2797,12 @@ declare namespace ZSoft {
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
     | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'contextMenu' | 'dataset' | 'dir'
-    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
-    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText'
-    | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex'
-    | 'title' | 'translate'>, CatchAll, HTMLElement {}
+    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
+    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
+    | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText' | 'inputMode'
+    | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
+    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
