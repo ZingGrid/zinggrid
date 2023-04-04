@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.5.1
+// Type definitions for zinggrid 1.5.2
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1943,6 +1943,17 @@ declare namespace ZSoft {
     deselect: () => ZingGrid;
 
     /**
+     * @description Deselects row at given 0 based index.
+     * @param rowIndex Row to deselect
+     */
+    deselectRow: (rowIndex: string) => ZingGrid;
+
+    /**
+     * @description Deselects any row selected by the row selector column
+     */
+    deselectRows: () => ZingGrid;
+
+    /**
      * @description Returns an array of selected rows
      */
     getSelectedRows: () => any[];
@@ -1965,6 +1976,12 @@ declare namespace ZSoft {
      * @description Selects all cells
      */
     selectAll: () => ZingGrid;
+
+    /**
+     * @description Selects row at given 0 based index.  Will not select if there is no selector column or index is off page.
+     * @param rowIndex Row to select
+     */
+    selectRow: (rowIndex: string) => ZingGrid;
 
     /**
      * @description Sets the "selector" attribute

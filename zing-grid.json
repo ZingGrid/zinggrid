@@ -7592,6 +7592,33 @@
             },
             {
               "kind": "method",
+              "name": "deselectRow",
+              "description": "Deselects row at given 0 based index.",
+              "parameters": [
+                {
+                  "name": "rowIndex",
+                  "optional": false,
+                  "description": "Row to deselect",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "deselectRows",
+              "description": "Deselects any row selected by the row selector column",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "executeOnLoad",
               "description": "Executes callback function when grid completes load. If grid is already loaded, it will execute immediately.",
               "parameters": [
@@ -8569,6 +8596,23 @@
               "name": "selectAll",
               "description": "Selects all cells",
               "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "selectRow",
+              "description": "Selects row at given 0 based index.  Will not select if there is no selector column or index is off page.",
+              "parameters": [
+                {
+                  "name": "rowIndex",
+                  "optional": false,
+                  "description": "Row to select",
+                  "type": "string"
+                }
+              ],
               "return": {
                 "type": "ZingGrid",
                 "description": "Returns the component so that you can chain methods together"
