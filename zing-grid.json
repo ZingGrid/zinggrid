@@ -4,6 +4,36 @@
   "modules": [  
     {
       "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-batch-edit/ZGBatchEdit.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "The `<zg-batch-edit>` element is used to define the batch edit region.   `<zg-batch-edit>` is created internally and should not be placed directly in the user's HTML; however, the user can style the `<zg-batch-edit>` using the `zg-batch-edit` selector.",
+          "tagName": "ZGBatchEdit"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGBatchEdit",
+          "declaration": {
+            "name": "ZGBatchEdit",
+            "module": "zinggrid-lib/src/js/components/zg-batch-edit/ZGBatchEdit.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-batch-edit",
+          "declaration": {
+            "name": "ZGBatchEdit",
+            "module": "zinggrid-lib/src/js/components/zg-batch-edit/ZGBatchEdit.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "zinggrid-lib/src/js/components/zg-body/ZGBody.js",
       "declarations": [
         {
@@ -1402,6 +1432,18 @@
               "description": "Sets the padding of cards in 'card' layout-mode",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "3px 0"
+            },
+            {
+              "name": "--zg-cell-dirty-edit-border-width",
+              "description": "Sets the border width of the dirty cell marker",
+              "syntax": "",
+              "default": "7px"
+            },
+            {
+              "name": "--zg-cell-dirty-edit-border-color",
+              "description": "Sets the color of the dirty cell marker",
+              "syntax": "",
+              "default": "red;"
             }
           ]
         }
@@ -1421,6 +1463,36 @@
           "declaration": {
             "name": "ZGCell",
             "module": "zinggrid-lib/src/js/components/zg-cell/ZGCell.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-cell-overflow/ZGCellOverflow.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "`<zg-cell-overflow>` elements can be used to add popup data to each cell on a user action.  Typical use would be a custom element select and optionlist.  As a generated element, developers should not manually place `<zg-cell-overflow>` in their grid; however, they may style the tooltips and its internal elements using CSS.",
+          "tagName": "ZGCellOverflow"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGCellOverflow",
+          "declaration": {
+            "name": "ZGCellOverflow",
+            "module": "zinggrid-lib/src/js/components/zg-cell-overflow/ZGCellOverflow.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-cell-overflow",
+          "declaration": {
+            "name": "ZGCellOverflow",
+            "module": "zinggrid-lib/src/js/components/zg-cell-overflow/ZGCellOverflow.js"
           }
         }
       ]
@@ -1659,6 +1731,11 @@
               "name": "group",
               "description": "Includes the column to the row-group column. To enable features on grouped row columns, set attributes on `ZGColumn[type=\"row-group\"]`. All other attributes on the `[group]` column(s) are ignored.",
               "type": "boolean"
+            },
+            {
+              "name": "group-head-cell",
+              "description": "Sets a head cell on the column in the grouped row",
+              "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string"
             },
             {
               "name": "head-cell",
@@ -2094,6 +2171,10 @@
             {
               "name": "row-action",
               "description": "Container for the row action controls."
+            },
+            {
+              "name": "batch-message",
+              "description": "Container for the batch editing status message."
             },
             {
               "name": "layout",
@@ -3218,6 +3299,12 @@
               "description": "Styles the top border of grid head rows",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-head-border)"
+            },
+            {
+              "name": "--zg-head-border-radius",
+              "description": "Styles the border-radius of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-border-radius)"
             },
             {
               "name": "--zg-head-visibility",
@@ -5232,6 +5319,30 @@
               "description": "Sets the flex-basis of cards in 'card' layout-mode",
               "syntax": "content | <width>",
               "default": "100%"
+            },
+            {
+              "name": "--zg-row-dirty-delete-background-color",
+              "description": "Sets the background color of the dirty row on row delete",
+              "syntax": "<color>",
+              "default": "gray;"
+            },
+            {
+              "name": "--zg-row-dirty-delete-color",
+              "description": "Sets the  color of the dirty row on row delete",
+              "syntax": "<color>",
+              "default": ""
+            },
+            {
+              "name": "--zg-row-dirty-insert-background-color",
+              "description": "Sets the background color of the dirty row on row insert",
+              "syntax": "<color>",
+              "default": "green;"
+            },
+            {
+              "name": "--zg-row-dirty-insert-color",
+              "description": "Sets the color of the dirty row on row insert",
+              "syntax": "<color>",
+              "default": ""
             }
           ]
         }
@@ -6154,12 +6265,6 @@
               "default": "center"
             },
             {
-              "name": "--zg-status-justify-content",
-              "description": "Sets the horizontal alignment of contents in status",
-              "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
-              "default": "flex-start"
-            },
-            {
               "name": "--zg-status-font-family",
               "description": "Sets the font family of contents in status",
               "syntax": "[ <'family-name'> | <generic-family> ]#",
@@ -6349,6 +6454,16 @@
               "type": "string"
             },
             {
+              "name": "batch-edit",
+              "description": "Presence of attribute indicates the grid allows batch editing and displays the controls. In batch edit mode, changes can be made to cells that do not have edit disabled or are not a part of the \"recordkey\" column.",
+              "type": "boolean"
+            },
+            {
+              "name": "batch-edit-status",
+              "description": "Sets the message to display when making batch edits.   Can use the following tokens: [[changes]], [[deleted]], [[fieldsEdited]], [[inserted]], [[modified]], [[recordsEdited]]. Can append 'Message' to any of the above for a string description.",
+              "type": "string"
+            },
+            {
               "name": "button-tooltip-disabled",
               "description": "Turns off the tooltips on all buttons in the grid",
               "type": "boolean"
@@ -6482,6 +6597,11 @@
               "name": "confirm-delete",
               "description": "Turns off delete confirmation if set to disable",
               "type": "'disabled'"
+            },
+            {
+              "name": "confirmations",
+              "description": "Sets which confirmation dialogs to display on batch editing and deleting",
+              "type": "'batch-edit' | 'batch-edit-discard' | 'delete' | 'disabled' | 'all'"
             },
             {
               "name": "context-menu",
@@ -6769,11 +6889,6 @@
               "type": "string"
             },
             {
-              "name": "row-height",
-              "description": "Sets the height of each body row.  By default, the body row height is set to 'auto' where it will auto fit the content. In the case of frozen columns, the default body row height is '48px' because there is a performance hit when using 'auto' with frozen columns.",
-              "type": "string | number"
-            },
-            {
               "name": "row-selector",
               "description": "Adds `selector` type column to the rows as the first column",
               "type": "boolean"
@@ -7042,6 +7157,18 @@
             {
               "name": "--zing-grid-freeze-style-border",
               "description": "Styles the border of the frozen column styling element",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid #d6e9ff"
+            },
+            {
+              "name": "--zing-grid-batch-edit-style-box-shadow",
+              "description": "Styles the box-shadow of the frozen column styling element",
+              "syntax": "none | <shadow>#",
+              "default": "inset 0 0 6px #99caff"
+            },
+            {
+              "name": "--zing-grid-batch-edit-style-border",
+              "description": "Styles the border of the batch edit styling element",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "1px solid #d6e9ff"
             }
@@ -7725,6 +7852,26 @@
             },
             {
               "kind": "method",
+              "name": "getBatchEdit",
+              "description": "Gets the value of the `batch-edit` attribute",
+              "parameters": false,
+              "return": {
+                "type": "boolean",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getBatchEditStatus",
+              "description": "Gets the value of the `batch-edit-status` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getCaption",
               "description": "Gets the value of the `caption` attribute",
               "parameters": false,
@@ -7810,6 +7957,16 @@
               "parameters": false,
               "return": {
                 "type": "string | boolean",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getConfirmations",
+              "description": "Gets the value of the `confirmations` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
                 "description": "Value of the attribute"
               }
             },
@@ -8372,6 +8529,16 @@
             },
             {
               "kind": "method",
+              "name": "hideCellOverflow",
+              "description": "Hides the cell overflow",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "hideColumn",
               "description": "Hides a column based on index",
               "parameters": [
@@ -8637,6 +8804,57 @@
             },
             {
               "kind": "method",
+              "name": "setBatchEdit",
+              "description": "Sets the value of the `batch-edit` attribute",
+              "parameters": [
+                {
+                  "name": "batchEdit",
+                  "optional": false,
+                  "description": "Value of batch-edit",
+                  "type": "boolean"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setBatchEditStatus",
+              "description": "Sets the value of the `batch-edit-status` attribute",
+              "parameters": [
+                {
+                  "name": "batchEditStatus",
+                  "optional": false,
+                  "description": "Value of the batch-edit-status",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setBuildCode",
+              "description": "Sets the build code and removes watermarks if it is valid. If the build code is not set on page load, it is possible to set it through this API Method.",
+              "parameters": [
+                {
+                  "name": "buildcode",
+                  "optional": false,
+                  "description": "The buildcode array",
+                  "type": "any[]"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "setCaption",
               "description": "Set the caption text",
               "parameters": [
@@ -8798,6 +9016,23 @@
                   "optional": false,
                   "description": "Value to add or remove",
                   "type": "boolean"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setConfirmations",
+              "description": "Sets the `confirmations` attribute",
+              "parameters": [
+                {
+                  "name": "types",
+                  "optional": false,
+                  "description": "string value to indicate what confirmations to enable",
+                  "type": "string"
                 }
               ],
               "return": {
@@ -9189,6 +9424,23 @@
                   "optional": false,
                   "description": "Value to add or remove",
                   "type": "boolean"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setLicense",
+              "description": "Sets the license and removes watermarks if it is valid. If the license is not set on page load, it is possible to set it through this API Method",
+              "parameters": [
+                {
+                  "name": "license",
+                  "optional": false,
+                  "description": "The license array",
+                  "type": "any[]"
                 }
               ],
               "return": {
@@ -10122,6 +10374,25 @@
             },
             {
               "kind": "method",
+              "name": "registerFilterer",
+              "description": "Register the life cycle hooks for filterer. This allows you to import and inherit editors for your library.",
+              "parameters": [
+                {
+                  "name": "sCellType",
+                  "optional": false,
+                  "description": "Cell type filterer to override",
+                  "type": "string"
+                },
+                {
+                  "name": "oConfig",
+                  "optional": false,
+                  "description": "Object containing filterer hooks",
+                  "type": "any"
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "registerMethod",
               "description": "Register a method to make it available to ZingGrid even if it outside the window scope. This can be used to make a method accessible to renderer, editor, sorter, and custom styles This is useful for methods within a class or local methods.",
               "parameters": [
@@ -10199,6 +10470,18 @@
               "kind": "method",
               "name": "searchIsTable",
               "description": "Searches for table element(s) with the `[is=\"zing-grid\"]` attribute to insert the zing-grid. This method should only be used when `table[is=\"zing-grid\"]` is added after the Document has been loaded.",
+              "parameters": false
+            },
+            {
+              "kind": "method",
+              "name": "setBuildCode",
+              "description": "Sets the build code and removes watermarks if it is valid.",
+              "parameters": false
+            },
+            {
+              "kind": "method",
+              "name": "setLicense",
+              "description": "Sets the license and removes watermarks if it is valid.",
               "parameters": false
             }
           ]

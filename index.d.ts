@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.5.3
+// Type definitions for zinggrid 1.6.0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -532,6 +532,11 @@ declare namespace ZSoft {
        * All other attributes on the "[group]" column(s) are ignored.
        */
       group?: boolean;
+
+      /**
+       * @description Sets a head cell on the column in the grouped row
+       */
+      groupHeadCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
 
       /**
        * @description The aggregate function to evaluate for the head cell of the column.
@@ -1129,6 +1134,19 @@ declare namespace ZSoft {
       align?: string;
 
       /**
+       * @description Presence of attribute indicates the grid allows batch editing and displays the controls.
+       * In batch edit mode, changes can be made to cells that do not have edit disabled or are not a part of the "recordkey" column.
+       */
+      batchEdit?: boolean;
+
+      /**
+       * @description Sets the message to display when making batch edits.
+       * Can use the following tokens: [[changes]], [[deleted]], [[fieldsEdited]], [[inserted]], [[modified]], [[recordsEdited]].
+       * Can append 'Message' to any of the above for a string description.
+       */
+      batchEditStatus?: string;
+
+      /**
        * @description Turns off the tooltips on all buttons in the grid
        */
       buttonTooltipDisabled?: boolean;
@@ -1273,6 +1291,11 @@ declare namespace ZSoft {
        * @description Turns off delete confirmation if set to disable
        */
       confirmDelete?: 'disabled';
+
+      /**
+       * @description Sets which confirmation dialogs to display on batch editing and deleting
+       */
+      confirmations?: 'batch-edit' | 'batch-edit-discard' | 'delete' | 'disabled' | 'all';
 
       /**
        * @description Enables the default "<zing-grid>" context menu or set to the id name of a custom "<zg-menu>".  If
@@ -1588,13 +1611,6 @@ declare namespace ZSoft {
       rowClass?: string;
 
       /**
-       * @description Sets the height of each body row.  By default, the body row height is set to 'auto' where it will auto fit the content.
-       * In the case of frozen columns, the default body row height is '48px' because there is a performance hit when using 'auto' with
-       * frozen columns.
-       */
-      rowHeight?: string | number;
-
-      /**
        * @description Adds "selector" type column to the rows as the first column
        */
       rowSelector?: boolean;
@@ -1744,20 +1760,23 @@ declare namespace ZSoft {
     lang: string;
   }
 
+  interface ZGBatchEdit extends CatchAll, HTMLElement {}
   interface ZGBody extends CatchAll, HTMLElement {}
   interface ZGButton extends ZingGridAttributes.ZGButton, CatchAll, HTMLElement {}
   interface ZGCaption extends ZingGridAttributes.ZGCaption, CatchAll, HTMLElement {}
   interface ZGCard extends ZingGridAttributes.ZGCard, CatchAll, HTMLElement {}
   interface ZGCell extends CatchAll, HTMLElement {}
+  interface ZGCellOverflow extends CatchAll, HTMLElement {}
   interface ZGCheckbox extends ZingGridAttributes.ZGCheckbox, CatchAll, HTMLElement {}
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
     | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
-    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
-    | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText' | 'inputMode'
-    | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
-    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir'
+    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
+    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
+    | 'inert' | 'innerText' | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce'
+    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
+    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
     | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -2202,6 +2221,12 @@ declare namespace ZSoft {
      */
     updateRow: (rowIndex: string, data: any, noDataSource: boolean) => ZingGrid;
 
+    // ZGCellOverflow
+    /**
+     * @description Hides the cell overflow
+     */
+    hideCellOverflow: () => ZingGrid;
+
     // ZGSearch
     /**
      * @description Gets the value of the "search" attribute
@@ -2411,6 +2436,16 @@ declare namespace ZSoft {
     getAggregate: () => string;
 
     /**
+     * @description Gets the value of the "batch-edit" attribute
+     */
+    getBatchEdit: () => boolean;
+
+    /**
+     * @description Gets the value of the "batch-edit-status" attribute
+     */
+    getBatchEditStatus: () => string;
+
+    /**
      * @description Gets the value of the "column-drag-action" attribute
      */
     getColumnDragAction: () => string;
@@ -2477,6 +2512,25 @@ declare namespace ZSoft {
     setAggregate: (aggregate: string) => ZingGrid;
 
     /**
+     * @description Sets the value of the "batch-edit" attribute
+     * @param batchEdit Value of batch-edit
+     */
+    setBatchEdit: (batchEdit: boolean) => ZingGrid;
+
+    /**
+     * @description Sets the value of the "batch-edit-status" attribute
+     * @param batchEditStatus Value of the batch-edit-status
+     */
+    setBatchEditStatus: (batchEditStatus: string) => ZingGrid;
+
+    /**
+     * @description Sets the build code and removes watermarks if it is valid.
+     * If the build code is not set on page load, it is possible to set it through this API Method.
+     * @param buildcode The buildcode array
+     */
+    setBuildCode: (buildcode: any[]) => ZingGrid;
+
+    /**
      * @description Sets the "column-drag" attribute
      * @param activate Boolean value to indicate add or remove
      */
@@ -2523,6 +2577,13 @@ declare namespace ZSoft {
      * @param lang Language to set on the grid
      */
     setLang: (lang: string) => ZingGrid;
+
+    /**
+     * @description Sets the license and removes watermarks if it is valid.
+     * If the license is not set on page load, it is possible to set it through this API Method
+     * @param license The license array
+     */
+    setLicense: (license: any[]) => ZingGrid;
 
     /**
      * @description Sets the "preserve-state-id" attribute
@@ -2582,6 +2643,11 @@ declare namespace ZSoft {
 
     // ZGEditor
     /**
+     * @description Gets the value of the "confirmations" attribute
+     */
+    getConfirmations: () => string;
+
+    /**
      * @description Gets the value of the "creator" attribute
      */
     getCreator: () => string;
@@ -2605,6 +2671,12 @@ declare namespace ZSoft {
      * @description Gets the value of the "row-selector" attribute
      */
     getRowSelector: () => boolean;
+
+    /**
+     * @description Sets the "confirmations" attribute
+     * @param types string value to indicate what confirmations to enable
+     */
+    setConfirmations: (types: string) => ZingGrid;
 
     /**
      * @description Sets the "creator" attribute
@@ -2814,20 +2886,23 @@ declare namespace ZSoft {
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
     | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
-    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
-    | 'drop_event' | 'enterKeyHint' | 'focus' | 'hidden' | 'inert' | 'innerText' | 'inputMode'
-    | 'input_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
-    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir'
+    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
+    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
+    | 'inert' | 'innerText' | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce'
+    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
+    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
     | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
+  'zg-batch-edit': ZSoft.ZGBatchEdit;
   'zg-body': ZSoft.ZGBody;
   'zg-button': ZSoft.ZGButton;
   'zg-caption': ZSoft.ZGCaption;
   'zg-card': ZSoft.ZGCard;
   'zg-cell': ZSoft.ZGCell;
+  'zg-cell-overflow': ZSoft.ZGCellOverflow;
   'zg-checkbox': ZSoft.ZGCheckbox;
   'zg-colgroup': ZSoft.ZGColgroup;
   'zg-column': ZSoft.ZGColumn;
@@ -2867,6 +2942,8 @@ interface HTMLElementTagNameMap {
 
 declare namespace JSX {
   interface IntrinsicElements {
+    'zg-batch-edit': ZSoft.CatchAll;
+    ZGBatchEdit: ZSoft.CatchAll;
     'zg-body': ZSoft.CatchAll;
     ZGBody: ZSoft.CatchAll;
     'zg-button': KebabKeys<ZSoft.ZingGridAttributes.ZGButton> | ZSoft.CatchAll;
@@ -2877,6 +2954,8 @@ declare namespace JSX {
     ZGCard: ZSoft.ZingGridAttributes.ZGCard | ZSoft.CatchAll;
     'zg-cell': ZSoft.CatchAll;
     ZGCell: ZSoft.CatchAll;
+    'zg-cell-overflow': ZSoft.CatchAll;
+    ZGCellOverflow: ZSoft.CatchAll;
     'zg-checkbox': KebabKeys<ZSoft.ZingGridAttributes.ZGCheckbox> | ZSoft.CatchAll;
     ZGCheckbox: ZSoft.ZingGridAttributes.ZGCheckbox | ZSoft.CatchAll;
     'zg-colgroup': ZSoft.CatchAll;
@@ -2952,6 +3031,16 @@ declare namespace JSX {
 
 declare namespace ZingGrid {
   /**
+   * @description Sets the build code and removes watermarks if it is valid.
+   */
+  let BUILDCODE: string[];
+
+  /**
+   * @description Sets the license and removes watermarks if it is valid.
+   */
+  let LICENSE: string[];
+
+  /**
    * @description Customizes the user's dialog for all instances of ZingGrid
    * @param type The type of dialog to customize.  If you set as null, the config will be applied to all dialogs.
    * Options are:
@@ -3017,6 +3106,14 @@ declare namespace ZingGrid {
   function registerEditor(sCellType: string, oConfig: any): void;
 
   /**
+   * @description Register the life cycle hooks for filterer. This allows you to import
+   * and inherit editors for your library.
+   * @param sCellType Cell type filterer to override
+   * @param oConfig Object containing filterer hooks
+   */
+  function registerFilterer(sCellType: string, oConfig: any): void;
+
+  /**
    * @description Register a method to make it available to ZingGrid even if it outside the window scope.
    * This can be used to make a method accessible to renderer, editor, sorter, and custom styles
    * This is useful for methods within a class or local methods.
@@ -3053,6 +3150,16 @@ declare namespace ZingGrid {
    * is added after the Document has been loaded.
    */
   function searchIsTable(): void;
+
+  /**
+   * @description Sets the build code and removes watermarks if it is valid.
+   */
+  function setBuildCode(): void;
+
+  /**
+   * @description Sets the license and removes watermarks if it is valid.
+   */
+  function setLicense(): void;
 }
 
 declare class ZingGrid extends ZSoft.ZingGrid {}
