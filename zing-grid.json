@@ -10,7 +10,57 @@
           "kind": "class",
           "customElement": true,
           "description": "The `<zg-batch-edit>` element is used to define the batch edit region.   `<zg-batch-edit>` is created internally and should not be placed directly in the user's HTML; however, the user can style the `<zg-batch-edit>` using the `zg-batch-edit` selector.",
-          "tagName": "ZGBatchEdit"
+          "tagName": "ZGBatchEdit",
+          "cssProperties": [
+            {
+              "name": "--zing-grid-batch-edit-style-border",
+              "description": "Styles the border of the batch edit styling element",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid #d6e9ff"
+            },
+            {
+              "name": "--zing-grid-batch-edit-style-box-shadow",
+              "description": "Styles the box-shadow of the frozen column styling element",
+              "syntax": "none | <shadow>#",
+              "default": "inset 0 0 6px #99caff"
+            },
+            {
+              "name": "--zg-cell-dirty-edit-border-width",
+              "description": "Sets the border width of the dirty cell marker",
+              "syntax": "",
+              "default": "7px"
+            },
+            {
+              "name": "--zg-cell-dirty-edit-border-color",
+              "description": "Sets the color of the dirty cell marker",
+              "syntax": "",
+              "default": "red;"
+            },
+            {
+              "name": "--zg-row-dirty-delete-background-color",
+              "description": "Sets the background color of the dirty row on row delete",
+              "syntax": "",
+              "default": "gray;"
+            },
+            {
+              "name": "--zg-row-dirty-delete-color",
+              "description": "Sets the  color of the dirty row on row delete",
+              "syntax": "<color>",
+              "default": ""
+            },
+            {
+              "name": "--zg-row-dirty-insert-background-color",
+              "description": "Sets the background color of the dirty row on row insert",
+              "syntax": "",
+              "default": "green;"
+            },
+            {
+              "name": "--zg-row-dirty-insert-color",
+              "description": "Sets the color of the dirty row on row insert",
+              "syntax": "<color>",
+              "default": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -45,7 +95,7 @@
             {
               "name": "--zg-body-background",
               "description": "Styles the background of grid body",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "transparent"
             },
             {
@@ -117,7 +167,7 @@
             {
               "name": "--zg-body-card-background",
               "description": "Styles the background of grid body in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "linear-gradient(45deg, #f9fafb 20%, #fff)"
             },
             {
@@ -194,9 +244,29 @@
               "type": "string"
             },
             {
+              "name": "custom-disabled",
+              "description": "Set to a template or a function to return true or false to set the disabled state The function's callback receives rowData and zg-cell object if in a cell",
+              "type": "string"
+            },
+            {
+              "name": "custom-tooltip",
+              "description": "Sets the tooltip in the case of custom buttons.  Can override the default tooltip on builtin buttons",
+              "type": "string"
+            },
+            {
               "name": "disabled",
               "description": "Presence of attribute determines if the button is disabled or not",
               "type": "boolean"
+            },
+            {
+              "name": "force-border",
+              "description": "By default, action buttons have no border and custom buttons do.   You can force a border by setting the `[force-border]` attribute and you can force no border by setting `[force-border=\"disabled\"]`",
+              "type": "string | boolean"
+            },
+            {
+              "name": "handler",
+              "description": "A custom function to call on button click",
+              "type": "function"
             },
             {
               "name": "icon",
@@ -208,7 +278,7 @@
             {
               "name": "--zg-button-background",
               "description": "Styles the background of button",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -304,7 +374,7 @@
             {
               "name": "--zg-button-background_hover",
               "description": "Styles the background of button on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -358,7 +428,7 @@
             {
               "name": "--zg-button-background_focus",
               "description": "Styles the background of button on focus",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -392,8 +462,8 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-button-box-shadow_hover",
-              "description": "Styles the box-shadow of the button on hover",
+              "name": "--zg-button-box-shadow_focus",
+              "description": "Styles the box-shadow of the button on focus",
               "syntax": "none | <shadow>#",
               "default": "Browser's default value"
             },
@@ -404,15 +474,9 @@
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-button-transition_speed",
-              "description": "Sets the transition speed of button",
-              "syntax": "<single-transition>#",
-              "default": "var(--theme-transition_speed)"
-            },
-            {
               "name": "--zg-button-background_active",
               "description": "Styles of background of button on active state",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-background-color)"
             },
             {
@@ -466,7 +530,7 @@
             {
               "name": "--zg-button-background_custom",
               "description": "Styles the background of custom button",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -484,7 +548,7 @@
             {
               "name": "--zg-button-background_custom_focus",
               "description": "Styles the background of custom button on focus",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -514,7 +578,7 @@
             {
               "name": "--zg-button-background_custom_hover",
               "description": "Styles the background of custom button on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -538,7 +602,7 @@
             {
               "name": "--zg-button-background_custom_active",
               "description": "Styles the background of custom button on active state",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -634,7 +698,7 @@
             {
               "name": "--zg-caption-background",
               "description": "Styles the background of caption",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -886,25 +950,25 @@
             {
               "name": "--zg-caption-button-background",
               "description": "Styles the background of button in caption",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-button-background)"
             },
             {
               "name": "--zg-caption-button-background_focus",
               "description": "Styles the background of button in caption when the button is in a `focus` state",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-caption-button-background, var(--zg-button-background))"
             },
             {
               "name": "--zg-caption-button-background_hover",
               "description": "Styles the background of button in caption when the button is in a `hover` state",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-caption-button-background, var(--zg-button-background))"
             },
             {
               "name": "--zg-caption-button-background_active",
               "description": "Styles the background of button in caption when the button is in an `active` state",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-caption-button-background, var(--zg-button-background))"
             }
           ],
@@ -978,7 +1042,7 @@
             {
               "name": "--zg-cell-background_layout_card",
               "description": "Styles the background of cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -1112,13 +1176,13 @@
             {
               "name": "--zg-cell-background",
               "description": "Styles the background of cells",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-cell-background)"
             },
             {
               "name": "--zg-cell-background_layout_row",
               "description": "Styles the background of cells in 'row' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-cell-background)"
             },
             {
@@ -1304,13 +1368,13 @@
             {
               "name": "--zg-cell-background_hover",
               "description": "Styles the background of cells on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
               "name": "--zg-cell-background_hover_layout_row",
               "description": "Styles the background of cells in 'row' layout-mode on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-cell-background_hover)"
             },
             {
@@ -1328,13 +1392,13 @@
             {
               "name": "--zg-cell-background_sorted",
               "description": "Styles the background of cells in sorted column",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
               "name": "--zg-cell-background_layout_row_sorted",
               "description": "Styles the background of cells in sorted column in 'row' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-cell-background_sorted)"
             },
             {
@@ -1432,18 +1496,6 @@
               "description": "Sets the padding of cards in 'card' layout-mode",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "3px 0"
-            },
-            {
-              "name": "--zg-cell-dirty-edit-border-width",
-              "description": "Sets the border width of the dirty cell marker",
-              "syntax": "",
-              "default": "7px"
-            },
-            {
-              "name": "--zg-cell-dirty-edit-border-color",
-              "description": "Sets the color of the dirty cell marker",
-              "syntax": "",
-              "default": "red;"
             }
           ]
         }
@@ -1608,6 +1660,11 @@
               "type": "string | number"
             },
             {
+              "name": "button-border",
+              "description": "Presence of attribute forces a border on the button.  Setting to `disabled` removes the default border.",
+              "type": "boolean | string"
+            },
+            {
               "name": "cell-break",
               "description": "The type of `word-break` style for body cells. When not set, `cell-break` style is `normal` by default. If the width of a column is set, `cell-break` is `word` by default.",
               "type": "'all' | 'ellipsis' | 'normal' | 'word'"
@@ -1714,7 +1771,7 @@
             },
             {
               "name": "filterer",
-              "description": "Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer",
+              "description": "Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer<br> If set to a custom filterer, the attribute value should either be set to the object that contains: `init`, `afterInit`, `value`, `setValue`, and `triggerEvent` OR it can be set to a function that will be used for the `value` method which will fire on filter change.",
               "type": "function"
             },
             {
@@ -1734,7 +1791,7 @@
             },
             {
               "name": "group-head-cell",
-              "description": "Sets a head cell on the column in the grouped row",
+              "description": "Sets a head cell on the column in the grouped row.",
               "type": "'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string"
             },
             {
@@ -1900,7 +1957,7 @@
             {
               "name": "type",
               "description": "The type of the data stored in the column.  The column renderer/editor will behave based on the column type.",
-              "type": "'aggregate' | 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+              "type": "'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
             },
             {
               "name": "type-aggregate-omit",
@@ -1930,6 +1987,11 @@
             {
               "name": "type-button-label",
               "description": "When the column type is set to `button`, use `typeButtonLabel` to add a label to the rendered button in the cell",
+              "type": "string"
+            },
+            {
+              "name": "type-button-tooltip",
+              "description": "When the column type is set to `button`, use `typeButtonTooltip` to add a tooltip to the rendered button in the cell",
               "type": "string"
             },
             {
@@ -2152,6 +2214,72 @@
     },
     {
       "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-column-resize/ZGColumnResize.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "The column resize handle appears when hovering over header to resize the column.",
+          "tagName": "ZGColumnResize",
+          "cssParts": [
+            {
+              "name": "handle",
+              "description": "The resize handle container"
+            },
+            {
+              "name": "icon",
+              "description": "The resize icon"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--zg-column-resize-background",
+              "description": "Sets the background of the resize handle",
+              "syntax": "",
+              "default": "none"
+            },
+            {
+              "name": "--zg-column-resize-height",
+              "description": "Sets the height of the resize handle",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "40%"
+            },
+            {
+              "name": "--zg-column-resize-top",
+              "description": "Sets the top position of the resize handle",
+              "syntax": "<length> | <percentage> | auto",
+              "default": "30%"
+            },
+            {
+              "name": "--zg-column-resize-width",
+              "description": "Sets the width of the resize handle",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "4px"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGColumnResize",
+          "declaration": {
+            "name": "ZGColumnResize",
+            "module": "zinggrid-lib/src/js/components/zg-column-resize/ZGColumnResize.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-column-resize",
+          "declaration": {
+            "name": "ZGColumnResize",
+            "module": "zinggrid-lib/src/js/components/zg-column-resize/ZGColumnResize.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "zinggrid-lib/src/js/components/zg-control-bar/ZGControlBar.js",
       "declarations": [
         {
@@ -2161,8 +2289,8 @@
           "tagName": "ZGControlBar",
           "cssParts": [
             {
-              "name": "control-bar - Control",
-              "description": "bar container."
+              "name": "control-bar",
+              "description": "Control-bar container."
             },
             {
               "name": "card-action",
@@ -2185,7 +2313,7 @@
             {
               "name": "--zg-control-bar-background",
               "description": "Styles the background of control-bar",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -2420,13 +2548,13 @@
             {
               "name": "--zg-dialog-background",
               "description": "Styles the background of dialog header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#fff"
             },
             {
               "name": "--zg-dialog-header-background",
               "description": "Styles the background of dialog header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-dialog-background)"
             },
             {
@@ -2480,7 +2608,7 @@
             {
               "name": "--zg-dialog-body-background",
               "description": "Styles the background of dialog body",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-dialog-background)"
             },
             {
@@ -2528,7 +2656,7 @@
             {
               "name": "--zg-dialog-footer-background",
               "description": "Styles the background of dialog footer",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-dialog-background)"
             },
             {
@@ -2618,8 +2746,8 @@
           "tagName": "ZGEditorRow",
           "cssParts": [
             {
-              "name": "editor-row - Editor",
-              "description": "row container."
+              "name": "editor-row",
+              "description": "Editor-row container."
             },
             {
               "name": "inputs",
@@ -2630,7 +2758,7 @@
             {
               "name": "--zg-editor-row-input-background",
               "description": "Styles the background of editor row",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#f5f5f5"
             },
             {
@@ -2678,7 +2806,7 @@
             {
               "name": "--zg-editor-row-input-background_focus",
               "description": "Styles the background of editor row input on focus",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-lighter)"
             },
             {
@@ -2718,13 +2846,6 @@
           "customElement": true,
           "description": "`<zg-filter>` is the container for a single cell when the cell contains a filter. `<zg-filter>` is created internally and should not be placed directly in the user's HTML; however, the user can style the `<zg-filter>` using the `zg-filter` selector.",
           "tagName": "ZGFilter",
-          "attributes": [
-            {
-              "name": "cellindex",
-              "description": "The index of the cell with the filter",
-              "type": "number"
-            }
-          ],
           "cssParts": [
             {
               "name": "filter",
@@ -2739,7 +2860,7 @@
             {
               "name": "--zg-filter-background",
               "description": "Styles the background of filter",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -2793,13 +2914,13 @@
             {
               "name": "--zg-filter-background_sorted",
               "description": "Styles the background color of filter when the column in sorted",
-              "syntax": "<color>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
               "name": "--zg-filter-input-background",
               "description": "Styles the background of input field in filter",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -2871,7 +2992,7 @@
             {
               "name": "--zg-filter-input-background_sorted",
               "description": "Styles the background of input field in filter when sorted",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -2937,12 +3058,6 @@
             {
               "name": "--zg-filter-select-margin",
               "description": "Sets the margin of the select dropdown filter",
-              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-filter-select-margin",
-              "description": "Sets the width of the select dropdown filter",
               "syntax": "[ <length> | <percentage> | auto ]{1,4}",
               "default": "Browser's default value"
             }
@@ -3089,7 +3204,7 @@
             {
               "name": "--zg-foot-background",
               "description": "Styles the background of grid foot",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -3169,7 +3284,7 @@
             {
               "name": "--zg-footer-background",
               "description": "Styles the background of footer",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "0"
             },
             {
@@ -3267,7 +3382,7 @@
             {
               "name": "--zg-head-background",
               "description": "Styles the background of grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -3303,7 +3418,7 @@
             {
               "name": "--zg-head-border-radius",
               "description": "Styles the border-radius of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
               "default": "var(--zg-head-border-radius)"
             },
             {
@@ -3315,7 +3430,7 @@
             {
               "name": "--zg-row-head-background",
               "description": "Styles the background of grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-head-background)"
             },
             {
@@ -3357,7 +3472,7 @@
             {
               "name": "--zg-row-head-background_hover",
               "description": "Styles the background of grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -3369,7 +3484,7 @@
             {
               "name": "--zg-row-head-background_even",
               "description": "Styles the background of 'even' grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-head-background, var(--zg-head-background))"
             },
             {
@@ -3387,7 +3502,7 @@
             {
               "name": "--zg-row-head-background_even_hover",
               "description": "Styles the background of 'even' grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
             },
             {
@@ -3399,7 +3514,7 @@
             {
               "name": "--zg-row-head-background_odd",
               "description": "Styles the background of 'odd' grid head rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-head-background, var(--zg-head-background))"
             },
             {
@@ -3417,7 +3532,7 @@
             {
               "name": "--zg-row-head-background_odd_hover",
               "description": "Styles the background of 'odd' grid head rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
             },
             {
@@ -3459,8 +3574,8 @@
           "tagName": "ZGHeadCell",
           "cssParts": [
             {
-              "name": "cell - The head",
-              "description": "cell container"
+              "name": "cell",
+              "description": "The head-cell container"
             },
             {
               "name": "cell-inner",
@@ -3471,7 +3586,7 @@
             {
               "name": "--zg-head-cell-background",
               "description": "Styles the background of head cells",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "transparent"
             },
             {
@@ -3543,7 +3658,7 @@
             {
               "name": "--zg-head-cell-background_hover",
               "description": "Styles the background of head cells on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-head-cell-background"
             },
             {
@@ -3555,7 +3670,7 @@
             {
               "name": "--zg-head-cell-parent-background",
               "description": "Styles the background of parent head cells",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-head-cell-background)"
             },
             {
@@ -3615,7 +3730,7 @@
             {
               "name": "--zg-head-cell-parent-background_hover",
               "description": "Styles the background of parent head cells on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-head-cell-background_hover)"
             },
             {
@@ -3627,7 +3742,7 @@
             {
               "name": "--zg-head-cell-background_sorted",
               "description": "Styles the background of sorted head cells",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "inherit"
             },
             {
@@ -3669,7 +3784,7 @@
             {
               "name": "--zg-head-cell-background_sorted_hover",
               "description": "Styles the background of sorted head cells on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-head-cell-background_sorted, inherit)"
             },
             {
@@ -3700,12 +3815,6 @@
               "name": "--zg-head-cell-inner-padding",
               "description": "Sets the padding of head cells inner content",
               "syntax": "[ <length> | <percentage> ]{1,4}",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-head-cell-icon-margin",
-              "description": "Sets the margin of child icons in head cells",
-              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
               "default": "Browser's default value"
             },
             {
@@ -3755,7 +3864,7 @@
             {
               "name": "--zg-header-background",
               "description": "Styles the background of header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -3793,6 +3902,12 @@
               "description": "Applies border radius to header",
               "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
               "default": "0"
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "header content."
             }
           ]
         }
@@ -3933,7 +4048,7 @@
             {
               "name": "--zg-input-background",
               "description": "Styles the background of input field",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#fff"
             },
             {
@@ -4218,7 +4333,7 @@
             {
               "name": "--zg-menu-background",
               "description": "Styles background of menu dropdown",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's defaul value"
             },
             {
@@ -4258,16 +4373,16 @@
               "default": "0 3px 3px #ccc"
             },
             {
+              "name": "--zg-menu-padding",
+              "description": "Sets the padding of the menu dropdown",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0"
+            },
+            {
               "name": "--zg-menu-font-size",
               "description": "Sets the font size of menu dropdown",
               "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
               "default": "0.8rem"
-            },
-            {
-              "name": "--zg-menu-padding",
-              "description": "Sets the padding of menu dropdown",
-              "syntax": "[ <length> | <percentage> ]{1,4}",
-              "default": "0"
             }
           ],
           "slots": [
@@ -4364,50 +4479,44 @@
             {
               "name": "--zg-menu-item-background",
               "description": "Styles the background of menu item",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-menu-background)"
             },
             {
               "name": "--zg-menu-item-border",
               "description": "Styles the border of menu item",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-menu-border)"
+              "default": "var(--zg-menu-item-border, 0)"
             },
             {
               "name": "--zg-menu-item-border-bottom",
               "description": "Styles the bottom border of menu item",
-              "syntax": "",
-              "default": "var(--zg-menu-border-bottom, var(--zg-menu-item-border, var(--zg-menu-border)))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-border-bottom, var(--zg-menu-item-border))"
             },
             {
               "name": "--zg-menu-item-border-left",
               "description": "Styles the left border of menu item",
-              "syntax": "",
-              "default": "var(--zg-menu-border-left, var(--zg-menu-item-border, var(--zg-menu-border)))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-border-left, var(--zg-menu-item-border))"
             },
             {
               "name": "--zg-menu-item-border-right",
               "description": "Styles the border-right of menu item",
-              "syntax": "",
-              "default": "var(--zg-menu-border-right, var(--zg-menu-item-border, var(--zg-menu-border)))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-border-right, var(--zg-menu-item-border))"
             },
             {
               "name": "--zg-menu-item-border-top",
               "description": "Styles the border-top of menu item",
-              "syntax": "",
-              "default": "var(--zg-menu-border-top, var(--zg-menu-item-border, var(--zg-menu-border)))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-border-top, var(--zg-menu-item-border))"
             },
             {
               "name": "--zg-menu-item-color",
               "description": "Styles the color of menu item",
               "syntax": "<color>",
               "default": "var(--zg-menu-color)"
-            },
-            {
-              "name": "--zg-menu-item-display",
-              "description": "Styles the display of menu item",
-              "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
-              "default": "inline-flex"
             },
             {
               "name": "--zg-menu-item-padding",
@@ -4418,38 +4527,38 @@
             {
               "name": "--zg-menu-item-background_hover",
               "description": "Styles the background of menu item on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-menu-item-background, var(--zg-menu-background))"
             },
             {
               "name": "--zg-menu-item-border_hover",
               "description": "Styles the border of menu item on hover",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-menu-item-border, var(--zg-menu-border))"
+              "default": "var(--zg-menu-item-border)"
             },
             {
               "name": "--zg-menu-item-border-bottom_hover",
               "description": "Styles the bottom border of menu item on hover",
-              "syntax": "",
-              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-bottom, var(--zg-menu-border-bottom, var(--zg-menu-item-border, var(--zg-menu-border)))))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-bottom, var(--zg-menu-item-border)))"
             },
             {
               "name": "--zg-menu-item-border-left_hover",
               "description": "Styles the left border of menu item on hover",
-              "syntax": "",
-              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-left, var(--zg-menu-border-left, var(--zg-menu-item-border, var(--zg-menu-border)))))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-left, var(--zg-menu-item-border)))"
             },
             {
               "name": "--zg-menu-item-border-right_hover",
               "description": "Styles the right border of menu item on hover",
-              "syntax": "",
-              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-right, var(--zg-menu-border-right, var(--zg-menu-item-border, var(--zg-menu-border)))))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-right, var(--zg-menu-item-border)))"
             },
             {
               "name": "--zg-menu-item-border-top_hover",
               "description": "Styles the top border of menu item on hover",
-              "syntax": "",
-              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-top, var(--zg-menu-border-top, var(--zg-menu-item-border, var(--zg-menu-border)))))"
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-menu-item-border_hover, var(--zg-menu-item-border-top, var(--zg-menu-item-border)))"
             },
             {
               "name": "--zg-menu-item-color_hover",
@@ -4474,12 +4583,6 @@
               "description": "Sets the horizontal alignment of contents in menu item",
               "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
               "default": "flex-start"
-            },
-            {
-              "name": "--zg-menu-item-justify-content_hover",
-              "description": "Sets the horizontal alignment of contents in menu item on hover",
-              "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
-              "default": "var(--zg-menu-item-justify-content, flex-start)"
             }
           ],
           "slots": [
@@ -4528,7 +4631,7 @@
             {
               "name": "--zg-no-data-background",
               "description": "Styles the background of empty message when in `<zg-header>`",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-light)"
             },
             {
@@ -4593,7 +4696,7 @@
             },
             {
               "name": "--zg-no-data-line-height",
-              "description": "Setes the line height of empty message",
+              "description": "Sets the line height of empty message",
               "syntax": "normal | <number> | <length> | <percentage>",
               "default": "inherit"
             },
@@ -4645,6 +4748,140 @@
     },
     {
       "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-option-list/ZGOptionList.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "An option's list to go within a `<zg-select>` element",
+          "tagName": "ZGOptionList",
+          "cssParts": [
+            {
+              "name": "list",
+              "description": "The container for the option list"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--zg-option-list-background",
+              "description": "Styles the background of option list",
+              "syntax": "",
+              "default": "#fff"
+            },
+            {
+              "name": "--zg-option-list-border",
+              "description": "Styles the border of option list",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-option-list-border-bottom",
+              "description": "Styles the bottom border of option list",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-option-list-border-left",
+              "description": "Styles the left border of option list",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-option-list-border-right",
+              "description": "Styles the right border of option list",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-option-list-border-top",
+              "description": "Styles the bottom top of option list",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-option-list-item-border",
+              "description": "Styles the border of option list item",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-option-list-item-border-bottom",
+              "description": "Styles the bottom border of option list item",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-item-border, 0)"
+            },
+            {
+              "name": "--zg-option-list-item-border-left",
+              "description": "Styles the left border of option list item",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-item-border, 0)"
+            },
+            {
+              "name": "--zg-option-list-item-border-right",
+              "description": "Styles the right border of option list item",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-item-border, 0)"
+            },
+            {
+              "name": "--zg-option-list-item-border-top",
+              "description": "Styles the top border of option list item",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-option-list-item-border, 0)"
+            },
+            {
+              "name": "--zg-option-list-color",
+              "description": "Styles the color of option list item",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-option-list-item-height",
+              "description": "Sets the height of option list item",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "32px"
+            },
+            {
+              "name": "--zg-option-list-item-line-height",
+              "description": "Sets the line height of option list item",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "32px"
+            },
+            {
+              "name": "--zg-option-list-item-padding",
+              "description": "Sets the padding of option list item",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0 15px"
+            },
+            {
+              "name": "--zg-option-list-item-background_hover",
+              "description": "Sets the background of option list item on hover",
+              "syntax": "",
+              "default": "var(--theme-color-secondary)"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGOptionList",
+          "declaration": {
+            "name": "ZGOptionList",
+            "module": "zinggrid-lib/src/js/components/zg-option-list/ZGOptionList.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-option-list",
+          "declaration": {
+            "name": "ZGOptionList",
+            "module": "zinggrid-lib/src/js/components/zg-option-list/ZGOptionList.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "zinggrid-lib/src/js/components/zg-pager/ZGPager.js",
       "declarations": [
         {
@@ -4669,14 +4906,14 @@
               "type": "number"
             },
             {
+              "name": "pager-type",
+              "description": "Determines which type of pagination to use, input or buttons",
+              "type": "string"
+            },
+            {
               "name": "pagerButtonLimit",
               "description": "Determines max number of page buttons to display.  Default is 5.",
               "type": "number"
-            },
-            {
-              "name": "pagerType",
-              "description": "Determines which type of pagination to use, input or buttons",
-              "type": "string"
             },
             {
               "name": "position",
@@ -4715,7 +4952,7 @@
             {
               "name": "--zg-pager-background",
               "description": "Styles the background of pager",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -4793,7 +5030,7 @@
             {
               "name": "--zg-pager-background_button",
               "description": "Styles the background of pager buttons in 'button-pagination` mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-primary)"
             },
             {
@@ -4834,7 +5071,7 @@
             },
             {
               "name": "--zg-pager-color_button",
-              "description": "Sets the color of pager buttons in 'button-pagination' mode",
+              "description": "Sets the color of pager buttons in 'button-text' mode",
               "syntax": "<color>",
               "default": "26px"
             },
@@ -4853,7 +5090,7 @@
             {
               "name": "--zg-pager-background_button_active",
               "description": "Styles the background of active pager buttons in 'button-pagination` mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-primary)"
             },
             {
@@ -4866,25 +5103,25 @@
               "name": "--zg-pager-border-bottom_button_active",
               "description": "Styles the bottom border of active pager buttons in 'button-pagination' mode",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-pager-border_button_active)"
+              "default": "var(--zg-pager-border-bottom_button_active, var(--zg-pager-border-bottom_button, var(--zg-pager-border_button_active, var(--zg-pager-border_button))));"
             },
             {
               "name": "--zg-pager-border-left_button_active",
               "description": "Styles the left border of active pager buttons in 'button-pagination' mode",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-pager-border_button_active)"
+              "default": "var(--zg-pager-border-left_button_active, var(--zg-pager-border-left_button, var(--zg-pager-border_button_active, var(--zg-pager-border_button))));"
             },
             {
               "name": "--zg-pager-border-right_button_active",
               "description": "Styles the right border of active pager buttons in 'button-pagination' mode",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-pager-border_button_active)"
+              "default": "var(--zg-pager-border-right_button_active, var(--zg-pager-border-right_button, var(--zg-pager-border_button_active, var(--zg-pager-border_button))));"
             },
             {
               "name": "--zg-pager-border-top_button_active",
               "description": "Styles the top border of active pager buttons in 'button-pagination' mode",
               "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-pager-border_button_active)"
+              "default": "var(--zg-pager-border-top_button_active, var(--zg-pager-border-top_button, var(--zg-pager-border_button_active, var(--zg-pager-border_button))));"
             },
             {
               "name": "--zg-pager-border-radius_button_active",
@@ -4913,7 +5150,7 @@
             {
               "name": "--zg-pager-background_cursor",
               "description": "Styles the background of pager next/previous buttons in 'cursor-pagination` mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-primary)"
             },
             {
@@ -5065,7 +5302,7 @@
             {
               "name": "--zg-row-body-background",
               "description": "Styles the background of body rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -5107,7 +5344,7 @@
             {
               "name": "--zg-row-body-background_hover",
               "description": "Styles the background of body rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -5119,7 +5356,7 @@
             {
               "name": "--zg-row-body-background_even",
               "description": "Styles the background of 'even' body rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-body-background)"
             },
             {
@@ -5149,7 +5386,7 @@
             {
               "name": "--zg-row-body-background_even_hover",
               "description": "Styles the background of 'even' body rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-body-background_hover)"
             },
             {
@@ -5161,7 +5398,7 @@
             {
               "name": "--zg-row-body-background_odd",
               "description": "Styles the background of 'odd' body rows",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-body-background)"
             },
             {
@@ -5179,7 +5416,7 @@
             {
               "name": "--zg-row-body-background_odd_hover",
               "description": "Styles the background of 'odd' body rows on hover",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-body-background_hover)"
             },
             {
@@ -5190,14 +5427,14 @@
             },
             {
               "name": "--zg-row-card-padding",
-              "description": "Sets the padding of cards in 'card' layout-mode when '[internal-card-header]' not added to '<zing-grid>'",
+              "description": "Sets the padding of cards in 'card' layout-mode when '[internal-card-header]' not added to '&lt;zing-grid&gt;'",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "10px 0 5px"
             },
             {
               "name": "--zg-row-card-background_odd",
               "description": "Styles the background of cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-card-background, var(--zg-row-body-background_odd, var(--zg-row-body-background, #fff)))"
             },
             {
@@ -5245,7 +5482,7 @@
             {
               "name": "--zg-row-card-background_even",
               "description": "Styles the background of 'even' cards in 'card' layout-mode",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-row-card-background, var(--zg-row-body-background_even, var(--zg-row-body-background, #fff)))"
             },
             {
@@ -5319,30 +5556,6 @@
               "description": "Sets the flex-basis of cards in 'card' layout-mode",
               "syntax": "content | <width>",
               "default": "100%"
-            },
-            {
-              "name": "--zg-row-dirty-delete-background-color",
-              "description": "Sets the background color of the dirty row on row delete",
-              "syntax": "<color>",
-              "default": "gray;"
-            },
-            {
-              "name": "--zg-row-dirty-delete-color",
-              "description": "Sets the  color of the dirty row on row delete",
-              "syntax": "<color>",
-              "default": ""
-            },
-            {
-              "name": "--zg-row-dirty-insert-background-color",
-              "description": "Sets the background color of the dirty row on row insert",
-              "syntax": "<color>",
-              "default": "green;"
-            },
-            {
-              "name": "--zg-row-dirty-insert-color",
-              "description": "Sets the color of the dirty row on row insert",
-              "syntax": "<color>",
-              "default": ""
             }
           ]
         }
@@ -5389,7 +5602,7 @@
             {
               "name": "--zg-search-background",
               "description": "Styles the background of search input field",
-              "syntax": "<color>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -5457,18 +5670,6 @@
               "description": "Sets the padding of search input field",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "0 10px 0 15px"
-            },
-            {
-              "name": "--zg-search-top",
-              "description": "Sets the position from the top to place search input field",
-              "syntax": "<length> | <percentage> | auto",
-              "default": "50%"
-            },
-            {
-              "name": "--zg-search-transform",
-              "description": "Sets the transform property of search input",
-              "syntax": "none | <transform-list>",
-              "default": "translateY(-50%)"
             }
           ]
         }
@@ -5524,6 +5725,10 @@
               "description": "The container for selection"
             },
             {
+              "name": "select",
+              "description": "The container for selection"
+            },
+            {
               "name": "select-inner",
               "description": "The inner container for selection"
             },
@@ -5536,7 +5741,7 @@
             {
               "name": "--zg-select-background",
               "description": "Styles the background of the entire select parent wrapper",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "Browser's default value"
             },
             {
@@ -5562,12 +5767,6 @@
               "description": "Sets the line height of the select option",
               "syntax": "normal | <number> | <length> | <percentage>",
               "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-select-outline",
-              "description": "Sets the outline of the select option",
-              "syntax": "[ <'outline-color'> || <'outline-style'> || <'outline-width'> ]",
-              "default": "inherit"
             },
             {
               "name": "--zg-select-transform",
@@ -5614,7 +5813,7 @@
             {
               "name": "--zg-select-text-background",
               "description": "Styles the background of the 'text' portion of the zg-select element",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#fff"
             },
             {
@@ -5632,13 +5831,13 @@
             {
               "name": "--zg-select-color_active",
               "description": "Sets the font color of the select option",
-              "syntax": "",
-              "default": ""
+              "syntax": "<color>",
+              "default": "var(--theme-color)"
             },
             {
               "name": "--zg-select-trigger-background",
               "description": "Styles the background of the select arrow button (trigger)",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-select-arrow-background)"
             },
             {
@@ -5674,7 +5873,7 @@
             {
               "name": "--zg-select-arrow-color",
               "description": "Sets the color select arrow icon",
-              "syntax": "<line-width> || <line-style> || <color>",
+              "syntax": "<color>",
               "default": "#000"
             }
           ]
@@ -5724,7 +5923,7 @@
             {
               "name": "--zg-selector-mask-background",
               "description": "Styles the background of selector mask",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-secondary)"
             }
           ]
@@ -5843,7 +6042,7 @@
             {
               "name": "--zg-source-background",
               "description": "Styles the background of source when in `<zg-header>`",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--theme-color-light)"
             },
             {
@@ -5884,7 +6083,7 @@
             },
             {
               "name": "--zg-source-color",
-              "description": "Sets the font color content inside of source when in `<zg-header>`",
+              "description": "Sets the font color content inside of source",
               "syntax": "<color>",
               "default": "var(--theme-font-size)"
             },
@@ -5933,7 +6132,7 @@
             {
               "name": "--zg-source-background_top",
               "description": "Styles the background of source in grid header",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-source-background, var(--theme-color-light))"
             },
             {
@@ -6023,7 +6222,7 @@
             {
               "name": "--zg-source-background_bottom",
               "description": "Styles the background of source in grid footer",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "var(--zg-source-background, var(--theme-color-light))"
             },
             {
@@ -6177,7 +6376,7 @@
             {
               "name": "--zg-status-background",
               "description": "Styles the background of status",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#333"
             },
             {
@@ -6237,7 +6436,7 @@
             {
               "name": "--zg-status-error-background",
               "description": "Styles the background of 'error' status",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "red"
             },
             {
@@ -6249,7 +6448,7 @@
             {
               "name": "--zg-status-success-background",
               "description": "Styles the background of 'success' status",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "green"
             },
             {
@@ -6285,7 +6484,7 @@
             {
               "name": "--zg-status-max-width",
               "description": "Sets the max-width of the status-message area",
-              "syntax": "",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
               "default": "300px"
             },
             {
@@ -6450,8 +6649,8 @@
             },
             {
               "name": "align",
-              "description": "Aligns the contents of all column cells (center|left|right)",
-              "type": "string"
+              "description": "Aligns the contents of the grid's text",
+              "type": "'center' | 'left' | 'right'"
             },
             {
               "name": "batch-edit",
@@ -6605,7 +6804,7 @@
             },
             {
               "name": "context-menu",
-              "description": "Enables the default `<zing-grid>` context menu or set to the id name of a custom `<zg-menu>`.  If set to a custom menu and `<zg-menu>` has the `replace` attribute present, then the custom menu will replace the context menu. Otherwise the contents of the custom menu is appended to the end of context menu.",
+              "description": "Enables the default `<zing-grid>` context menu or set to the id name of a custom `<zg-menu>`.  If set to a custom menu and `<zg-menu>` has the `replace` attribute present, then the custom menu will replace the context menu. Otherwise the contents of the custom menu is appended to the end of context menu. Can also set to `\"browser\"` to use the browser's built in context-menu Note that the `\"browser\"` context-menu cannot be used together with a custom static-menu.",
               "type": "string | boolean"
             },
             {
@@ -6756,11 +6955,6 @@
             {
               "name": "icon-set",
               "description": "Allows the user to change the grid icon set to an allowed 3rd-party type (e.g., Font-Awesome). To use a custom icon set, the icon set must first be registered.",
-              "type": "string"
-            },
-            {
-              "name": "icon-set-data",
-              "description": "If setting [icon-set=\"custom\"], points to the custom JSON key/value mapping",
               "type": "string"
             },
             {
@@ -6935,7 +7129,7 @@
             },
             {
               "name": "static-menu",
-              "description": "Adds a display button that launches the contextmenu.  If set to a custom menu and `<zg-menu>` has the `replace` attribute present, then the custom menu will replace the context menu. Otherwise the contents of the custom menu is appended to the end of context menu.",
+              "description": "Adds a display button that launches the contextmenu.  If set to a custom menu and `<zg-menu>` has the `replace` attribute present, then the custom menu will replace the context-menu. Otherwise the contents of the custom menu is appended to the end of context menu. Note that custom static-menu cannot not be used together with a `\"browser\"` context-menu.",
               "type": "boolean"
             },
             {
@@ -7145,7 +7339,7 @@
             {
               "name": "--zing-grid-background",
               "description": "Styles the background of grid",
-              "syntax": "[ <bg-layer> , ]* <final-bg-layer>",
+              "syntax": "",
               "default": "#fff"
             },
             {
@@ -7157,18 +7351,6 @@
             {
               "name": "--zing-grid-freeze-style-border",
               "description": "Styles the border of the frozen column styling element",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid #d6e9ff"
-            },
-            {
-              "name": "--zing-grid-batch-edit-style-box-shadow",
-              "description": "Styles the box-shadow of the frozen column styling element",
-              "syntax": "none | <shadow>#",
-              "default": "inset 0 0 6px #99caff"
-            },
-            {
-              "name": "--zing-grid-batch-edit-style-border",
-              "description": "Styles the border of the batch edit styling element",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "1px solid #d6e9ff"
             }
@@ -7191,6 +7373,13 @@
             {
               "name": "card:mouseover",
               "description": "Fires the event when mouse is moved over a record (card).",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "cell:beforecopy",
+              "description": "Fires the event when copying (ctrl+c) occurs in a cell before the data is saved to the clipboard. The event handler can modify the data in ZGData.copiedValue to store in the clipboard",
               "type": {
                 "text": "Event"
               }
@@ -7287,6 +7476,20 @@
               }
             },
             {
+              "name": "column:move",
+              "description": "Fires the event when a column is moved to a frozen spot or within a frame",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "column:togglevisibility",
+              "description": "Fires the event when a column is hidden or shown",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
               "name": "data:afterfetch",
               "description": "Fires the event every time data is fetched",
               "type": {
@@ -7316,7 +7519,7 @@
             },
             {
               "name": "data:record:beforechange",
-              "description": "Fires the event before a record (row) is changed.",
+              "description": "Fires the event before a record (row) is changed (edited through row editor as opposed to cell editor).",
               "type": {
                 "text": "Event"
               }
@@ -7337,7 +7540,7 @@
             },
             {
               "name": "data:record:change",
-              "description": "Fires the event after a record (row) is changed.",
+              "description": "Fires the event after a record (row) is changed (edited through row editor as opposed to cell editor).",
               "type": {
                 "text": "Event"
               }
@@ -7371,20 +7574,6 @@
               }
             },
             {
-              "name": "grid:columnmove",
-              "description": "Fires the event when a column is moved to a frozen spot or within a fram",
-              "type": {
-                "text": "Event"
-              }
-            },
-            {
-              "name": "grid:columntogglevisiblity",
-              "description": "Fires the event when a column is hidden or shown",
-              "type": {
-                "text": "Event"
-              }
-            },
-            {
               "name": "grid:contextmenuclose",
               "description": "Fires the  event when the contextmenu is closed.",
               "type": {
@@ -7413,7 +7602,7 @@
               }
             },
             {
-              "name": "grid:keydownesc",
+              "name": "grid:keydown:esc",
               "description": "Fires the event when the (Esc) key is pressed.",
               "type": {
                 "text": "Event"
@@ -7676,7 +7865,7 @@
                   "name": "fieldIndex",
                   "optional": false,
                   "description": "Field index of column to fetch.",
-                  "type": "any[]"
+                  "type": "string"
                 }
               ],
               "return": {
@@ -7692,13 +7881,13 @@
                 {
                   "name": "type",
                   "optional": false,
-                  "description": "The type of dialog to customize.  If you set as null, the config will be applied to all dialogs. Options are: <ul> <li>record-create <li>record-delete <li>record-info <li>record-update <li>view-error <li>view-info <li>view-success <li>view-warn <li>zg-version </ul>",
+                  "description": "The type of dialog to customize.  If you set as null, the config will be applied to all dialogs. Options are: record-create, record-delete, record-info, record-update, view-error, view-info, view-success, view-warn, zg-version",
                   "type": "string"
                 },
                 {
                   "name": "config",
                   "optional": false,
-                  "description": "Options for the data retrieval.  Options are: <ul> <li>cancel: Text for the Cancel Button <li>confirm: Text for the Confirm Button <li>title: The Title to display on the Dialog </ul>",
+                  "description": "Options for the data retrieval.  Options are: cancel (text for the cancel button), confirm (text for the confirm button), title: (title to display on the dialog)",
                   "type": "any"
                 }
               ],
@@ -7998,7 +8187,7 @@
                 {
                   "name": "config",
                   "optional": true,
-                  "description": "Optional, options for the data retrieval.  Options are: <ul> <li>csv: Boolean indicating if it should be sent as a csv string.  Default is false.</li> <li>headers: Boolean indicating if headers should be included.  Default is false.              Only applies to csv or JSON array of arrays as JSON objects  have a key already.</li> <li>cols: String indicating if we should return all columns or only visible.  'all' or 'visible' are options. <li>rows: String indicating if we should return all rows or only filtered/searched.  'all' or 'visible' are options. </ul>",
+                  "description": "Optional, options for the data retrieval.  Options are: csv (set true to return csv string), headers (set true to return headers - only applies to csv or JSON array of arrays), cols (set to 'all' or 'visible' to return all or only visible columns), rows (set to 'all' or 'visible' to return all or only visible rows)",
                   "type": "any"
                 }
               ],
@@ -8531,7 +8720,14 @@
               "kind": "method",
               "name": "hideCellOverflow",
               "description": "Hides the cell overflow",
-              "parameters": false,
+              "parameters": [
+                {
+                  "name": "columnIndex",
+                  "optional": false,
+                  "description": "Index of column to hide cell overflow",
+                  "type": "string"
+                }
+              ],
               "return": {
                 "type": "ZingGrid",
                 "description": "Returns the component so that you can chain methods together"
@@ -10145,6 +10341,12 @@
                   "optional": false,
                   "description": "If you only want to update the grid and not the external datasource, set `noDataSource` to \"true\"",
                   "type": "boolean"
+                },
+                {
+                  "name": "noRefresh",
+                  "optional": false,
+                  "description": "If you only do not want the display to do an refresh after updating the record, set `noRefresh` to \"true\".  NOTE:  Any data change will NOT be reflected in the grid if this is set to \"true\"",
+                  "type": "boolean"
                 }
               ],
               "return": {
@@ -10173,6 +10375,12 @@
                   "name": "noDataSource",
                   "optional": false,
                   "description": "If you only want to update the grid and not the external datasource, set `noDataSource` to \"true\"",
+                  "type": "boolean"
+                },
+                {
+                  "name": "noRefresh",
+                  "optional": false,
+                  "description": "If you only do not want the display to do an refresh after updating the record, set `noRefresh` to \"true\".  NOTE:  Any data change will NOT be reflected in the grid if this is set to \"true\"",
                   "type": "boolean"
                 }
               ],

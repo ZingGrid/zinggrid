@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.6.0
+// Type definitions for zinggrid 1.6.1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -17,13 +17,11 @@ declare namespace ZSoft {
   interface ZingGridElementEventMap {
     'menu:click': CustomEvent;
     'grid:beforerender': CustomEvent;
-    'grid:columnmove': CustomEvent;
-    'grid:columntogglevisiblity': CustomEvent;
     'grid:contextmenuclose': CustomEvent;
     'grid:contextmenuopen': CustomEvent;
     'grid:deselect': CustomEvent;
     'grid:hydrate': CustomEvent;
-    'grid:keydownesc': CustomEvent;
+    'grid:keydown:esc': CustomEvent;
     'grid:pagechange': CustomEvent;
     'grid:pagefirst': CustomEvent;
     'grid:pagelast': CustomEvent;
@@ -38,6 +36,7 @@ declare namespace ZSoft {
     'grid:select': CustomEvent;
     'grid:selectall': CustomEvent;
     'grid:sort': CustomEvent;
+    'cell:beforecopy': CustomEvent;
     'cell:beforerender': CustomEvent;
     'cell:click': CustomEvent;
     'cell:closeedit': CustomEvent;
@@ -67,6 +66,8 @@ declare namespace ZSoft {
     'column:filter': CustomEvent;
     'column:mouseout': CustomEvent;
     'column:mouseover': CustomEvent;
+    'column:move': CustomEvent;
+    'column:togglevisibility': CustomEvent;
     'card:click': CustomEvent;
     'card:mouseout': CustomEvent;
     'card:mouseover': CustomEvent;
@@ -86,14 +87,6 @@ declare namespace ZSoft {
      */
     'onGridBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event when a column is moved to a frozen spot or within a fram
-     */
-    'onGridColumnmove'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
-     * @description Fires the event when a column is hidden or shown
-     */
-    'onGridColumntogglevisiblity'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
      * @description Fires the  event when the contextmenu is closed.
      */
     'onGridContextmenuclose'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -112,7 +105,7 @@ declare namespace ZSoft {
     /**
      * @description Fires the event when the (Esc) key is pressed.
      */
-    'onGridKeydownesc'?: ((this: Window, ev: CustomEvent) => any) | null;
+    'onGridKeydownEsc'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event when a page changes in the grid.
      */
@@ -170,6 +163,11 @@ declare namespace ZSoft {
      */
     'onGridSort'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Fires the event when copying (ctrl+c) occurs in a cell before the data is saved to the clipboard.
+The event handler can modify the data in ZGData.copiedValue to store in the clipboard
+     */
+    'onCellBeforecopy'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires the event before a cell is rendered.
      */
     'onCellBeforerender'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -222,7 +220,7 @@ declare namespace ZSoft {
      */
     'onDataLoad'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event before a record (row) is changed.
+     * @description Fires the event before a record (row) is changed (edited through row editor as opposed to cell editor).
      */
     'onDataRecordBeforechange'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -234,7 +232,7 @@ declare namespace ZSoft {
      */
     'onDataRecordBeforeinsert'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event after a record (row) is changed.
+     * @description Fires the event after a record (row) is changed (edited through row editor as opposed to cell editor).
      */
     'onDataRecordChange'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -286,6 +284,14 @@ declare namespace ZSoft {
      */
     'onColumnMouseover'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Fires the event when a column is moved to a frozen spot or within a frame
+     */
+    'onColumnMove'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a column is hidden or shown
+     */
+    'onColumnTogglevisibility'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires the "card:click" and "record:click" event when a click occurs on a record (card).
      */
     'onCardClick'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -327,9 +333,31 @@ declare namespace ZSoft {
       action?: string;
 
       /**
+       * @description Set to a template or a function to return true or false to set the disabled state
+       * The function's callback receives rowData and zg-cell object if in a cell
+       */
+      customDisabled?: string;
+
+      /**
+       * @description Sets the tooltip in the case of custom buttons.  Can override the default tooltip on builtin buttons
+       */
+      customTooltip?: string;
+
+      /**
        * @description Presence of attribute determines if the button is disabled or not
        */
       disabled?: boolean;
+
+      /**
+       * @description By default, action buttons have no border and custom buttons do.
+       * You can force a border by setting the "[force-border]" attribute and you can force no border by setting "[force-border="disabled"]"
+       */
+      forceBorder?: string | boolean;
+
+      /**
+       * @description A custom function to call on button click
+       */
+      handler?: string;
 
       /**
        * @description Sets the icon for the button
@@ -394,6 +422,11 @@ declare namespace ZSoft {
        * @description If the index is an array, you can use array-slice to indicate which array indexes to include.
        */
       arraySlice?: string | number;
+
+      /**
+       * @description Presence of attribute forces a border on the button.  Setting to "disabled" removes the default border.
+       */
+      buttonBorder?: boolean | string;
 
       /**
        * @description The type of "word-break" style for body cells. When not set, "cell-break" style is "normal" by default.
@@ -512,7 +545,9 @@ declare namespace ZSoft {
       filterKey?: string;
 
       /**
-       * @description Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer
+       * @description Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer<br>
+       * If set to a custom filterer, the attribute value should either be set to the object that contains: "init", "afterInit", "value", "setValue", and "triggerEvent"
+       * OR it can be set to a function that will be used for the "value" method which will fire on filter change.
        */
       filterer?: string;
 
@@ -534,7 +569,7 @@ declare namespace ZSoft {
       group?: boolean;
 
       /**
-       * @description Sets a head cell on the column in the grouped row
+       * @description Sets a head cell on the column in the grouped row.
        */
       groupHeadCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
 
@@ -712,8 +747,8 @@ declare namespace ZSoft {
       /**
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
-      type?: 'aggregate' | 'boolean' | 'button' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 
-        'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+      type?: 'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 
+        'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
 
       /**
        * @description Presence of attribute ignores the column in aggregation calculations
@@ -745,6 +780,11 @@ declare namespace ZSoft {
        * @description When the column type is set to "button", use "typeButtonLabel" to add a label to the rendered button in the cell
        */
       typeButtonLabel?: string;
+
+      /**
+       * @description When the column type is set to "button", use "typeButtonTooltip" to add a tooltip to the rendered button in the cell
+       */
+      typeButtonTooltip?: string;
 
       /**
        * @description When the column type is set to "button", use "typeButtonURL" to add a shortcut handler on button click.  The click will automatically open the url in a new window.
@@ -1002,13 +1042,6 @@ declare namespace ZSoft {
       open?: string;
     }
 
-    interface ZGFilter {
-      /**
-       * @description The index of the cell with the filter
-       */
-      cellindex?: number;
-    }
-
     interface ZGIcon {
       /**
        * @description Sets the icon type of "<zg-icon>"
@@ -1058,14 +1091,14 @@ declare namespace ZSoft {
       pageSizeRow?: number;
 
       /**
-       * @description Determines max number of page buttons to display.  Default is 5.
-       */
-      pagerButtonLimit?: number;
-
-      /**
        * @description Determines which type of pagination to use, input or buttons
        */
       pagerType?: string;
+
+      /**
+       * @description Determines max number of page buttons to display.  Default is 5.
+       */
+      pagerButtonLimit?: number;
 
       /**
        * @description Indicates where to position the pager
@@ -1129,9 +1162,9 @@ declare namespace ZSoft {
       aggregate?: string;
 
       /**
-       * @description Aligns the contents of all column cells (center|left|right)
+       * @description Aligns the contents of the grid's text
        */
-      align?: string;
+      align?: 'center' | 'left' | 'right';
 
       /**
        * @description Presence of attribute indicates the grid allows batch editing and displays the controls.
@@ -1301,6 +1334,8 @@ declare namespace ZSoft {
        * @description Enables the default "<zing-grid>" context menu or set to the id name of a custom "<zg-menu>".  If
        * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context menu.
        * Otherwise the contents of the custom menu is appended to the end of context menu.
+       * Can also set to ""browser"" to use the browser's built in context-menu
+       * Note that the ""browser"" context-menu cannot be used together with a custom static-menu.
        */
       contextMenu?: string | boolean;
 
@@ -1466,11 +1501,6 @@ declare namespace ZSoft {
        * To use a custom icon set, the icon set must first be registered.
        */
       iconSet?: string;
-
-      /**
-       * @description If setting [icon-set="custom"], points to the custom JSON key/value mapping
-       */
-      iconSetData?: string;
 
       /**
        * @description Sets the language to use for the grid
@@ -1661,8 +1691,9 @@ declare namespace ZSoft {
 
       /**
        * @description Adds a display button that launches the contextmenu.  If
-       * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context menu.
+       * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context-menu.
        * Otherwise the contents of the custom menu is appended to the end of context menu.
+       * Note that custom static-menu cannot not be used together with a ""browser"" context-menu.
        */
       staticMenu?: boolean;
 
@@ -1778,11 +1809,12 @@ declare namespace ZSoft {
     | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
     | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
     | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
+  interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
   interface ZGDialog extends ZingGridAttributes.ZGDialog, CatchAll, HTMLElement {}
   interface ZGEditorRow extends CatchAll, HTMLElement {}
-  interface ZGFilter extends ZingGridAttributes.ZGFilter, CatchAll, HTMLElement {}
+  interface ZGFilter extends CatchAll, HTMLElement {}
   interface ZGFocus extends CatchAll, HTMLElement {}
   interface ZGFoot extends CatchAll, HTMLElement {}
   interface ZGFooter extends CatchAll, HTMLElement {}
@@ -1798,6 +1830,7 @@ declare namespace ZSoft {
   interface ZGMenuGroup extends CatchAll, HTMLElement {}
   interface ZGMenuItem extends CatchAll, HTMLElement {}
   interface ZGNoData extends CatchAll, HTMLElement {}
+  interface ZGOptionList extends CatchAll, HTMLElement {}
   interface ZGPager extends ZingGridAttributes.ZGPager, CatchAll, HTMLElement {}
   interface ZGParam extends ZingGridAttributes.ZGParam, CatchAll, HTMLElement {}
   interface ZGRow extends CatchAll, HTMLElement {}
@@ -1826,24 +1859,10 @@ declare namespace ZSoft {
     /**
      * @description Customizes the user's dialog
      * @param type The type of dialog to customize.  If you set as null, the config will be applied to all dialogs.
-     * Options are:
-     * <ul>
-     * <li>record-create
-     * <li>record-delete
-     * <li>record-info
-     * <li>record-update
-     * <li>view-error
-     * <li>view-info
-     * <li>view-success
-     * <li>view-warn
-     * <li>zg-version
-     * </ul>
+     * Options are: record-create, record-delete, record-info, record-update, view-error, view-info, view-success, view-warn, zg-version
      * @param config Options for the data retrieval.  Options are:
-     * <ul>
-     * <li>cancel: Text for the Cancel Button
-     * <li>confirm: Text for the Confirm Button
-     * <li>title: The Title to display on the Dialog
-     * </ul>
+     * cancel (text for the cancel button), confirm (text for the confirm button),
+     * title: (title to display on the dialog)
      */
     customizeDialog: (type: string, config: any) => ZingGrid;
 
@@ -1852,7 +1871,7 @@ declare namespace ZSoft {
      * @description Fetches the targeted column.
      * @param fieldIndex Field index of column to fetch.
      */
-    column: (fieldIndex: any[]) => any;
+    column: (fieldIndex: string) => any;
 
     /**
      * @description Filters the column specified by column index. Note: "filter" attribute must be present for
@@ -2106,13 +2125,10 @@ declare namespace ZSoft {
     /**
      * @description Fetches the internal property referencing the dataset for the grid
      * @param config Optional, options for the data retrieval.  Options are:
-     * <ul>
-     * <li>csv: Boolean indicating if it should be sent as a csv string.  Default is false.</li>
-     * <li>headers: Boolean indicating if headers should be included.  Default is false.
-     *              Only applies to csv or JSON array of arrays as JSON objects  have a key already.</li>
-     * <li>cols: String indicating if we should return all columns or only visible.  'all' or 'visible' are options.
-     * <li>rows: String indicating if we should return all rows or only filtered/searched.  'all' or 'visible' are options.
-     * </ul>
+     * csv (set true to return csv string),
+     * headers (set true to return headers - only applies to csv or JSON array of arrays),
+     * cols (set to 'all' or 'visible' to return all or only visible columns),
+     * rows (set to 'all' or 'visible' to return all or only visible rows)
      */
     getData: (config?: any) => any;
 
@@ -2210,22 +2226,25 @@ declare namespace ZSoft {
      * @param id ID of the record to update
      * @param data Data to update
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
+     * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRecord: (id: string, data: any, noDataSource: boolean) => ZingGrid;
+    updateRecord: (id: string, data: any, noDataSource: boolean, noRefresh: boolean) => ZingGrid;
 
     /**
      * @description Updates a row in the grid
      * @param rowIndex Row index (0 based) of the record to update
      * @param data Data to update
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
+     * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRow: (rowIndex: string, data: any, noDataSource: boolean) => ZingGrid;
+    updateRow: (rowIndex: string, data: any, noDataSource: boolean, noRefresh: boolean) => ZingGrid;
 
     // ZGCellOverflow
     /**
      * @description Hides the cell overflow
+     * @param columnIndex Index of column to hide cell overflow
      */
-    hideCellOverflow: () => ZingGrid;
+    hideCellOverflow: (columnIndex: string) => ZingGrid;
 
     // ZGSearch
     /**
@@ -2267,11 +2286,6 @@ declare namespace ZSoft {
      * @description Fetches all cells
      */
     getCells: () => any[];
-
-    /**
-     * @description Gets the value of the "column-drag" attribute
-     */
-    getColumnDrag: () => boolean;
 
     /**
      * @description Gets the value of the "default-display" attribute
@@ -2323,11 +2337,6 @@ declare namespace ZSoft {
     getZebra: () => string;
 
     /**
-     * @description Opens specified row in edit mode if editing is allowed
-     */
-    openRowEditor: () => ZingGrid;
-
-    /**
      * @description Fetches the targeted row.
      * @param rowContainerIndex The index of the row to fetch.
      */
@@ -2362,6 +2371,78 @@ declare namespace ZSoft {
      * @param type Class name or function name
      */
     setZebra: (type: string) => ZingGrid;
+
+    // ZGEditor
+    /**
+     * @description Gets the value of the "confirmations" attribute
+     */
+    getConfirmations: () => string;
+
+    /**
+     * @description Gets the value of the "creator" attribute
+     */
+    getCreator: () => string;
+
+    /**
+     * @description Gets the value of the "editor" attribute
+     */
+    getEditor: () => string;
+
+    /**
+     * @description Gets the value of the "editor-controls" attribute
+     */
+    getEditorControls: () => string;
+
+    /**
+     * @description Gets the value of the "record-duplicate" attribute
+     */
+    getRecordDuplicate: () => boolean;
+
+    /**
+     * @description Gets the value of the "row-selector" attribute
+     */
+    getRowSelector: () => boolean;
+
+    /**
+     * @description Opens specified row in edit mode if editing is allowed
+     */
+    openRowEditor: () => ZingGrid;
+
+    /**
+     * @description Sets the "confirmations" attribute
+     * @param types string value to indicate what confirmations to enable
+     */
+    setConfirmations: (types: string) => ZingGrid;
+
+    /**
+     * @description Sets the "creator" attribute
+     * @param sMode Value of the creator mode
+     */
+    setCreator: (sMode: string) => ZingGrid;
+
+    /**
+     * @description Sets the "editor" attribute
+     * @param activate Boolean value to indicate add or remove, or string value to indicate the editor type
+     */
+    setEditor: (activate: boolean | string) => ZingGrid;
+
+    /**
+     * @description Sets the "editor-controls" attribute
+     * @param types Boolean value to indicate add or remove, or string value to indicate what editor controls to add
+     */
+    setEditorControls: (types: boolean | string) => ZingGrid;
+
+    /**
+     * @description Sets the "record-duplicate" attribute
+     * @param duplicate Value to add or remove
+     */
+    setRecordDuplicate: (duplicate: boolean) => ZingGrid;
+
+    /**
+     * @description Sets the "row-selector" attribute
+     * @param activate Value to add or remove
+     */
+    setRowSelector: (activate: boolean) => ZingGrid;
 
     // ZGMenu
     /**
@@ -2444,6 +2525,11 @@ declare namespace ZSoft {
      * @description Gets the value of the "batch-edit-status" attribute
      */
     getBatchEditStatus: () => string;
+
+    /**
+     * @description Gets the value of the "column-drag" attribute
+     */
+    getColumnDrag: () => boolean;
 
     /**
      * @description Gets the value of the "column-drag-action" attribute
@@ -2640,73 +2726,6 @@ declare namespace ZSoft {
      * @param delay The time to delay the action.  This should be > the time it takes to do the CSS transition.  Value in seconds
      */
     updateSize: (showLoading: boolean, delay: number) => ZingGrid;
-
-    // ZGEditor
-    /**
-     * @description Gets the value of the "confirmations" attribute
-     */
-    getConfirmations: () => string;
-
-    /**
-     * @description Gets the value of the "creator" attribute
-     */
-    getCreator: () => string;
-
-    /**
-     * @description Gets the value of the "editor" attribute
-     */
-    getEditor: () => string;
-
-    /**
-     * @description Gets the value of the "editor-controls" attribute
-     */
-    getEditorControls: () => string;
-
-    /**
-     * @description Gets the value of the "record-duplicate" attribute
-     */
-    getRecordDuplicate: () => boolean;
-
-    /**
-     * @description Gets the value of the "row-selector" attribute
-     */
-    getRowSelector: () => boolean;
-
-    /**
-     * @description Sets the "confirmations" attribute
-     * @param types string value to indicate what confirmations to enable
-     */
-    setConfirmations: (types: string) => ZingGrid;
-
-    /**
-     * @description Sets the "creator" attribute
-     * @param sMode Value of the creator mode
-     */
-    setCreator: (sMode: string) => ZingGrid;
-
-    /**
-     * @description Sets the "editor" attribute
-     * @param activate Boolean value to indicate add or remove, or string value to indicate the editor type
-     */
-    setEditor: (activate: boolean | string) => ZingGrid;
-
-    /**
-     * @description Sets the "editor-controls" attribute
-     * @param types Boolean value to indicate add or remove, or string value to indicate what editor controls to add
-     */
-    setEditorControls: (types: boolean | string) => ZingGrid;
-
-    /**
-     * @description Sets the "record-duplicate" attribute
-     * @param duplicate Value to add or remove
-     */
-    setRecordDuplicate: (duplicate: boolean) => ZingGrid;
-
-    /**
-     * @description Sets the "row-selector" attribute
-     * @param activate Value to add or remove
-     */
-    setRowSelector: (activate: boolean) => ZingGrid;
 
     // ZGFilter
     /**
@@ -2906,6 +2925,7 @@ interface HTMLElementTagNameMap {
   'zg-checkbox': ZSoft.ZGCheckbox;
   'zg-colgroup': ZSoft.ZGColgroup;
   'zg-column': ZSoft.ZGColumn;
+  'zg-column-resize': ZSoft.ZGColumnResize;
   'zg-control-bar': ZSoft.ZGControlBar;
   'zg-data': ZSoft.ZGData;
   'zg-dialog': ZSoft.ZGDialog;
@@ -2926,6 +2946,7 @@ interface HTMLElementTagNameMap {
   'zg-menu-group': ZSoft.ZGMenuGroup;
   'zg-menu-item': ZSoft.ZGMenuItem;
   'zg-no-data': ZSoft.ZGNoData;
+  'zg-option-list': ZSoft.ZGOptionList;
   'zg-pager': ZSoft.ZGPager;
   'zg-param': ZSoft.ZGParam;
   'zg-row': ZSoft.ZGRow;
@@ -2962,6 +2983,8 @@ declare namespace JSX {
     ZGColgroup: ZSoft.CatchAll;
     'zg-column': KebabKeys<ZSoft.ZingGridAttributes.ZGColumn> | ZSoft.CatchAll;
     ZGColumn: ZSoft.ZingGridAttributes.ZGColumn | ZSoft.CatchAll;
+    'zg-column-resize': ZSoft.CatchAll;
+    ZGColumnResize: ZSoft.CatchAll;
     'zg-control-bar': ZSoft.CatchAll;
     ZGControlBar: ZSoft.CatchAll;
     'zg-data': KebabKeys<ZSoft.ZingGridAttributes.ZGData> | ZSoft.CatchAll;
@@ -2970,8 +2993,8 @@ declare namespace JSX {
     ZGDialog: ZSoft.ZingGridAttributes.ZGDialog | ZSoft.CatchAll;
     'zg-editor-row': ZSoft.CatchAll;
     ZGEditorRow: ZSoft.CatchAll;
-    'zg-filter': KebabKeys<ZSoft.ZingGridAttributes.ZGFilter> | ZSoft.CatchAll;
-    ZGFilter: ZSoft.ZingGridAttributes.ZGFilter | ZSoft.CatchAll;
+    'zg-filter': ZSoft.CatchAll;
+    ZGFilter: ZSoft.CatchAll;
     'zg-focus': ZSoft.CatchAll;
     ZGFocus: ZSoft.CatchAll;
     'zg-foot': ZSoft.CatchAll;
@@ -3002,6 +3025,8 @@ declare namespace JSX {
     ZGMenuItem: ZSoft.CatchAll;
     'zg-no-data': ZSoft.CatchAll;
     ZGNoData: ZSoft.CatchAll;
+    'zg-option-list': ZSoft.CatchAll;
+    ZGOptionList: ZSoft.CatchAll;
     'zg-pager': KebabKeys<ZSoft.ZingGridAttributes.ZGPager> | ZSoft.CatchAll;
     ZGPager: ZSoft.ZingGridAttributes.ZGPager | ZSoft.CatchAll;
     'zg-param': KebabKeys<ZSoft.ZingGridAttributes.ZGParam> | ZSoft.CatchAll;
