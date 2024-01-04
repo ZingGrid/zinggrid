@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.6.1
+// Type definitions for zinggrid 1.6.2
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1801,14 +1801,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGCheckbox extends ZingGridAttributes.ZGCheckbox, CatchAll, HTMLElement {}
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
-    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir'
-    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
-    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
-    | 'inert' | 'innerText' | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce'
-    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
-    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
-    | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event' | 'blur'
+    | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
+    | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
+    | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
+    | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
+    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover' | 'spellcheck'
+    | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy'
+   >, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -2904,14 +2904,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   }
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
-    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforeinput_event' | 'beforematch_event'
-    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir'
-    | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event'
-    | 'dragstart_event' | 'drop_event' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
-    | 'inert' | 'innerText' | 'inputMode' | 'input_event' | 'isContentEditable' | 'lang' | 'nonce'
-    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
-    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
-    | 'translate' | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event' | 'blur'
+    | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
+    | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
+    | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
+    | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
+    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover' | 'spellcheck'
+    | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy'
+   >, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
