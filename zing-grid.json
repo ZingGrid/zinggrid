@@ -1756,8 +1756,34 @@
             },
             {
               "name": "filter",
-              "description": "Overrides the grid level `filter` attribute.  Presence of attribute enables on `filter` column, otherwise set to `disabled` to disable.",
-              "type": "'disabled' | boolean"
+              "description": "Overrides the grid level `filter` attribute.  Presence of attribute enables the menu on `filter` column.  Can be set to `inline`, `menu`, `both`, or `disabled`",
+              "type": "string | boolean"
+            },
+            {
+              "name": "filter-buttons",
+              "description": "Comma separated list of buttons to display on the filter menu",
+              "type": "string | any[]"
+            },
+            {
+              "name": "filter-conditions",
+              "description": "The list of conditions to present as options in the filter menu condition select.  Use \"break\" to display the horizontal separator.  Use \"default\" to use the built in default.",
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
+               trueVal' | 'falseVal'"
+            },
+            {
+              "name": "filter-conditions-display",
+              "description": "Number of conditions to display in the filter menu on menu open",
+              "type": "number"
+            },
+            {
+              "name": "filter-conditions-max",
+              "description": "Max number of conditions to display in the filter menu",
+              "type": "number"
+            },
+            {
+              "name": "filter-default-condition",
+              "description": "The condition to initially display on filter menu open",
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name'"
             },
             {
               "name": "filter-index",
@@ -1770,8 +1796,28 @@
               "type": "string"
             },
             {
+              "name": "filter-menu-areas",
+              "description": "The areas to display in the filter menu.  Can be conditions, selectbox, or both",
+              "type": "'conditions' | 'selectbox' | 'both'"
+            },
+            {
+              "name": "filter-on",
+              "description": "Determines if the filter comparison should be against the raw values or the rendered This only applies to conditionals in the filter menu. For iframe column type, it is restricted to raw values. For aggregate column type, it is restricted to rendered values.",
+              "type": "'raw' | 'rendered'"
+            },
+            {
+              "name": "filter-selectbox-display",
+              "description": "Determines if the selectbox in the filter menu should display the values as raw or rendered values.",
+              "type": "'raw' | 'rendered'"
+            },
+            {
+              "name": "filter-trigger",
+              "description": "Action that fires the filter event from the filter menu.",
+              "type": "'button' | 'change'"
+            },
+            {
               "name": "filterer",
-              "description": "Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer<br> If set to a custom filterer, the attribute value should either be set to the object that contains: `init`, `afterInit`, `value`, `setValue`, and `triggerEvent` OR it can be set to a function that will be used for the `value` method which will fire on filter change.",
+              "description": "Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer<br> If set to a custom filterer, the attribute value should either be set to the object that contains: `init`, `afterInit`, `value`, `setValue`, and `triggerEvent` OR it can be set to a function that will be used for the `value` method which will fire on filter change. Note that the custom filterer only applies to the inline filter and not the conditions or select box options (filter menu).",
               "type": "function"
             },
             {
@@ -3085,6 +3131,378 @@
     },
     {
       "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-filter-menu/ZGFilterMenu.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "The `<zg-filter-menu>` element is a container for the menu that appears when clicking the column filter button.   The element is dynamically inserted by the library. The element can be styled using CSS.",
+          "tagName": "ZGFilterMenu",
+          "cssParts": [
+            {
+              "name": "body",
+              "description": "The body for the menu"
+            },
+            {
+              "name": "body-conditions",
+              "description": "The \"conditions\" area of the menu"
+            },
+            {
+              "name": "body-list",
+              "description": "The \"selectbox\" area of the menu"
+            },
+            {
+              "name": "case-sensitive",
+              "description": "The label and checkbox for \"Match Case\" in the menu"
+            },
+            {
+              "name": "filter-menu",
+              "description": "The container for the menu"
+            },
+            {
+              "name": "footer",
+              "description": "The header for the menu"
+            },
+            {
+              "name": "footer-apply",
+              "description": "The \"apply\" button in the menu"
+            },
+            {
+              "name": "footer-close",
+              "description": "The \"close\" button in the menu"
+            },
+            {
+              "name": "footer-reset",
+              "description": "The \"reset\" button in the menu"
+            },
+            {
+              "name": "header",
+              "description": "The header for the menu"
+            },
+            {
+              "name": "header-label",
+              "description": "The header label for the menu"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--zg-filter-menu-background",
+              "description": "Styles background of filter menu dropdown",
+              "syntax": "",
+              "default": "Browser's defaul value"
+            },
+            {
+              "name": "--zg-filter-menu-border",
+              "description": "Styles the border of filter menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-filter-menu-border-bottom",
+              "description": "Styles the bottom border of filter menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-filter-menu-border-left",
+              "description": "Styles the left border of filter menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-filter-menu-border-right",
+              "description": "Styles the right border of filter menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-filter-menu-border-top",
+              "description": "Styles the top border of filter menu dropdown",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-filter-menu-box-shadow",
+              "description": "Applies a box shadow to filter menu dropdown",
+              "syntax": "none | <shadow>#",
+              "default": "0 3px 3px #ccc"
+            },
+            {
+              "name": "--zg-filter-menu-color",
+              "description": "Applies a baseline color to the menu",
+              "syntax": "<color>",
+              "default": "var(--theme-body-color)"
+            },
+            {
+              "name": "--zg-filter-menu-padding",
+              "description": "Sets the padding of the filter menu dropdown",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-font-size",
+              "description": "Sets the font size of filter menu dropdown",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "0.8rem"
+            },
+            {
+              "name": "--zg-filter-menu-header-background",
+              "description": "Styles the background of filter-menu header",
+              "syntax": "",
+              "default": "var(--zg-filter-menu-background)"
+            },
+            {
+              "name": "--zg-filter-menu-header-border",
+              "description": "Styles the border of filter-menu header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-header-border-bottom",
+              "description": "Styles the bottom border of filter-menu header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-header-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-header-border-left",
+              "description": "Styles the left border of filter-menu header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-header-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-header-border-right",
+              "description": "Styles the right border of filter-menu header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-header-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-header-border-top",
+              "description": "Styles the top border of filter-menu header",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-header-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-header-color",
+              "description": "Sets the font color of filter-menu header",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-header-font-size",
+              "description": "Sets the font size of filter-menu header",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "16px"
+            },
+            {
+              "name": "--zg-filter-menu-header-font-weight",
+              "description": "Sets the font weight of filter-menu header",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "bold"
+            },
+            {
+              "name": "--zg-filter-menu-header-margin",
+              "description": "Sets the margin of filter-menu header",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-header-padding",
+              "description": "Sets the padding of filter-menu header",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-body-background",
+              "description": "Styles the background of filter-menu body",
+              "syntax": "",
+              "default": "var(--zg-filter-menu-background)"
+            },
+            {
+              "name": "--zg-filter-menu-body-border",
+              "description": "Styles the border of filter-menu body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-body-border-bottom",
+              "description": "Styles the bottom border of filter-menu body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-body-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-body-border-left",
+              "description": "Styles the left border of filter-menu body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-body-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-body-border-right",
+              "description": "Styles the right border of filter-menu body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-body-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-body-border-top",
+              "description": "Styles the top border of filter-menu body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-body-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-body-margin",
+              "description": "Sets the margin of filter-menu body",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "10px 0"
+            },
+            {
+              "name": "--zg-filter-menu-body-padding",
+              "description": "Sets the padding of filter-menu body",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-list-background",
+              "description": "Sets the background of filter-menu list body",
+              "syntax": "",
+              "default": "var(--theme-color-light)"
+            },
+            {
+              "name": "--zg-filter-menu-footer-background",
+              "description": "Styles the background of filter-menu footer",
+              "syntax": "",
+              "default": "var(--zg-filter-menu-background)"
+            },
+            {
+              "name": "--zg-filter-menu-footer-border",
+              "description": "Styles the border of filter-menu footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-footer-border-bottom",
+              "description": "Styles the bottom border of filter-menu footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-footer-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-footer-border-left",
+              "description": "Styles the left border of filter-menu footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-footer-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-footer-border-right",
+              "description": "Styles the right border of filter-menu footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-footer-border, 0)"
+            },
+            {
+              "name": "--zg-filter-menu-footer-border-top",
+              "description": "Styles the top border of filter-menu footer",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-filter-menu-footer-border, 1px solid var(--theme-border-color))"
+            },
+            {
+              "name": "--zg-filter-menu-footer-justify-content",
+              "description": "Sets the horizontal alignment of contents in filter-menu footer",
+              "syntax": "normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ]",
+              "default": "flex-end"
+            },
+            {
+              "name": "--zg-filter-menu-footer-margin",
+              "description": "Sets the margin of filter-menu footer",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-filter-menu-footer-padding",
+              "description": "Sets the padding of filter-menu footer",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": ".875rem 0 0"
+            },
+            {
+              "name": "--zg-filter-menu-select-color",
+              "description": "Styles the font color of text in the select dropdown filter menu",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-select-font-size",
+              "description": "Sets the font size of the select dropdown filter menu",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-select-height",
+              "description": "Sets the height of the select dropdown filter menu",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-select-margin",
+              "description": "Sets the margin of the select dropdown filter menu",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "5px"
+            },
+            {
+              "name": "--zg-filter-menu-select-width",
+              "description": "Sets the width of the select dropdown filter menu",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "100%"
+            },
+            {
+              "name": "--zg-filter-menu-input-color",
+              "description": "Styles the font color of text in the input in the filter menu",
+              "syntax": "<color>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-input-font-size",
+              "description": "Sets the font size of the input in the filter menu",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-input-height",
+              "description": "Sets the height of the input in the dropdown filter menu",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-input-margin",
+              "description": "Sets the margin of the input in the dropdown filter menu",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "5px"
+            },
+            {
+              "name": "--zg-filter-menu-input-width",
+              "description": "Sets the width of the input in the dropdown filter menu",
+              "syntax": "[ <length> | <percentage> | auto ]{1,4}",
+              "default": "100%"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGFilterMenu",
+          "declaration": {
+            "name": "ZGFilterMenu",
+            "module": "zinggrid-lib/src/js/components/zg-filter-menu/ZGFilterMenu.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-filter-menu",
+          "declaration": {
+            "name": "ZGFilterMenu",
+            "module": "zinggrid-lib/src/js/components/zg-filter-menu/ZGFilterMenu.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "zinggrid-lib/src/js/components/zg-focus/ZGFocus.js",
       "declarations": [
         {
@@ -3766,6 +4184,12 @@
             {
               "name": "--zg-head-cell-border-right_sorted",
               "description": "Styles the right border of sorted head cells",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-cell-border_sorted, 0)"
+            },
+            {
+              "name": "--zg-head-cell-border-top_sorted",
+              "description": "Styles the top border of sorted head cells",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-head-cell-border_sorted, 0)"
             },
@@ -4851,6 +5275,12 @@
               "description": "Sets the padding of option list item",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "0 15px"
+            },
+            {
+              "name": "--zg-option-list-item-background_hover",
+              "description": "Sets the background of option list item on hover",
+              "syntax": "",
+              "default": "var(--theme-color-secondary)"
             },
             {
               "name": "--zg-option-list-item-background_hover",
@@ -6844,8 +7274,54 @@
             },
             {
               "name": "filter",
-              "description": "Enables filtering for all columns.  Can be turned on/off individually via column.",
-              "type": "boolean"
+              "description": "Enables filtering for all columns.  Can be turned on/off individually via column.  Can be set to \"inline\" or \"menu\"  Default is \"menu\"",
+              "type": "string | boolean"
+            },
+            {
+              "name": "filter-buttons",
+              "description": "Comma separated list of buttons to display in the specified order on the filter menu",
+              "type": "string | any[]"
+            },
+            {
+              "name": "filter-conditions",
+              "description": "The list of conditions to present as options in the filter menu condition select.  Use \"break\" to display the horizontal separator.  Use \"default\" to use the built in default.",
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
+               trueVal' | 'falseVal'"
+            },
+            {
+              "name": "filter-conditions-display",
+              "description": "Number of conditions to display in the filter menu on menu open",
+              "type": "number"
+            },
+            {
+              "name": "filter-conditions-max",
+              "description": "Max number of conditions to display in the filter menu",
+              "type": "number"
+            },
+            {
+              "name": "filter-default-condition",
+              "description": "The condition to initially display on filter menu open",
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name'"
+            },
+            {
+              "name": "filter-menu-areas",
+              "description": "The areas to display in the filter menu.  Can be conditions, selectbox, or both",
+              "type": "'conditions' | 'selectbox' | 'both'"
+            },
+            {
+              "name": "filter-on",
+              "description": "Determines if the filter comparison should be against the raw values or the rendered. This only applies to conditionals in the filter menu. For iframe column type, it is restricted to raw values. For aggregate column type, it is restricted to rendered values.",
+              "type": "'raw' | 'rendered'"
+            },
+            {
+              "name": "filter-selectbox-display",
+              "description": "Determines if the selectbox in the filter menu should display the values as raw or rendered values.",
+              "type": "'raw' | 'rendered'"
+            },
+            {
+              "name": "filter-trigger",
+              "description": "Action that fires the filter event from the filter menu.",
+              "type": "'button' | 'change'"
             },
             {
               "name": "foot-class",
@@ -7456,6 +7932,20 @@
             },
             {
               "name": "column:filter",
+              "description": "Fires the event when a filter menu is closed.",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "column:filter",
+              "description": "Fires the event when a filter menu is opened",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "column:filter",
               "description": "Fires the event when a column is filtered.",
               "type": {
                 "text": "Event"
@@ -7966,6 +8456,71 @@
                   "optional": false,
                   "description": "Filter string.",
                   "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "filterMenuColumn",
+              "description": "Advanced filtering on the column specified by column index. Note: `filter` attribute must be present for this method to work with the filter menu enabled.",
+              "parameters": [
+                {
+                  "name": "fieldIndex",
+                  "optional": false,
+                  "description": "Field Index of column.",
+                  "type": "string"
+                },
+                {
+                  "name": "filter",
+                  "optional": false,
+                  "description": "Advanced Filter configuration.",
+                  "type": "any"
+                },
+                {
+                  "name": "filter.conditionals",
+                  "optional": false,
+                  "description": "Array of conditional objects to filter on",
+                  "type": "any"
+                },
+                {
+                  "name": "filter.conditionals[].condition",
+                  "optional": false,
+                  "description": "the key based string for the condition to apply the filter, ie contains, startsWith, greaterThan",
+                  "type": "string"
+                },
+                {
+                  "name": "filter.conditionals[].val1",
+                  "optional": false,
+                  "description": "The first value to apply towards the condition",
+                  "type": "string"
+                },
+                {
+                  "name": "filter.conditionals[].val2",
+                  "optional": false,
+                  "description": "The second value to apply towards the condition",
+                  "type": "string"
+                },
+                {
+                  "name": "filter.boolean",
+                  "optional": false,
+                  "description": "'and' or 'or' indicating how to filter multiple conditionals.  Default is 'and'",
+                  "type": "string"
+                },
+                {
+                  "name": "filter.matchCase",
+                  "optional": false,
+                  "description": "Boolean indicating if the matching should be case sensitive.  Default is false",
+                  "type": "string"
+                },
+                {
+                  "name": "filter.selectItems",
+                  "optional": false,
+                  "description": "Array of items to select in the filter menu selectbox",
+                  "type": "any"
                 }
               ],
               "return": {
@@ -8878,6 +9433,23 @@
                   "optional": false,
                   "description": "If you only want to remove from the grid and not the external datasource, set `noDataSource` to \"true\"",
                   "type": "boolean"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "resetFilter",
+              "description": "Resets the current filter.  Resets either the specified column or all the columns",
+              "parameters": [
+                {
+                  "name": "fieldIndex",
+                  "optional": false,
+                  "description": "Index of column.",
+                  "type": "string"
                 }
               ],
               "return": {
@@ -10557,6 +11129,31 @@
                   "name": "oOptions",
                   "optional": false,
                   "description": "An object to define the renderer and/or editor for the cell type.",
+                  "type": "any"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "registerCustomFilterMethod",
+              "description": "Registers the custom filter method.   This method can be tied into the menu filter through registerFilter by setting the key in `getConditions()` or in `filter-conditions`",
+              "parameters": [
+                {
+                  "name": "key",
+                  "optional": false,
+                  "description": "The key of the custom filter method.  The key will be used to add to `getConditions()` or in `filter-conditions`",
+                  "type": "string"
+                },
+                {
+                  "name": "oCustomFilterObj",
+                  "optional": false,
+                  "description": "Object containing the custom filter.  Contains three properties: <ul> <li>title: What displays in the conditions select box <li>fieldCount: How many text fields should be displayed when this condition is selected <li>filterMethod: Points to the method to call when the filter is being run.  Will have an oConfig object that contains: dataVal - The value from the grid's data [val1] - value in the first input box if present [val2] - value in the second input box if present matchCase - boolean indicating if the user selected the match case checkbox <li>showMatchCase: Boolean indicating if the match case checkbox should be displayed.  Default is true </ul>",
+                  "type": "any"
+                },
+                {
+                  "name": "oScope",
+                  "optional": false,
+                  "description": "Scope of the filterMethod",
                   "type": "any"
                 }
               ]

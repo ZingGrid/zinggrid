@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.6.3
+// Type definitions for zinggrid 1.7.0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -63,6 +63,8 @@ declare namespace ZSoft {
     'row:mouseover': CustomEvent;
     'row:select': CustomEvent;
     'column:click': CustomEvent;
+    'column:filter': CustomEvent;
+    'column:filter': CustomEvent;
     'column:filter': CustomEvent;
     'column:mouseout': CustomEvent;
     'column:mouseover': CustomEvent;
@@ -273,6 +275,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     'onColumnClick'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires the event when a column is filtered.
+     */
+    'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a filter menu is opened
+     */
+    'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a filter menu is closed.
      */
     'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -529,10 +539,38 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       editorTemplate?: string;
 
       /**
-       * @description Overrides the grid level "filter" attribute.  Presence of attribute enables on "filter" column, otherwise
-       * set to "disabled" to disable.
+       * @description Overrides the grid level "filter" attribute.  Presence of attribute enables the menu on "filter" column.  Can be set to "inline", "menu", "both", or "disabled"
        */
-      filter?: 'disabled' | boolean;
+      filter?: string | boolean;
+
+      /**
+       * @description Comma separated list of buttons to display on the filter menu
+       */
+      filterButtons?: string | any[];
+
+      /**
+       * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
+       */
+      filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
+
+                       trueVal' | 'falseVal';
+
+      /**
+       * @description Number of conditions to display in the filter menu on menu open
+       */
+      filterConditionsDisplay?: number;
+
+      /**
+       * @description Max number of conditions to display in the filter menu
+       */
+      filterConditionsMax?: number;
+
+      /**
+       * @description The condition to initially display on filter menu open
+       */
+      filterDefaultCondition?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name';
 
       /**
        * @description Sets the data field index to filter on if index itself has multiple fields.  The value set in index is the default.
@@ -545,9 +583,33 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       filterKey?: string;
 
       /**
+       * @description The areas to display in the filter menu.  Can be conditions, selectbox, or both
+       */
+      filterMenuAreas?: 'conditions' | 'selectbox' | 'both';
+
+      /**
+       * @description Determines if the filter comparison should be against the raw values or the rendered
+       * This only applies to conditionals in the filter menu.
+       * For iframe column type, it is restricted to raw values.
+       * For aggregate column type, it is restricted to rendered values.
+       */
+      filterOn?: 'raw' | 'rendered';
+
+      /**
+       * @description Determines if the selectbox in the filter menu should display the values as raw or rendered values.
+       */
+      filterSelectboxDisplay?: 'raw' | 'rendered';
+
+      /**
+       * @description Action that fires the filter event from the filter menu.
+       */
+      filterTrigger?: 'button' | 'change';
+
+      /**
        * @description Overrides the default filterer for the column.  Can be set to a different built-in filterer or to a custom filterer<br>
        * If set to a custom filterer, the attribute value should either be set to the object that contains: "init", "afterInit", "value", "setValue", and "triggerEvent"
        * OR it can be set to a function that will be used for the "value" method which will fire on filter change.
+       * Note that the custom filterer only applies to the inline filter and not the conditions or select box options (filter menu).
        */
       filterer?: string;
 
@@ -1376,9 +1438,61 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       editorControls?: 'editor' | 'remover' | 'creator' | 'all' | boolean;
 
       /**
-       * @description Enables filtering for all columns.  Can be turned on/off individually via column.
+       * @description Enables filtering for all columns.  Can be turned on/off individually via column.  Can be set to "inline" or "menu"  Default is "menu"
        */
-      filter?: boolean;
+      filter?: string | boolean;
+
+      /**
+       * @description Comma separated list of buttons to display in the specified order on the filter menu
+       */
+      filterButtons?: string | any[];
+
+      /**
+       * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
+       */
+      filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
+
+                       trueVal' | 'falseVal';
+
+      /**
+       * @description Number of conditions to display in the filter menu on menu open
+       */
+      filterConditionsDisplay?: number;
+
+      /**
+       * @description Max number of conditions to display in the filter menu
+       */
+      filterConditionsMax?: number;
+
+      /**
+       * @description The condition to initially display on filter menu open
+       */
+      filterDefaultCondition?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name';
+
+      /**
+       * @description The areas to display in the filter menu.  Can be conditions, selectbox, or both
+       */
+      filterMenuAreas?: 'conditions' | 'selectbox' | 'both';
+
+      /**
+       * @description Determines if the filter comparison should be against the raw values or the rendered.
+       * This only applies to conditionals in the filter menu.
+       * For iframe column type, it is restricted to raw values.
+       * For aggregate column type, it is restricted to rendered values.
+       */
+      filterOn?: 'raw' | 'rendered';
+
+      /**
+       * @description Determines if the selectbox in the filter menu should display the values as raw or rendered values.
+       */
+      filterSelectboxDisplay?: 'raw' | 'rendered';
+
+      /**
+       * @description Action that fires the filter event from the filter menu.
+       */
+      filterTrigger?: 'button' | 'change';
 
       /**
        * @description Adds a class to each "<zg-cell>" in the "<zg-foot>". To
@@ -1805,16 +1919,17 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
     | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
     | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
-    | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover' | 'spellcheck'
-    | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy'
-   >, CatchAll, HTMLElement {}
+    | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight'
+    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover'
+    | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate'
+    | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
   interface ZGDialog extends ZingGridAttributes.ZGDialog, CatchAll, HTMLElement {}
   interface ZGEditorRow extends CatchAll, HTMLElement {}
   interface ZGFilter extends CatchAll, HTMLElement {}
+  interface ZGFilterMenu extends CatchAll, HTMLElement {}
   interface ZGFocus extends CatchAll, HTMLElement {}
   interface ZGFoot extends CatchAll, HTMLElement {}
   interface ZGFooter extends CatchAll, HTMLElement {}
@@ -1882,6 +1997,21 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     filterColumn: (columnIndex: string, filter: string) => ZingGrid;
 
     /**
+     * @description Advanced filtering on the column specified by column index. Note: "filter" attribute must be present for
+     * this method to work with the filter menu enabled.
+     * @param fieldIndex Field Index of column.
+     * @param filter Advanced Filter configuration.
+     * @param filter.conditionals Array of conditional objects to filter on
+     * @param filter.conditionals[].condition the key based string for the condition to apply the filter, ie contains, startsWith, greaterThan
+     * @param filter.conditionals[].val1 The first value to apply towards the condition
+     * @param filter.conditionals[].val2 The second value to apply towards the condition
+     * @param filter.boolean 'and' or 'or' indicating how to filter multiple conditionals.  Default is 'and'
+     * @param filter.matchCase Boolean indicating if the matching should be case sensitive.  Default is false
+     * @param filter.selectItems Array of items to select in the filter menu selectbox
+     */
+    filterMenuColumn: (fieldIndex: string, filter: any, filter.conditionals: any, filter.conditionals[].condition: string, filter.conditionals[].val1: string, filter.conditionals[].val2: string, filter.boolean: string, filter.matchCase: string, filter.selectItems: any) => ZingGrid;
+
+    /**
      * @description Gets the value of the "col-class" attribute
      */
     getColClass: () => string;
@@ -1911,6 +2041,12 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param columnIndex Index of column to hide
      */
     hideColumn: (columnIndex: string) => ZingGrid;
+
+    /**
+     * @description Resets the current filter.  Resets either the specified column or all the columns
+     * @param fieldIndex Index of column.
+     */
+    resetFilter: (fieldIndex: string) => ZingGrid;
 
     /**
      * @description Sets the "col-class" attribute
@@ -2908,10 +3044,10 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
     | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
     | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
-    | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight' | 'offsetLeft'
-    | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover' | 'spellcheck'
-    | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy'
-   >, CatchAll, HTMLElement {}
+    | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight'
+    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover'
+    | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate'
+    | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
@@ -2931,6 +3067,7 @@ interface HTMLElementTagNameMap {
   'zg-dialog': ZSoft.ZGDialog;
   'zg-editor-row': ZSoft.ZGEditorRow;
   'zg-filter': ZSoft.ZGFilter;
+  'zg-filter-menu': ZSoft.ZGFilterMenu;
   'zg-focus': ZSoft.ZGFocus;
   'zg-foot': ZSoft.ZGFoot;
   'zg-footer': ZSoft.ZGFooter;
@@ -2995,6 +3132,8 @@ declare namespace JSX {
     ZGEditorRow: ZSoft.CatchAll;
     'zg-filter': ZSoft.CatchAll;
     ZGFilter: ZSoft.CatchAll;
+    'zg-filter-menu': ZSoft.CatchAll;
+    ZGFilterMenu: ZSoft.CatchAll;
     'zg-focus': ZSoft.CatchAll;
     ZGFocus: ZSoft.CatchAll;
     'zg-foot': ZSoft.CatchAll;
@@ -3121,6 +3260,25 @@ declare namespace ZingGrid {
    * @param oOptions An object to define the renderer and/or editor for the cell type.
    */
   function registerCellType(sType: string, oOptions: any): void;
+
+  /**
+   * @description Registers the custom filter method.
+   * This method can be tied into the menu filter through registerFilter by setting the key in "getConditions()" or in "filter-conditions"
+   * @param key The key of the custom filter method.  The key will be used to add to "getConditions()" or in "filter-conditions"
+   * @param oCustomFilterObj Object containing the custom filter.  Contains three properties:
+   * <ul>
+   * <li>title: What displays in the conditions select box
+   * <li>fieldCount: How many text fields should be displayed when this condition is selected
+   * <li>filterMethod: Points to the method to call when the filter is being run.  Will have an oConfig object that contains:
+   * dataVal - The value from the grid's data
+   * [val1] - value in the first input box if present
+   * [val2] - value in the second input box if present
+   * matchCase - boolean indicating if the user selected the match case checkbox
+   * <li>showMatchCase: Boolean indicating if the match case checkbox should be displayed.  Default is true
+   * </ul>
+   * @param oScope Scope of the filterMethod
+   */
+  function registerCustomFilterMethod(key: string, oCustomFilterObj: any, oScope: any): void;
 
   /**
    * @description Register the life cycle hooks for cell editing. This allows you to import
