@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.7.0
+// Type definitions for zinggrid 1.7.1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -64,8 +64,8 @@ declare namespace ZSoft {
     'row:select': CustomEvent;
     'column:click': CustomEvent;
     'column:filter': CustomEvent;
-    'column:filter': CustomEvent;
-    'column:filter': CustomEvent;
+    'column:filter:menu:close': CustomEvent;
+    'column:filter:menu:open': CustomEvent;
     'column:mouseout': CustomEvent;
     'column:mouseover': CustomEvent;
     'column:move': CustomEvent;
@@ -278,13 +278,13 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      */
     'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event when a filter menu is opened
-     */
-    'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
-    /**
      * @description Fires the event when a filter menu is closed.
      */
-    'onColumnFilter'?: ((this: Window, ev: CustomEvent) => any) | null;
+    'onColumnFilterMenuClose'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when a filter menu is opened
+     */
+    'onColumnFilterMenuOpen'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
      * @description Fires event when mouseout on a column.
      */
@@ -2009,7 +2009,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param filter.matchCase Boolean indicating if the matching should be case sensitive.  Default is false
      * @param filter.selectItems Array of items to select in the filter menu selectbox
      */
-    filterMenuColumn: (fieldIndex: string, filter: any, filter.conditionals: any, filter.conditionals[].condition: string, filter.conditionals[].val1: string, filter.conditionals[].val2: string, filter.boolean: string, filter.matchCase: string, filter.selectItems: any) => ZingGrid;
+    filterMenuColumn: (fieldIndex: string, filter: {conditionals?: {condition?: string, val1?: string, val2?: string}[], boolean?: string, matchCase?: boolean, selectItems?: string[]}) => ZingGrid;
 
     /**
      * @description Gets the value of the "col-class" attribute
@@ -2046,7 +2046,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Resets the current filter.  Resets either the specified column or all the columns
      * @param fieldIndex Index of column.
      */
-    resetFilter: (fieldIndex: string) => ZingGrid;
+    resetFilter: (fieldIndex?: string) => ZingGrid;
 
     /**
      * @description Sets the "col-class" attribute
@@ -2289,7 +2289,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param id If the id is already set on the new record, pass it in here
      * @param noDataSource If you only want to do a local insert, set "noDataSource" to "true"
      */
-    insertRow: (data: any, id: string, noDataSource: boolean) => ZingGrid;
+    insertRow: (data?: any, id?: string, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Refreshes all cells. Note: if using static data, original cell value will be restored.
@@ -2306,14 +2306,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param id ID of the record to remove
      * @param noDataSource If you only want to remove from the grid and not the external datasource, set "noDataSource" to "true"
      */
-    removeRecord: (id: string, noDataSource: boolean) => ZingGrid;
+    removeRecord: (id?: string, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Removes a row from the grid
      * @param rowIndex Row index (0 based) of the record to remove
      * @param noDataSource If you only want to remove from the grid and not the external datasource, set "noDataSource" to "true"
      */
-    removeRow: (rowIndex: string, noDataSource: boolean) => ZingGrid;
+    removeRow: (rowIndex?: string, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Sets or updates the dataset for the grid
@@ -2346,7 +2346,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param val New Value
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      */
-    updateCellByID: (id: number, fieldIndex: number, val: any, noDataSource: boolean) => ZingGrid;
+    updateCellByID: (id: number, fieldIndex: number, val: any, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Updates a cell in the grid
@@ -2355,7 +2355,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param val New Value
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      */
-    updateCellByPosition: (rowIndex: number, columnIndex: number, val: any, noDataSource: boolean) => ZingGrid;
+    updateCellByPosition: (rowIndex: number, columnIndex: number, val: any, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Updates a record in the grid
@@ -2364,7 +2364,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRecord: (id: string, data: any, noDataSource: boolean, noRefresh: boolean) => ZingGrid;
+    updateRecord: (id?: string, data?: any, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
 
     /**
      * @description Updates a row in the grid
@@ -2373,7 +2373,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRow: (rowIndex: string, data: any, noDataSource: boolean, noRefresh: boolean) => ZingGrid;
+    updateRow: (rowIndex: string, data: any, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
 
     // ZGCellOverflow
     /**
@@ -3251,7 +3251,7 @@ declare namespace ZingGrid {
    * @param oOptions Option list of of adapter variables you want to define. You can define ANY
    * zg-param name value pair here in this option. Refer to the Store.js variable this.oDefaultDataFormat
    */
-  function registerAdapter(sType: string, oOptions: any): void;
+  function registerAdapter(sType: string, oOptions?: any): void;
 
   /**
    * @description Register a custom column type to reduce redundant markup and re-use

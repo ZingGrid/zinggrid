@@ -7932,21 +7932,21 @@
             },
             {
               "name": "column:filter",
+              "description": "Fires the event when a column is filtered.",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "column:filter:menu:close",
               "description": "Fires the event when a filter menu is closed.",
               "type": {
                 "text": "Event"
               }
             },
             {
-              "name": "column:filter",
+              "name": "column:filter:menu:open",
               "description": "Fires the event when a filter menu is opened",
-              "type": {
-                "text": "Event"
-              }
-            },
-            {
-              "name": "column:filter",
-              "description": "Fires the event when a column is filtered.",
               "type": {
                 "text": "Event"
               }
@@ -8484,7 +8484,7 @@
                   "name": "filter.conditionals",
                   "optional": false,
                   "description": "Array of conditional objects to filter on",
-                  "type": "any"
+                  "type": "Array.<Object>"
                 },
                 {
                   "name": "filter.conditionals[].condition",
@@ -8514,13 +8514,13 @@
                   "name": "filter.matchCase",
                   "optional": false,
                   "description": "Boolean indicating if the matching should be case sensitive.  Default is false",
-                  "type": "string"
+                  "type": "boolean"
                 },
                 {
                   "name": "filter.selectItems",
                   "optional": false,
                   "description": "Array of items to select in the filter menu selectbox",
-                  "type": "any"
+                  "type": "Array.<String>"
                 }
               ],
               "return": {
