@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.7.1
+// Type definitions for zinggrid 1.7.1-0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -552,9 +552,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
        */
       filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
-
-                       trueVal' | 'falseVal';
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal';
 
       /**
        * @description Number of conditions to display in the filter menu on menu open
@@ -1451,9 +1449,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
        */
       filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
-
-                       trueVal' | 'falseVal';
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal';
 
       /**
        * @description Number of conditions to display in the filter menu on menu open
