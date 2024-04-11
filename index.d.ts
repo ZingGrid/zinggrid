@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.7.1-0
+// Type definitions for zinggrid 1.7.1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

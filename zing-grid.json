@@ -1767,8 +1767,7 @@
             {
               "name": "filter-conditions",
               "description": "The list of conditions to present as options in the filter menu condition select.  Use \"break\" to display the horizontal separator.  Use \"default\" to use the built in default.",
-              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
-               trueVal' | 'falseVal'"
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal'"
             },
             {
               "name": "filter-conditions-display",
@@ -7285,8 +7284,7 @@
             {
               "name": "filter-conditions",
               "description": "The list of conditions to present as options in the filter menu condition select.  Use \"break\" to display the horizontal separator.  Use \"default\" to use the built in default.",
-              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default
-               trueVal' | 'falseVal'"
+              "type": "'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal'"
             },
             {
               "name": "filter-conditions-display",
