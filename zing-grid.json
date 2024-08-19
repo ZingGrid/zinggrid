@@ -738,6 +738,30 @@
               "default": "0"
             },
             {
+              "name": "--zg-caption-border-top-left-radius",
+              "description": "Applies a top-left border-radius to the caption",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
+              "name": "--zg-caption-border-top-right-radius",
+              "description": "Applies a top-right border-radius to the caption",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
+              "name": "--zg-caption-border-bottom-left-radius",
+              "description": "Applies a bottom-left border-radius to the caption",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
+              "name": "--zg-caption-border-bottom-right-radius",
+              "description": "Applies a bottom-right border-radius to the caption",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "0"
+            },
+            {
               "name": "--zg-caption-box-shadow",
               "description": "Applies a box shadow behind caption",
               "syntax": "none | <shadow>#",
@@ -1871,6 +1895,11 @@
             },
             {
               "name": "header-tooltip-icon-position",
+              "description": "Sets the header icon position in the header cells",
+              "type": "'left' | 'right' | 'after-text'"
+            },
+            {
+              "name": "header-tooltip-icon-position",
               "description": "Sets the tooltip icon position for the tooltip icon in the header cells",
               "type": "'left' | 'right' | 'after-text'"
             },
@@ -1903,6 +1932,11 @@
               "name": "header-tooltip-type",
               "description": "Sets the style to use for the tooltips.  Uses the `default` style by default.  Can set to `system` to match the tooltips used on icons throughout `<zing-grid>`.",
               "type": "'default' | 'system'"
+            },
+            {
+              "name": "headerIcon",
+              "description": "Adds an icon next to the header text.",
+              "type": "string"
             },
             {
               "name": "hidden",
@@ -2002,7 +2036,7 @@
             {
               "name": "type",
               "description": "The type of the data stored in the column.  The column renderer/editor will behave based on the column type.",
-              "type": "'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
+              "type": "'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'emoji' | 'icon' | 'image' | 'iframe' | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url'"
             },
             {
               "name": "type-aggregate-omit",
@@ -2087,6 +2121,11 @@
             {
               "name": "type-element-tag-name",
               "description": "Sets the tag to wrap content when `<zg-column>` has `type` set to `element`. If `type-element-attribute-name` isn't set, it will put the rendered data into the body of the element. If `type-element-attribute-name` is set, it will set the attribute to the indexed value.",
+              "type": "string"
+            },
+            {
+              "name": "type-emoji-shortcode",
+              "description": "Set to function to convert shortcodes to emojis",
               "type": "string"
             },
             {
@@ -3365,6 +3404,30 @@
               "default": "var(--theme-color-light)"
             },
             {
+              "name": "--zg-filter-menu-list-color",
+              "description": "Sets the color of filter-menu list items",
+              "syntax": "<color>",
+              "default": "var(--zg-menu-item-color, var(--zg-menu-color)"
+            },
+            {
+              "name": "--zg-filter-menu-list-font-size",
+              "description": "Sets the font size of filter-menu list items",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "rowser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-list-font-weight",
+              "description": "Sets the font weight of filter-menu list items",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-filter-menu-list-line-height",
+              "description": "Sets the line height of filter-menu list items",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-filter-menu-footer-background",
               "description": "Styles the background of filter-menu footer",
               "syntax": "",
@@ -4193,12 +4256,6 @@
               "default": "var(--zg-head-cell-border_sorted, 0)"
             },
             {
-              "name": "--zg-head-cell-border-top_sorted",
-              "description": "Styles the top border of sorted head cells",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-head-cell-border_sorted, 0)"
-            },
-            {
               "name": "--zg-head-cell-color_sorted",
               "description": "Sets the font color of sorted head cells",
               "syntax": "<color>",
@@ -4544,12 +4601,6 @@
               "name": "--zg-input-font-weight",
               "description": "Sets the font weight of input field",
               "syntax": "<font-weight-absolute> | bolder | lighter",
-              "default": "inherit"
-            },
-            {
-              "name": "--zg-input-line-height",
-              "description": "Sets the line height of input field",
-              "syntax": "normal | <number> | <length> | <percentage>",
               "default": "inherit"
             },
             {
@@ -5276,8 +5327,8 @@
               "default": "0 15px"
             },
             {
-              "name": "--zg-option-list-item-background_hover",
-              "description": "Sets the background of option list item on hover",
+              "name": "--zg-option-list-item-background_focus",
+              "description": "Sets the background of option list item on focus",
               "syntax": "",
               "default": "var(--theme-color-secondary)"
             },
@@ -6234,6 +6285,12 @@
               "default": "var(--zg-select-border, 1px solid var(--theme-border-color))"
             },
             {
+              "name": "--zg-select-border-radius",
+              "description": "Sets the border radius of the select",
+              "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
+              "default": "var(--zg-select-border-radius, 0)"
+            },
+            {
               "name": "--zg-select-height",
               "description": "Sets the minimum height of the select",
               "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
@@ -6301,7 +6358,7 @@
             },
             {
               "name": "--zg-select-arrow-color",
-              "description": "Sets the color select arrow icon",
+              "description": "Sets the color select arrow icon. This also sets the font color of the select (`--zg-select-color`).",
               "syntax": "<color>",
               "default": "#000"
             }
@@ -6452,7 +6509,7 @@
         {
           "kind": "class",
           "customElement": true,
-          "description": "`<zg-source>` is used to source the data in ZingGrid.  The  element internally wraps any text in a `<cite role=\"any\">` tag for proper semantics.  The element is stylable with CSS like most ZingGrid elements.",
+          "description": "`<zg-source>` is used to source the data in ZingGrid.  The  element internally wraps any text in a `<cite role=\"generic\">` tag for proper semantics.  The element is stylable with CSS like most ZingGrid elements.",
           "tagName": "ZGSource",
           "attributes": [
             {
@@ -7270,6 +7327,11 @@
               "name": "editor-controls",
               "description": "Adds columns for the editor controls.  If it is added, default is \"all\".",
               "type": "'editor' | 'remover' | 'creator' | 'all' | boolean"
+            },
+            {
+              "name": "editor-disabled-fields",
+              "description": "Comma separated list of indexes to turn off editor functionality on.  Mimes the functionality of [\"editor=disabled\"] on `<zg-column>`",
+              "type": "'fieldIndex' | boolean"
             },
             {
               "name": "filter",
@@ -9474,6 +9536,60 @@
             },
             {
               "kind": "method",
+              "name": "scrollLeft",
+              "description": "Scrolls the ZGBody to the left by the given increment (in pixels) or the default of 100px",
+              "parameters": [
+                {
+                  "name": "scrollIncrement",
+                  "optional": false,
+                  "description": "The amount of pixels to scroll",
+                  "type": "number"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scrollLeftMax",
+              "description": "Scrolls the ZGBody all the way to the left",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scrollRight",
+              "description": "Scrolls the ZGBody to the right by the given increment (in pixels) or the default of 100px",
+              "parameters": [
+                {
+                  "name": "scrollIncrement",
+                  "optional": false,
+                  "description": "The amount of pixels to scroll",
+                  "type": "number"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "scrollRightMax",
+              "description": "Scrolls the ZGBody all the way to the right",
+              "parameters": false,
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
               "name": "searchGrid",
               "description": "Searches the grid with the search term indicated",
               "parameters": [
@@ -11026,7 +11142,7 @@
                 {
                   "name": "type",
                   "optional": false,
-                  "description": "The type of dialog to customize.  If you set as null, the config will be applied to all dialogs. Options are: <ul> <li>record-create <li>record-delete <li>record-info <li>record-update <li>view-error <li>view-info <li>view-success <li>view-warn <li>zg-version </ul>",
+                  "description": "The type of dialog to customize.  If you set as null, the config will be applied to all dialogs. Options are: <ul> <li>field-update <li>record-create <li>record-delete <li>record-info <li>record-update <li>view-error <li>view-info <li>view-success <li>view-warn <li>zg-version </ul>",
                   "type": "string"
                 },
                 {
@@ -11059,6 +11175,12 @@
                   "type": "string"
                 },
                 {
+                  "name": "lang",
+                  "optional": false,
+                  "description": "The language to use for formatting",
+                  "type": "string"
+                },
+                {
                   "name": "locale",
                   "optional": true,
                   "description": "The locale to use for the formatting.  Optional.",
@@ -11086,6 +11208,12 @@
                   "optional": false,
                   "description": "Indicates if we should include 'ago/to' to indicate past/future",
                   "type": "boolean"
+                },
+                {
+                  "name": "lang",
+                  "optional": false,
+                  "description": "The language to use for formatting",
+                  "type": "string"
                 }
               ],
               "return": {
@@ -11096,7 +11224,7 @@
             {
               "kind": "method",
               "name": "registerAdapter",
-              "description": "Register a method to make connecting a remote data src to your grid even easier. If you have your own standardized endpoints this is very useful. A way for us to provide an ES6 style import  mechanism and pattern for building custom data sources.",
+              "description": "Register a method to make connecting a remote data src to your grid even easier. If you have your own standardized endpoints this is very useful. A way for us to provide an ES6 style import mechanism and pattern for building custom data sources.",
               "parameters": [
                 {
                   "name": "sType",
@@ -11133,6 +11261,25 @@
             },
             {
               "kind": "method",
+              "name": "registerClient",
+              "description": "Register a third party client or library to make it available to ZingGrid for JS adapter calls. Currently configured for supabaseJS adapter and dexieCloud adapter",
+              "parameters": [
+                {
+                  "name": "client",
+                  "optional": false,
+                  "description": "The client that will be used for the adapter calls.",
+                  "type": "any"
+                },
+                {
+                  "name": "clientUse",
+                  "optional": false,
+                  "description": "The client or library use to identify the library.   'primary' | 'subscription' | 'subscriptionEventObject' current choices.  Default is primary",
+                  "type": "string"
+                }
+              ]
+            },
+            {
+              "kind": "method",
               "name": "registerCustomFilterMethod",
               "description": "Registers the custom filter method.   This method can be tied into the menu filter through registerFilter by setting the key in `getConditions()` or in `filter-conditions`",
               "parameters": [
@@ -11151,7 +11298,7 @@
                 {
                   "name": "oScope",
                   "optional": false,
-                  "description": "Scope of the filterMethod",
+                  "description": "Scope of the filter method",
                   "type": "any"
                 }
               ]
@@ -11162,15 +11309,21 @@
               "description": "Register the life cycle hooks for cell editing. This allows you to import and inherit editors for your library.",
               "parameters": [
                 {
-                  "name": "sCellType",
-                  "optional": false,
-                  "description": "Cell type editor to override",
-                  "type": "string"
-                },
-                {
                   "name": "oConfig",
                   "optional": false,
                   "description": "Object containing editor hooks",
+                  "type": "any"
+                },
+                {
+                  "name": "sName",
+                  "optional": false,
+                  "description": "String name of custom editor",
+                  "type": "string"
+                },
+                {
+                  "name": "oScope",
+                  "optional": false,
+                  "description": "Scope of the editor",
                   "type": "any"
                 }
               ]
@@ -11181,15 +11334,21 @@
               "description": "Register the life cycle hooks for filterer. This allows you to import and inherit editors for your library.",
               "parameters": [
                 {
-                  "name": "sCellType",
+                  "name": "oConfig",
                   "optional": false,
-                  "description": "Cell type filterer to override",
+                  "description": "Object containing filterer life cycle hooks",
+                  "type": "any"
+                },
+                {
+                  "name": "sName",
+                  "optional": false,
+                  "description": "String name of the filterer",
                   "type": "string"
                 },
                 {
-                  "name": "oConfig",
+                  "name": "oScope",
                   "optional": false,
-                  "description": "Object containing filterer hooks",
+                  "description": "Scope of the filterer method",
                   "type": "any"
                 }
               ]
@@ -11256,15 +11415,15 @@
                   "type": "any"
                 },
                 {
-                  "name": "name",
+                  "name": "sName",
                   "optional": true,
                   "description": "The name to refer to the validator. Optional.",
                   "type": "string"
                 },
                 {
-                  "name": "scope",
+                  "name": "oScope",
                   "optional": true,
-                  "description": "The scope of the method.  When the method is called `this` will be set to the `scope` value. Optional.",
+                  "description": "The scope of the validator.  When the validator is called `this` will be set to the `scope` value. Optional.",
                   "type": "any"
                 }
               ]
@@ -11279,13 +11438,33 @@
               "kind": "method",
               "name": "setBuildCode",
               "description": "Sets the build code and removes watermarks if it is valid.",
-              "parameters": false
+              "parameters": [
+                {
+                  "name": "aBuildCode",
+                  "optional": false,
+                  "description": "List of build codes",
+                  "type": "Array.<String>"
+                }
+              ]
             },
             {
               "kind": "method",
               "name": "setLicense",
               "description": "Sets the license and removes watermarks if it is valid.",
-              "parameters": false
+              "parameters": [
+                {
+                  "name": "aLicense",
+                  "optional": false,
+                  "description": "List of license keys",
+                  "type": "Array.<String>"
+                },
+                {
+                  "name": "aBuildCode",
+                  "optional": true,
+                  "description": "List of build codes. Optional.",
+                  "type": "Array.<String>"
+                }
+              ]
             }
           ]
         }

@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.7.1
+// Type definitions for zinggrid 1.7.2-1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -668,6 +668,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       headerTooltipIcon?: string;
 
       /**
+       * @description Sets the header icon position in the header cells
+       */
+      headerTooltipIconPosition?: 'left' | 'right' | 'after-text';
+
+      /**
        * @description Sets the tooltip icon position for the tooltip icon in the header cells
        */
       headerTooltipIconPosition?: 'left' | 'right' | 'after-text';
@@ -701,6 +706,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description Sets the style to use for the tooltips.  Uses the "default" style by default.  Can set to "system" to match the tooltips used on icons throughout "<zing-grid>".
        */
       headerTooltipType?: 'default' | 'system';
+
+      /**
+       * @description Adds an icon next to the header text.
+       */
+      headerIcon?: string;
 
       /**
        * @description Presence of attribute hides the column
@@ -807,8 +817,8 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
-      type?: 'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'icon' | 'image' | 'iframe' | 
-        'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+      type?: 'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'emoji' | 'icon' | 'image' | 'iframe' 
+        | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
 
       /**
        * @description Presence of attribute ignores the column in aggregation calculations
@@ -898,6 +908,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * If "type-element-attribute-name" is set, it will set the attribute to the indexed value.
        */
       typeElementTagName?: string;
+
+      /**
+       * @description Set to function to convert shortcodes to emojis
+       */
+      typeEmojiShortcode?: string;
 
       /**
        * @description Presence of the attribute disables the display of the row count on the row-group column
@@ -1436,6 +1451,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       editorControls?: 'editor' | 'remover' | 'creator' | 'all' | boolean;
 
       /**
+       * @description Comma separated list of indexes to turn off editor functionality on.  Mimes the functionality of ["editor=disabled"] on "<zg-column>"
+       */
+      editorDisabledFields?: 'fieldIndex' | boolean;
+
+      /**
        * @description Enables filtering for all columns.  Can be turned on/off individually via column.  Can be set to "inline" or "menu"  Default is "menu"
        */
       filter?: string | boolean;
@@ -1911,14 +1931,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGCheckbox extends ZingGridAttributes.ZGCheckbox, CatchAll, HTMLElement {}
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
-    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event' | 'blur'
-    | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
-    | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
-    | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
-    | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight'
-    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover'
-    | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate'
-    | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event'
+    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
+    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
+    | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
+    | 'inert' | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce'
+    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
+    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
+    | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -2105,6 +2125,29 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param hide Visibility of column
      */
     toggleColumn: (columnIndex: string, hide: boolean) => ZingGrid;
+
+    // ZGBody
+    /**
+     * @description Scrolls the ZGBody to the left by the given increment (in pixels) or the default of 100px
+     * @param scrollIncrement The amount of pixels to scroll
+     */
+    scrollLeft: (scrollIncrement?: number) => ZingGrid;
+
+    /**
+     * @description Scrolls the ZGBody all the way to the left
+     */
+    scrollLeftMax: () => ZingGrid;
+
+    /**
+     * @description Scrolls the ZGBody to the right by the given increment (in pixels) or the default of 100px
+     * @param scrollIncrement The amount of pixels to scroll
+     */
+    scrollRight: (scrollIncrement?: number) => ZingGrid;
+
+    /**
+     * @description Scrolls the ZGBody all the way to the right
+     */
+    scrollRightMax: () => ZingGrid;
 
     // ZGSelector
     /**
@@ -3036,14 +3079,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   }
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
-    | 'accessKeyLabel' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event' | 'blur'
-    | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event' | 'dragend_event'
-    | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event' | 'drop_event'
-    | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover' | 'inert'
-    | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce' | 'offsetHeight'
-    | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover'
-    | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate'
-    | 'virtualKeyboardPolicy'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event'
+    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
+    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
+    | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
+    | 'inert' | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce'
+    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
+    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
+    | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
@@ -3205,6 +3248,7 @@ declare namespace ZingGrid {
    * @param type The type of dialog to customize.  If you set as null, the config will be applied to all dialogs.
    * Options are:
    * <ul>
+   * <li>field-update
    * <li>record-create
    * <li>record-delete
    * <li>record-info
@@ -3228,21 +3272,23 @@ declare namespace ZingGrid {
    * @description Formats a Date
    * @param date The Date to format
    * @param format The tokenized format to format the date
+   * @param lang The language to use for formatting
    * @param locale The locale to use for the formatting.  Optional.
    */
-  function formatDate(date: string | Date, format: string, locale?: string): string;
+  function formatDate(date: string | Date, format: string, lang: string, locale?: string): string;
 
   /**
    * @description Formats a Date in from now format
    * @param date The Date to format
    * @param raw Indicates if we should include 'ago/to' to indicate past/future
+   * @param lang The language to use for formatting
    */
-  function fromNow(date: Date, raw: boolean): string;
+  function fromNow(date: Date, raw: boolean, lang?: string): string;
 
   /**
    * @description Register a method to make connecting a remote data src to your grid even easier. If you
    * have your own standardized endpoints this is very useful. A way for us to provide an ES6 style import
-   *  mechanism and pattern for building custom data sources.
+   * mechanism and pattern for building custom data sources.
    * @param sType The string name for the adapter
    * @param oOptions Option list of of adapter variables you want to define. You can define ANY
    * zg-param name value pair here in this option. Refer to the Store.js variable this.oDefaultDataFormat
@@ -3256,6 +3302,15 @@ declare namespace ZingGrid {
    * @param oOptions An object to define the renderer and/or editor for the cell type.
    */
   function registerCellType(sType: string, oOptions: any): void;
+
+  /**
+   * @description Register a third party client or library to make it available to ZingGrid for JS adapter calls.
+   * Currently configured for supabaseJS adapter and dexieCloud adapter
+   * @param client The client that will be used for the adapter calls.
+   * @param clientUse The client or library use to identify the library.
+   * 'primary' | 'subscription' | 'subscriptionEventObject' current choices.  Default is primary
+   */
+  function registerClient(client: any, clientUse: string): void;
 
   /**
    * @description Registers the custom filter method.
@@ -3272,25 +3327,27 @@ declare namespace ZingGrid {
    * matchCase - boolean indicating if the user selected the match case checkbox
    * <li>showMatchCase: Boolean indicating if the match case checkbox should be displayed.  Default is true
    * </ul>
-   * @param oScope Scope of the filterMethod
+   * @param oScope Scope of the filter method
    */
-  function registerCustomFilterMethod(key: string, oCustomFilterObj: any, oScope: any): void;
+  function registerCustomFilterMethod(key: string, oCustomFilterObj: any, oScope?: any): void;
 
   /**
    * @description Register the life cycle hooks for cell editing. This allows you to import
    * and inherit editors for your library.
-   * @param sCellType Cell type editor to override
    * @param oConfig Object containing editor hooks
+   * @param sName String name of custom editor
+   * @param oScope Scope of the editor
    */
-  function registerEditor(sCellType: string, oConfig: any): void;
+  function registerEditor(oConfig: any, sName: string, oScope?: any): void;
 
   /**
    * @description Register the life cycle hooks for filterer. This allows you to import
    * and inherit editors for your library.
-   * @param sCellType Cell type filterer to override
-   * @param oConfig Object containing filterer hooks
+   * @param oConfig Object containing filterer life cycle hooks
+   * @param sName String name of the filterer
+   * @param oScope Scope of the filterer method
    */
-  function registerFilterer(sCellType: string, oConfig: any): void;
+  function registerFilterer(oConfig: any, sName: string, oScope?: any): void;
 
   /**
    * @description Register a method to make it available to ZingGrid even if it outside the window scope.
@@ -3318,10 +3375,10 @@ declare namespace ZingGrid {
    * @description Register the life cycle hooks for cell validation. This allows you to import
    * and inherit validators for your library.
    * @param oValidator The validator that you wish to expose to ZingGrid.
-   * @param name The name to refer to the validator. Optional.
-   * @param scope The scope of the method.  When the method is called "this" will be set to the "scope" value. Optional.
+   * @param sName The name to refer to the validator. Optional.
+   * @param oScope The scope of the validator.  When the validator is called "this" will be set to the "scope" value. Optional.
    */
-  function registerValidator(oValidator: any, name?: string, scope?: any): void;
+  function registerValidator(oValidator: any, sName?: string, oScope?: any): void;
 
   /**
    * @description Searches for table element(s) with the "[is="zing-grid"]" attribute to
@@ -3332,13 +3389,16 @@ declare namespace ZingGrid {
 
   /**
    * @description Sets the build code and removes watermarks if it is valid.
+   * @param aBuildCode List of build codes
    */
-  function setBuildCode(): void;
+  function setBuildCode(aBuildCode: string[]): void;
 
   /**
    * @description Sets the license and removes watermarks if it is valid.
+   * @param aLicense List of license keys
+   * @param aBuildCode List of build codes. Optional.
    */
-  function setLicense(): void;
+  function setLicense(aLicense: string[], aBuildCode?: string[]): void;
 }
 
 declare class ZingGrid extends ZSoft.ZingGrid {}
