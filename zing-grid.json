@@ -93,24 +93,6 @@
           "tagName": "ZGBody",
           "cssProperties": [
             {
-              "name": "--zg-body-background",
-              "description": "Styles the background of grid body",
-              "syntax": "",
-              "default": "transparent"
-            },
-            {
-              "name": "--zg-body-border",
-              "description": "Styles the border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
-            {
-              "name": "--zg-body-border-bottom",
-              "description": "Styles the bottom border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-border, 0)"
-            },
-            {
               "name": "--zg-body-border-left",
               "description": "Styles the left border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -121,18 +103,6 @@
               "description": "Styles the right border of grid body",
               "syntax": "<line-width> || <line-style> || <color>",
               "default": "var(--zg-body-border, 0)"
-            },
-            {
-              "name": "--zg-body-border-top",
-              "description": "Styles the top border of grid body. Note: If `--zg-row-border-top` set, it will override `--zg-body-border-top`.",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-body-border, 0)"
-            },
-            {
-              "name": "--zg-body-color",
-              "description": "Sets the font color of contents inside grid body",
-              "syntax": "<color>",
-              "default": "inherit"
             },
             {
               "name": "--zg-body-font-family",
@@ -205,6 +175,36 @@
               "description": "Sets display of grid body in 'card' layout-mode",
               "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
               "default": "grid"
+            },
+            {
+              "name": "--zg-body-border-top",
+              "description": "Styles the top border of grid body. Note: If `--zg-row-border-top` set, it will override `--zg-body-border-top`.",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-border, 0)"
+            },
+            {
+              "name": "--zg-body-border",
+              "description": "Styles the border of grid body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-body-border-bottom",
+              "description": "Styles the bottom border of grid body",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-body-border, 0)"
+            },
+            {
+              "name": "--zg-body-background",
+              "description": "Styles the background of grid body",
+              "syntax": "",
+              "default": "transparent"
+            },
+            {
+              "name": "--zg-body-color",
+              "description": "Sets the font color of contents inside grid body",
+              "syntax": "<color>",
+              "default": "inherit"
             }
           ]
         }
@@ -1390,30 +1390,6 @@
               "default": "var(--zg-cell-vertical-align, middle)"
             },
             {
-              "name": "--zg-cell-background_hover",
-              "description": "Styles the background of cells on hover",
-              "syntax": "",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-cell-background_hover_layout_row",
-              "description": "Styles the background of cells in 'row' layout-mode on hover",
-              "syntax": "",
-              "default": "var(--zg-cell-background_hover)"
-            },
-            {
-              "name": "--zg-cell-color_hover",
-              "description": "Styles font color of cells on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-cell-color)"
-            },
-            {
-              "name": "--zg-cell-color_hover_layout_row",
-              "description": "Styles font color of cells in 'row' layout-mode on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-cell-color_hover, var(--zg-cell-color))"
-            },
-            {
               "name": "--zg-cell-background_sorted",
               "description": "Styles the background of cells in sorted column",
               "syntax": "",
@@ -1520,6 +1496,30 @@
               "description": "Sets the padding of cards in 'card' layout-mode",
               "syntax": "[ <length> | <percentage> ]{1,4}",
               "default": "3px 0"
+            },
+            {
+              "name": "--zg-cell-background_hover",
+              "description": "Styles the background of cells on hover",
+              "syntax": "",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-cell-background_hover_layout_row",
+              "description": "Styles the background of cells in 'row' layout-mode on hover",
+              "syntax": "",
+              "default": "var(--zg-cell-background_hover)"
+            },
+            {
+              "name": "--zg-cell-color_hover",
+              "description": "Styles font color of cells on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-cell-color)"
+            },
+            {
+              "name": "--zg-cell-color_hover_layout_row",
+              "description": "Styles font color of cells in 'row' layout-mode on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-cell-color_hover, var(--zg-cell-color))"
             }
           ]
         }
@@ -1691,7 +1691,7 @@
             {
               "name": "cell-break",
               "description": "The type of `word-break` style for body cells. When not set, `cell-break` style is `normal` by default. If the width of a column is set, `cell-break` is `word` by default.",
-              "type": "'all' | 'ellipsis' | 'normal' | 'word'"
+              "type": "'all' | 'ellipsis' | 'normal' | 'word' | 'none'"
             },
             {
               "name": "cell-class",
@@ -2214,6 +2214,11 @@
               "type": "string | any[]"
             },
             {
+              "name": "type-selector-page-persist",
+              "description": "Keeps the selected rows selected even on page change.  This means that rows can be selected and not on the current page.",
+              "type": "boolean"
+            },
+            {
               "name": "type-toggle-options",
               "description": "When the column type is set to `toggle`, use `typeToggleOptions` to set the list of options for the display.",
               "type": "any[]"
@@ -2266,7 +2271,7 @@
             {
               "name": "width",
               "description": "Sets the width of the column.",
-              "type": "'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | string | number"
+              "type": "'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | 'min-content' | 'max-content' | string | number"
             }
           ],
           "slots": [
@@ -3682,10 +3687,28 @@
           "tagName": "ZGFoot",
           "cssProperties": [
             {
-              "name": "--zg-foot-background",
-              "description": "Styles the background of grid foot",
-              "syntax": "",
-              "default": "Browser's default value"
+              "name": "--zg-foot-border-left",
+              "description": "Styles the left border of grid foot",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-foot-border, 0)"
+            },
+            {
+              "name": "--zg-foot-border-right",
+              "description": "Styles the right border of grid foot",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-foot-border, 0)"
+            },
+            {
+              "name": "--zg-foot-padding",
+              "description": "Sets the padding of grid foot",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "0"
+            },
+            {
+              "name": "--zg-foot-border-top",
+              "description": "Styles the top border of grid foot",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-foot-border, 0)"
             },
             {
               "name": "--zg-foot-border",
@@ -3700,34 +3723,10 @@
               "default": "var(--zg-foot-border, 0)"
             },
             {
-              "name": "--zg-foot-border-left",
-              "description": "Styles the left border of grid foot",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-foot-border, 0)"
-            },
-            {
-              "name": "--zg-foot-border-right",
-              "description": "Styles the right border of grid foot",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-foot-border, 0)"
-            },
-            {
-              "name": "--zg-foot-border-top",
-              "description": "Styles the top border of grid foot",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-foot-border, 0)"
-            },
-            {
-              "name": "--zg-foot-height",
-              "description": "Sets the height of grid foot",
-              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
-              "default": "auto"
-            },
-            {
-              "name": "--zg-foot-padding",
-              "description": "Sets the padding of grid foot",
-              "syntax": "[ <length> | <percentage> ]{1,4}",
-              "default": "0"
+              "name": "--zg-foot-background",
+              "description": "Styles the background of grid foot",
+              "syntax": "",
+              "default": "Browser's default value"
             }
           ]
         }
@@ -3860,24 +3859,6 @@
           "tagName": "ZGHead",
           "cssProperties": [
             {
-              "name": "--zg-head-background",
-              "description": "Styles the background of grid head rows",
-              "syntax": "",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-head-border",
-              "description": "Styles the border of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "1px solid var(--theme-border-color)"
-            },
-            {
-              "name": "--zg-head-border-bottom",
-              "description": "Styles the bottom border of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-head-border, 1px solid var(--theme-border-color))"
-            },
-            {
               "name": "--zg-head-border-left",
               "description": "Styles the left border of grid head rows",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -3890,28 +3871,28 @@
               "default": "var(--zg-head-border, 0)"
             },
             {
-              "name": "--zg-head-border-top",
-              "description": "Styles the top border of grid head rows",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zg-head-border)"
-            },
-            {
               "name": "--zg-head-border-radius",
               "description": "Styles the border-radius of grid head rows",
               "syntax": "<length-percentage>{1,4} [ / <length-percentage>{1,4} ]?",
               "default": "var(--zg-head-border-radius)"
             },
             {
-              "name": "--zg-head-visibility",
-              "description": "Sets the visibility of grid head rows",
-              "syntax": "visible | hidden | collapse",
-              "default": "Browser's default value"
+              "name": "--zg-head-border-top",
+              "description": "Styles the top border of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-border)"
             },
             {
-              "name": "--zg-row-head-background",
-              "description": "Styles the background of grid head rows",
-              "syntax": "",
-              "default": "var(--zg-head-background)"
+              "name": "--zg-head-border",
+              "description": "Styles the border of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "1px solid var(--theme-border-color)"
+            },
+            {
+              "name": "--zg-head-border-bottom",
+              "description": "Styles the bottom border of grid head rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-head-border, 1px solid var(--theme-border-color))"
             },
             {
               "name": "--zg-row-head-border",
@@ -3944,22 +3925,16 @@
               "default": "var(--zg-row-head-border, var(--zg-row-border-top, var(--zg-row-border, var(--zg-row-border, 0))))"
             },
             {
-              "name": "--zg-row-head-color",
-              "description": "Styles the font color of grid head rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color)"
-            },
-            {
-              "name": "--zg-row-head-background_hover",
-              "description": "Styles the background of grid head rows on hover",
+              "name": "--zg-head-background",
+              "description": "Styles the background of grid head rows",
               "syntax": "",
               "default": "Browser's default value"
             },
             {
-              "name": "--zg-row-head-color_hover",
-              "description": "Styles the font color of grid head rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color_hover)"
+              "name": "--zg-row-head-background",
+              "description": "Styles the background of grid head rows",
+              "syntax": "",
+              "default": "var(--zg-head-background)"
             },
             {
               "name": "--zg-row-head-background_even",
@@ -3968,10 +3943,22 @@
               "default": "var(--zg-row-head-background, var(--zg-head-background))"
             },
             {
+              "name": "--zg-row-head-color",
+              "description": "Styles the font color of grid head rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color)"
+            },
+            {
               "name": "--zg-row-head-color_even",
               "description": "Styles the font color of 'even' grid head rows",
               "syntax": "<color>",
               "default": "var(--zg-row-head-color, var(--zg-row-color))"
+            },
+            {
+              "name": "--zg-row-head-height",
+              "description": "Sets the height of grid head rows",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "var(--zg-row-height)"
             },
             {
               "name": "--zg-row-head-height_even",
@@ -4010,16 +3997,34 @@
               "default": "var(--zg-row-head-height, var(--zg-row-height))"
             },
             {
+              "name": "--zg-row-head-background_hover",
+              "description": "Styles the background of grid head rows on hover",
+              "syntax": "",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-row-head-background_odd_hover",
               "description": "Styles the background of 'odd' grid head rows on hover",
               "syntax": "",
               "default": "var(--zg-row-head-background_hover, var(--zg-head-background_hover))"
             },
             {
+              "name": "--zg-row-head-color_hover",
+              "description": "Styles the font color of grid head rows on hover",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color_hover)"
+            },
+            {
               "name": "--zg-row-head-color_odd_hover",
               "description": "Styles the font color of 'odd' grid head rows on hover",
               "syntax": "<color>",
               "default": "var(--zg-row-head-color_hover, var(--zg-row-color_hover, var(--zg-row-color)))"
+            },
+            {
+              "name": "--zg-head-visibility",
+              "description": "Sets the visibility of grid head rows",
+              "syntax": "visible | hidden | collapse",
+              "default": "Browser's default value"
             }
           ]
         }
@@ -5780,12 +5785,6 @@
               "default": "10px"
             },
             {
-              "name": "--zg-row-body-background",
-              "description": "Styles the background of body rows",
-              "syntax": "",
-              "default": "Browser's default value"
-            },
-            {
               "name": "--zg-row-body-border",
               "description": "Styles the border of body rows",
               "syntax": "<line-width> || <line-style> || <color>",
@@ -5816,22 +5815,10 @@
               "default": "var(--zg-row-body-border, var(--zg-row-border-top, var(--zg-row-border, 1px solid var(--theme-border-color))))"
             },
             {
-              "name": "--zg-row-body-color",
-              "description": "Sets the font color of body rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color)"
-            },
-            {
-              "name": "--zg-row-body-background_hover",
-              "description": "Styles the background of body rows on hover",
+              "name": "--zg-row-body-background",
+              "description": "Styles the background of body rows",
               "syntax": "",
               "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-row-body-color_hover",
-              "description": "Styles the font color of body rows",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color_hover, var(--zg-row-color))"
             },
             {
               "name": "--zg-row-body-background_even",
@@ -5844,6 +5831,18 @@
               "description": "Sets the font color of 'even' body rows",
               "syntax": "<color>",
               "default": "var(--zg-row-body-color, var(--zg-row-color))"
+            },
+            {
+              "name": "--zg-row-body-color",
+              "description": "Sets the font color of body rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color)"
+            },
+            {
+              "name": "--zg-row-color",
+              "description": "Sets the font color of all rows",
+              "syntax": "<color>",
+              "default": "Browser's default value"
             },
             {
               "name": "--zg-row-height",
@@ -5864,10 +5863,22 @@
               "default": "var(--zg-row-body-height, var(--zg-row-height))"
             },
             {
+              "name": "--zg-row-body-background_hover",
+              "description": "Styles the background of body rows on hover",
+              "syntax": "",
+              "default": "Browser's default value"
+            },
+            {
               "name": "--zg-row-body-background_even_hover",
               "description": "Styles the background of 'even' body rows on hover",
               "syntax": "",
               "default": "var(--zg-row-body-background_hover)"
+            },
+            {
+              "name": "--zg-row-body-color_hover",
+              "description": "Styles the font color of body rows",
+              "syntax": "<color>",
+              "default": "var(--zg-row-color_hover, var(--zg-row-color))"
             },
             {
               "name": "--zg-row-body-color_even_hover",
@@ -6014,18 +6025,6 @@
               "default": "var(--zg-row-border, var(--zg-row-border, 0))"
             },
             {
-              "name": "--zg-row-color",
-              "description": "Sets the font color of all rows",
-              "syntax": "<color>",
-              "default": "Browser's default value"
-            },
-            {
-              "name": "--zg-row-color_hover",
-              "description": "Sets the font color of all rows on hover",
-              "syntax": "<color>",
-              "default": "var(--zg-row-color)"
-            },
-            {
               "name": "--zg-row-card-display",
               "description": "Sets the display of cards in 'card' layout-mode",
               "syntax": "[ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy>",
@@ -6036,6 +6035,18 @@
               "description": "Sets the flex-basis of cards in 'card' layout-mode",
               "syntax": "content | <width>",
               "default": "100%"
+            },
+            {
+              "name": "--zg-row-body-border-left",
+              "description": "Styles the left border of body rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-body-border, var(--zg-row-border-left, var(--zg-row-border, 0)))"
+            },
+            {
+              "name": "--zg-row-body-border-right",
+              "description": "Styles the right border of body rows",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "var(--zg-row-body-border, var(--zg-row-border-right, var(--zg-row-border), 0))"
             }
           ]
         }
@@ -6055,6 +6066,140 @@
           "declaration": {
             "name": "ZGRow",
             "module": "zinggrid-lib/src/js/components/zg-row/ZGRow.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-row-details/ZGRowDetails.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "`<zg-row-details>` is the container for a row expansion;",
+          "tagName": "ZGRowDetails",
+          "cssProperties": [
+            {
+              "name": "--zg-row-details-background",
+              "description": "Styles the background of zg-row-details",
+              "syntax": "",
+              "default": "var(--zg-head-background)"
+            },
+            {
+              "name": "--zg-row-details-border",
+              "description": "Styles the border of zg-row-details",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-details-border-bottom",
+              "description": "Styles the bottom border of zg-row-details",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-details-border-left",
+              "description": "Styles the left border of zg-row-details",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-details-border-right",
+              "description": "Styles the right border of zg-row-details",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-details-border-top",
+              "description": "Styles the top border of zg-row-details",
+              "syntax": "<line-width> || <line-style> || <color>",
+              "default": "0"
+            },
+            {
+              "name": "--zg-row-details-color",
+              "description": "Sets the font color of zg-row-details",
+              "syntax": "<color>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-font-family",
+              "description": "Sets the font family of zg-row-details",
+              "syntax": "[ <'family-name'> | <generic-family> ]#",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-font-size",
+              "description": "Sets the font size of zg-row-details",
+              "syntax": "<absolute-size> | <relative-size> | <length-percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-font-style",
+              "description": "Sets the font style of zg-row-details",
+              "syntax": "normal | italic | oblique <angle>?",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-font-weight",
+              "description": "Sets the font weight of zg-row-details",
+              "syntax": "<font-weight-absolute> | bolder | lighter",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-height",
+              "description": "Sets the height of zg-row-details",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "auto"
+            },
+            {
+              "name": "--zg-row-details-line-height",
+              "description": "Sets the line height of zg-row-details",
+              "syntax": "normal | <number> | <length> | <percentage>",
+              "default": "inherit"
+            },
+            {
+              "name": "--zg-row-details-min-height",
+              "description": "Sets the min-height of zg-row-details",
+              "syntax": "auto | <length> | <percentage> | min-content | max-content | fit-content | fit-content(<length-percentage>)",
+              "default": "70px"
+            },
+            {
+              "name": "--zg-row-details-padding",
+              "description": "Sets the padding of zg-row-details",
+              "syntax": "[ <length> | <percentage> ]{1,4}",
+              "default": "20px 70px"
+            },
+            {
+              "name": "--zg-row-details-transition",
+              "description": "Sets the transition of zg-row-details",
+              "syntax": "<single-transition>#",
+              "default": "Browser's default value"
+            },
+            {
+              "name": "--zg-row-details-word-break",
+              "description": "Sets the word break of items in zg-row-details",
+              "syntax": "",
+              "default": "break-all"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGRowDetails",
+          "declaration": {
+            "name": "ZGRowDetails",
+            "module": "zinggrid-lib/src/js/components/zg-row-details/ZGRowDetails.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-row-details",
+          "declaration": {
+            "name": "ZGRowDetails",
+            "module": "zinggrid-lib/src/js/components/zg-row-details/ZGRowDetails.js"
           }
         }
       ]
@@ -7003,6 +7148,36 @@
     },
     {
       "kind": "javascript-module",
+      "path": "zinggrid-lib/src/js/components/zg-table/ZGTable.js",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "description": "The `<zg-table>` component replicates the `<table>` functionality in the grid. It contains `<zg-head>`, `<zg-body>`, `<zg-foot>`, and `<zg-colgroup>`.   The element and its contents are stylable directly using CSS.",
+          "tagName": "ZGTable"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ZGTable",
+          "declaration": {
+            "name": "ZGTable",
+            "module": "zinggrid-lib/src/js/components/zg-table/ZGTable.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "zg-table",
+          "declaration": {
+            "name": "ZGTable",
+            "module": "zinggrid-lib/src/js/components/zg-table/ZGTable.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "zinggrid-lib/src/js/components/zg-text/ZGText.js",
       "declarations": [
         {
@@ -7619,6 +7794,26 @@
               "type": "string"
             },
             {
+              "name": "row-details-renderer",
+              "description": "Renderer for the row details component To use a custom renderer, the attribute should be set to the name of the function. The renderer function takes in the following arguments, `recordData`, `domRowDetails`, and `rowObject` The returned value of the renderer function is set as the innerHTML of the zg-row-details component.",
+              "type": "string"
+            },
+            {
+              "name": "row-details-template",
+              "description": "Points to an external template element to be used as the template for the row's details",
+              "type": "string"
+            },
+            {
+              "name": "row-height",
+              "description": "Sets the height of each data row.  By default, the body row height is set to 'auto' where it will auto fit the content. If you wish to apply the height to rows besides data row, specify with the `[rowHeightScope]` attribute.",
+              "type": "string | number"
+            },
+            {
+              "name": "row-height-scope",
+              "description": "If `[rowHeight]`  is set, it specifies which rows to apply row height to. Choices are `data`, `headers, and `all`.  Can combine with comma separated list",
+              "type": "string"
+            },
+            {
               "name": "row-selector",
               "description": "Adds `selector` type column to the rows as the first column",
               "type": "boolean"
@@ -7699,6 +7894,11 @@
               "type": "'android' | 'black' | 'default' | 'dark' | 'ios' | 'urlToThemeFile' | 'customThemeName' | string"
             },
             {
+              "name": "type-selector-page-persist",
+              "description": "If there is a selector column, it maintains selection between pages.  This means that rows can be selected and not on the current page.",
+              "type": "boolean"
+            },
+            {
               "name": "validation-error-message",
               "description": "Sets the default validation error message",
               "type": "string"
@@ -7740,36 +7940,6 @@
             }
           ],
           "cssProperties": [
-            {
-              "name": "--zing-grid-body-border-top",
-              "description": "Styles the top border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-body-border-right",
-              "description": "Styles the right border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-body-border-left",
-              "description": "Styles the left border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-body-border-bottom",
-              "description": "Styles the bottom border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "var(--zing-grid-body-border, 0)"
-            },
-            {
-              "name": "--zing-grid-body-border",
-              "description": "Styles the border of grid body",
-              "syntax": "<line-width> || <line-style> || <color>",
-              "default": "0"
-            },
             {
               "name": "--zing-grid-table-border-top",
               "description": "Styles the top border of grid table contents",
@@ -8294,6 +8464,20 @@
             {
               "name": "row:click",
               "description": "Fires the `row:click` and `record:click` event when a click occurs on a record (row).",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "row:detailsclose",
+              "description": "Fires when the row details is closed",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "row:detailsopen",
+              "description": "Fires when the row details is opened",
               "type": {
                 "text": "Event"
               }
@@ -9143,6 +9327,46 @@
             },
             {
               "kind": "method",
+              "name": "getRowDetailsRenderer",
+              "description": "Gets the value of the `row-details-renderer` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getRowDetailsTemplate",
+              "description": "Gets the value of the `row-details-template` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getRowHeight",
+              "description": "Gets the value of the `row-height` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getRowHeightScope",
+              "description": "Gets the value of the `row-height-scope` attribute",
+              "parameters": false,
+              "return": {
+                "type": "string",
+                "description": "Value of the attribute"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getRowSelector",
               "description": "Gets the value of the `row-selector` attribute",
               "parameters": false,
@@ -9357,6 +9581,23 @@
                   "name": "columnIndex",
                   "optional": false,
                   "description": "Index of column to hide",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "hideColumnType",
+              "description": "Hides all columns with the given column type",
+              "parameters": [
+                {
+                  "name": "columnType",
+                  "optional": false,
+                  "description": "Type of the columns to hide",
                   "type": "string"
                 }
               ],
@@ -10578,6 +10819,74 @@
                   "optional": false,
                   "description": "Class name or function name",
                   "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setRowDetailsRenderer",
+              "description": "Sets the `row-details-renderer` attribute",
+              "parameters": [
+                {
+                  "name": "renderer",
+                  "optional": false,
+                  "description": "Name of the function that should be renderered for row-details",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setRowDetailsTemplate",
+              "description": "Sets the `row-details-template` attribute",
+              "parameters": [
+                {
+                  "name": "template",
+                  "optional": false,
+                  "description": "ID of the template that should be used for row-details",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setRowHeight",
+              "description": "Sets the `row-height` attribute",
+              "parameters": [
+                {
+                  "name": "height",
+                  "optional": false,
+                  "description": "CSS height to set for the row height",
+                  "type": "string"
+                }
+              ],
+              "return": {
+                "type": "ZingGrid",
+                "description": "Returns the component so that you can chain methods together"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "setRowHeightScope",
+              "description": "Sets the `row-height-scope` attribute",
+              "parameters": [
+                {
+                  "name": "scope",
+                  "optional": false,
+                  "description": "Set to 'data', 'headers', or 'all'",
+                  "type": "void"
                 }
               ],
               "return": {

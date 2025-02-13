@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 1.7.2-1
+// Type definitions for zinggrid 2.0.0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -58,6 +58,8 @@ declare namespace ZSoft {
     'data:record:insert': CustomEvent;
     'data:record:openinsert': CustomEvent;
     'row:click': CustomEvent;
+    'row:detailsclose': CustomEvent;
+    'row:detailsopen': CustomEvent;
     'row:frozen': CustomEvent;
     'row:mouseout': CustomEvent;
     'row:mouseover': CustomEvent;
@@ -254,6 +256,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      */
     'onRowClick'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Fires when the row details is closed
+     */
+    'onRowDetailsclose'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires when the row details is opened
+     */
+    'onRowDetailsopen'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires when the frozen row state changes
      */
     'onRowFrozen'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -442,7 +452,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description The type of "word-break" style for body cells. When not set, "cell-break" style is "normal" by default.
        * If the width of a column is set, "cell-break" is "word" by default.
        */
-      cellBreak?: 'all' | 'ellipsis' | 'normal' | 'word';
+      cellBreak?: 'all' | 'ellipsis' | 'normal' | 'word' | 'none';
 
       /**
        * @description The class to be set directly on "<zg-cell>" within the column. "cell-class" applied to
@@ -1004,6 +1014,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       typeSelectOptions?: string | any[];
 
       /**
+       * @description Keeps the selected rows selected even on page change.  This means that rows can be selected and not on the current page.
+       */
+      typeSelectorPagePersist?: boolean;
+
+      /**
        * @description When the column type is set to "toggle", use "typeToggleOptions" to set the list of options for the display.
        */
       typeToggleOptions?: any[];
@@ -1059,7 +1074,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Sets the width of the column.
        */
-      width?: 'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | string | number;
+      width?: 'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | 'min-content' | 'max-content' | string | number;
     }
 
     interface ZGData {
@@ -1771,6 +1786,31 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       rowClass?: string;
 
       /**
+       * @description Renderer for the row details component
+       * To use a custom renderer, the attribute should be set to the name of the function.
+       * The renderer function takes in the following arguments, "recordData", "domRowDetails", and "rowObject"
+       * The returned value of the renderer function is set as the innerHTML of the zg-row-details component.
+       */
+      rowDetailsRenderer?: string;
+
+      /**
+       * @description Points to an external template element to be used as the template for the row's details
+       */
+      rowDetailsTemplate?: string;
+
+      /**
+       * @description Sets the height of each data row.  By default, the body row height is set to 'auto' where it will auto fit the content.
+       * If you wish to apply the height to rows besides data row, specify with the "[rowHeightScope]" attribute.
+       */
+      rowHeight?: string | number;
+
+      /**
+       * @description If "[rowHeight]"  is set, it specifies which rows to apply row height to.
+       * Choices are "data", "headers, and "all".  Can combine with comma separated list
+       */
+      rowHeightScope?: string;
+
+      /**
        * @description Adds "selector" type column to the rows as the first column
        */
       rowSelector?: boolean;
@@ -1860,6 +1900,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       theme?: 'android' | 'black' | 'default' | 'dark' | 'ios' | 'urlToThemeFile' | 'customThemeName' | string;
 
       /**
+       * @description If there is a selector column, it maintains selection between pages.  This means that rows can be selected and not on the current page.
+       */
+      typeSelectorPagePersist?: boolean;
+
+      /**
        * @description Sets the default validation error message
        */
       validationErrorMessage?: string;
@@ -1931,14 +1976,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGCheckbox extends ZingGridAttributes.ZGCheckbox, CatchAll, HTMLElement {}
   interface ZGColgroup extends CatchAll, HTMLElement {}
   interface ZGColumn extends NonoptionalAttributes, Omit<ZingGridAttributes.ZGColumn, 'accessKey'
-    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
-    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
-    | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
-    | 'inert' | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce'
-    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
-    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
-    | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autocorrect' | 'autofocus'
+    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'command_event' | 'contentEditable' | 'dataset'
+    | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
+    | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
+    | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
+    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
+    | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover'
+    | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -1965,12 +2010,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGPager extends ZingGridAttributes.ZGPager, CatchAll, HTMLElement {}
   interface ZGParam extends ZingGridAttributes.ZGParam, CatchAll, HTMLElement {}
   interface ZGRow extends CatchAll, HTMLElement {}
+  interface ZGRowDetails extends CatchAll, HTMLElement {}
   interface ZGSearch extends CatchAll, HTMLElement {}
   interface ZGSelect extends ZingGridAttributes.ZGSelect, CatchAll, HTMLElement {}
   interface ZGSelectorMask extends CatchAll, HTMLElement {}
   interface ZGSeparator extends CatchAll, HTMLElement {}
   interface ZGSource extends ZingGridAttributes.ZGSource, CatchAll, HTMLElement {}
   interface ZGStatus extends CatchAll, HTMLElement {}
+  interface ZGTable extends CatchAll, HTMLElement {}
   interface ZGText extends ZingGridAttributes.ZGText, CatchAll, HTMLElement {}
   interface ZGTooltip extends CatchAll, HTMLElement {}
   class ZingGrid {
@@ -2057,6 +2104,12 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param columnIndex Index of column to hide
      */
     hideColumn: (columnIndex: string) => ZingGrid;
+
+    /**
+     * @description Hides all columns with the given column type
+     * @param columnType Type of the columns to hide
+     */
+    hideColumnType: (columnType: string) => ZingGrid;
 
     /**
      * @description Resets the current filter.  Resets either the specified column or all the columns
@@ -2762,6 +2815,16 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     getPreserveStateSave: () => ZingGrid;
 
     /**
+     * @description Gets the value of the "row-height" attribute
+     */
+    getRowHeight: () => string;
+
+    /**
+     * @description Gets the value of the "row-height-scope" attribute
+     */
+    getRowHeightScope: () => string;
+
+    /**
      * @description Gets the value of the "width" attribute
      */
     getWidth: () => string;
@@ -2877,6 +2940,18 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     setRecordCount: (count: number) => ZingGrid;
 
     /**
+     * @description Sets the "row-height" attribute
+     * @param height CSS height to set for the row height
+     */
+    setRowHeight: (height: string) => ZingGrid;
+
+    /**
+     * @description Sets the "row-height-scope" attribute
+     * @param scope Set to 'data', 'headers', or 'all'
+     */
+    setRowHeightScope: (scope: void) => ZingGrid;
+
+    /**
      * @description Sets the grid state with the options passed in
      * @param state JSON string or object setting the state
      */
@@ -2901,6 +2976,29 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param delay The time to delay the action.  This should be > the time it takes to do the CSS transition.  Value in seconds
      */
     updateSize: (showLoading: boolean, delay: number) => ZingGrid;
+
+    // ZGRowDetails
+    /**
+     * @description Gets the value of the "row-details-renderer" attribute
+     */
+    getRowDetailsRenderer: () => string;
+
+    /**
+     * @description Gets the value of the "row-details-template" attribute
+     */
+    getRowDetailsTemplate: () => string;
+
+    /**
+     * @description Sets the "row-details-renderer" attribute
+     * @param renderer Name of the function that should be renderered for row-details
+     */
+    setRowDetailsRenderer: (renderer: string) => ZingGrid;
+
+    /**
+     * @description Sets the "row-details-template" attribute
+     * @param template ID of the template that should be used for row-details
+     */
+    setRowDetailsTemplate: (template: string) => ZingGrid;
 
     // ZGFilter
     /**
@@ -3079,14 +3177,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   }
 
   interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
-    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autofocus' | 'beforetoggle_event'
-    | 'blur' | 'change_event' | 'click' | 'contentEditable' | 'dataset' | 'dir' | 'drag_event'
-    | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event' | 'dragover_event' | 'dragstart_event'
-    | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus' | 'hidden' | 'hidePopover'
-    | 'inert' | 'innerText' | 'inputMode' | 'invoke_event' | 'isContentEditable' | 'lang' | 'nonce'
-    | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover'
-    | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event'
-    | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
+    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autocorrect' | 'autofocus'
+    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'command_event' | 'contentEditable' | 'dataset'
+    | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
+    | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
+    | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
+    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
+    | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover'
+    | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
@@ -3126,12 +3224,14 @@ interface HTMLElementTagNameMap {
   'zg-pager': ZSoft.ZGPager;
   'zg-param': ZSoft.ZGParam;
   'zg-row': ZSoft.ZGRow;
+  'zg-row-details': ZSoft.ZGRowDetails;
   'zg-search': ZSoft.ZGSearch;
   'zg-select': ZSoft.ZGSelect;
   'zg-selector-mask': ZSoft.ZGSelectorMask;
   'zg-separator': ZSoft.ZGSeparator;
   'zg-source': ZSoft.ZGSource;
   'zg-status': ZSoft.ZGStatus;
+  'zg-table': ZSoft.ZGTable;
   'zg-text': ZSoft.ZGText;
   'zg-tooltip': ZSoft.ZGTooltip;
   'zing-grid': ZSoft.ZingGrid;
@@ -3211,6 +3311,8 @@ declare namespace JSX {
     ZGParam: ZSoft.ZingGridAttributes.ZGParam | ZSoft.CatchAll;
     'zg-row': ZSoft.CatchAll;
     ZGRow: ZSoft.CatchAll;
+    'zg-row-details': ZSoft.CatchAll;
+    ZGRowDetails: ZSoft.CatchAll;
     'zg-search': ZSoft.CatchAll;
     ZGSearch: ZSoft.CatchAll;
     'zg-select': KebabKeys<ZSoft.ZingGridAttributes.ZGSelect> | ZSoft.CatchAll;
@@ -3223,6 +3325,8 @@ declare namespace JSX {
     ZGSource: ZSoft.ZingGridAttributes.ZGSource | ZSoft.CatchAll;
     'zg-status': ZSoft.CatchAll;
     ZGStatus: ZSoft.CatchAll;
+    'zg-table': ZSoft.CatchAll;
+    ZGTable: ZSoft.CatchAll;
     'zg-text': KebabKeys<ZSoft.ZingGridAttributes.ZGText> | ZSoft.CatchAll;
     ZGText: ZSoft.ZingGridAttributes.ZGText | ZSoft.CatchAll;
     'zg-tooltip': ZSoft.CatchAll;
