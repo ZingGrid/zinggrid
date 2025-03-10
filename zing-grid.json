@@ -10207,6 +10207,12 @@
                   "optional": false,
                   "description": "JSON data",
                   "type": "any"
+                },
+                {
+                  "name": "bKeepSort",
+                  "optional": false,
+                  "description": "If true, the grid will try to maintain the sort on the new data.",
+                  "type": "boolean"
                 }
               ],
               "return": {

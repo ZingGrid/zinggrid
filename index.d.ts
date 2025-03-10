@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 2.0.0
+// Type definitions for zinggrid 2.1.0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2410,8 +2410,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     /**
      * @description Sets or updates the dataset for the grid
      * @param data JSON data
+     * @param bKeepSort If true, the grid will try to maintain the sort on the new data.
      */
-    setData: (data: any) => ZingGrid;
+    setData: (data: any, bKeepSort: boolean) => ZingGrid;
 
     /**
      * @description Sets the "src" attribute
