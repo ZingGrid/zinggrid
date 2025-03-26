@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 2.1.0
+// Type definitions for zinggrid 2.1.1
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1981,9 +1981,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
     | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
     | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
-    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
-    | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover'
-    | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
+    | 'load_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth'
+    | 'outerText' | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -3183,9 +3183,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
     | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
     | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
-    | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth' | 'outerText'
-    | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title' | 'togglePopover'
-    | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
+    | 'load_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth'
+    | 'outerText' | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
+    | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
