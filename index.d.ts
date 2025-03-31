@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 2.1.1
+// Type definitions for zinggrid 2.1.2
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2769,6 +2769,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Gets the value of the "compact" attribute
      */
     getCompact: () => string | boolean;
+
+    /**
+     * @description Exposes the Constants object for the user to customize
+     */
+    getConstants: () => any;
 
     /**
      * @description Gets the dir setting for the grid

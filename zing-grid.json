@@ -8960,6 +8960,16 @@
             },
             {
               "kind": "method",
+              "name": "getConstants",
+              "description": "Exposes the Constants object for the user to customize",
+              "parameters": false,
+              "return": {
+                "type": "any",
+                "description": "Object containing constant variables"
+              }
+            },
+            {
+              "kind": "method",
               "name": "getContextMenu",
               "description": "Gets the value of the `context-menu` attribute",
               "parameters": false,
