@@ -1,4 +1,4 @@
-// Type definitions for zinggrid 2.1.5
+// Type definitions for zinggrid 2.2.0
 // Project: https://github.com/ZingGrid/zinggrid
 // Definitions by: Jeanette Phung <https://github.com/jeanettephung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -68,6 +68,8 @@ declare namespace ZSoft {
     'column:filter': CustomEvent;
     'column:filter:menu:close': CustomEvent;
     'column:filter:menu:open': CustomEvent;
+    'column:filter:summary:close': CustomEvent;
+    'column:filter:summary:open': CustomEvent;
     'column:mouseout': CustomEvent;
     'column:mouseover': CustomEvent;
     'column:move': CustomEvent;
@@ -135,7 +137,7 @@ declare namespace ZSoft {
      */
     'onGridPagesizechange'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the grid ready event when grid is ready.
+     * @description Fires the event when grid is ready.
      */
     'onGridReady'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -151,7 +153,7 @@ declare namespace ZSoft {
      */
     'onGridScroll'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event when a the grid is searched.
+     * @description Fires the event when the grid is searched.
      */
     'onGridSearch'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -163,7 +165,7 @@ declare namespace ZSoft {
      */
     'onGridSelectall'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
-     * @description Fires the event when a the grid is sorted
+     * @description Fires the event when the grid is sorted
      */
     'onGridSort'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
@@ -296,6 +298,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      */
     'onColumnFilterMenuOpen'?: ((this: Window, ev: CustomEvent) => any) | null;
     /**
+     * @description Fires the event when the filter summary row is closed.
+     */
+    'onColumnFilterSummaryClose'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
+     * @description Fires the event when the filter summary row is opened.
+     */
+    'onColumnFilterSummaryOpen'?: ((this: Window, ev: CustomEvent) => any) | null;
+    /**
      * @description Fires event when mouseout on a column.
      */
     'onColumnMouseout'?: ((this: Window, ev: CustomEvent) => any) | null;
@@ -410,7 +420,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
 
       /**
        * @description The return value of the method is set as the innerHTML of "<zg-card>".  If nothing is returned,
-       * it will not change the currently rendered card. The method takes the paramters "data", "domCard", and "rowObject".
+       * it will not change the currently rendered card. The method takes the parameters "data", "domCard", and "rowObject".
        */
       renderer?: string;
 
@@ -446,7 +456,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Presence of attribute forces a border on the button.  Setting to "disabled" removes the default border.
        */
-      buttonBorder?: boolean | string;
+      buttonBorder?: 'disabled' | boolean;
 
       /**
        * @description The type of "word-break" style for body cells. When not set, "cell-break" style is "normal" by default.
@@ -473,7 +483,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Specifies the icon to use for the cell tooltip trigger icon when using the info column type
        */
-      cellTooltipIcon?: string;
+      cellTooltipIcon?: 'batchedit' | 'batcheditcancel' | 'batcheditsave' | 'cancel' | 'cancelrecord' | 'checked' | 'checkmark' | 'close' | 'createrecord' | 'down' | 'duplicaterecord' | 'edit' | 
+        'editrecord' | 'error' | 'error-tmp' | 'filter' | 'firstpage' | 'fixedmenu' | 'info' | 'lastpage' | 'layoutcard' | 'layoutrow' | 'link' | 'menu' | 'nextpage' | 'outsidearrow' | 
+        'prevpage' | 'reload' | 'remove' | 'removerecord' | 'search' | 'sort' | 'submitrecord' | 'success' | 'unchecked' | 'undoremoverecord' | 'up' | 'warning';
 
       /**
        * @description Sets the tooltip-position for the cell
@@ -541,7 +553,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * If set to a custom editor, the attribute value should be set to the name of the object.
        * See "Features" page on "Editing: Custom Editor Grid" for more details on custom editor.
        */
-      editor?: string | string;
+      editor?: boolean | string;
 
       /**
        * @description Points to an external template element to be used as the template for the column's editor
@@ -549,20 +561,21 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       editorTemplate?: string;
 
       /**
-       * @description Overrides the grid level "filter" attribute.  Presence of attribute enables the menu on "filter" column.  Can be set to "inline", "menu", "both", or "disabled"
+       * @description Overrides the grid level "filter" attribute.  Presence of attribute enables the menu on "filter" column.  Can be set to "inline", "menu", "summary", "both", "all", a comma-separated combination (e.g. ""inline,summary""), or "disabled"
        */
-      filter?: string | boolean;
+      filter?: 'menu' | 'inline' | 'both' | 'summary' | 'all' | 'disabled' | boolean;
 
       /**
        * @description Comma separated list of buttons to display on the filter menu
        */
-      filterButtons?: string | any[];
+      filterButtons?: 'reset' | 'close' | 'apply' | string;
 
       /**
-       * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
+       * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.
+       * Use "default" to use the built in default.  Can also be any custom string representing a function name.
        */
       filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal';
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'break' | 'default' | 'trueVal' | 'falseVal' | string;
 
       /**
        * @description Number of conditions to display in the filter menu on menu open
@@ -575,10 +588,10 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       filterConditionsMax?: number;
 
       /**
-       * @description The condition to initially display on filter menu open
+       * @description The condition to initially display on filter menu open.  Can also be any custom string representing a function name.
        */
       filterDefaultCondition?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name';
+        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'break' | 'default' | 'trueVal' | 'falseVal' | string;
 
       /**
        * @description Sets the data field index to filter on if index itself has multiple fields.  The value set in index is the default.
@@ -609,6 +622,21 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       filterSelectboxDisplay?: 'raw' | 'rendered';
 
       /**
+       * @description Sets the filter summary chart type
+       */
+      filterSummaryChart?: 'bar' | 'default' | 'histogram' | 'pie';
+
+      /**
+       * @description Controls whether multiple nodes can be selected simultaneously for bar and pie summary charts.
+       */
+      filterSummaryMultiNode?: 'disabled';
+
+      /**
+       * @description Sets the node sort order for filter summary chart
+       */
+      filterSummaryNodeSort?: 'alphabetical' | ''count' | 'value' | 'none';
+
+      /**
        * @description Action that fires the filter event from the filter menu.
        */
       filterTrigger?: 'button' | 'change';
@@ -625,12 +653,12 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description The aggregate function, tokenized string, or function to evaluate for the foot cell of the column.
        * If using a function, the function takes the parameters "columnData" and "columnFieldIndex".
        */
-      footCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
+      footCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | string;
 
       /**
        * @description Moves the column to the frozen panel specified
        */
-      frozen?: 'left' | 'right' | string;
+      frozen?: 'left' | 'right';
 
       /**
        * @description Includes the column to the row-group column. To enable features on grouped row columns, set attributes on "ZGColumn[type="row-group"]".
@@ -641,13 +669,13 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Sets a head cell on the column in the grouped row.
        */
-      groupHeadCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
+      groupHeadCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | string;
 
       /**
        * @description The aggregate function to evaluate for the head cell of the column.
        * If using a function, the function takes the parameters "columnData" and "columnFieldIndex".
        */
-      headCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
+      headCell?: 'sum' | 'avg' | 'max' | 'min' | 'count' | string;
 
       /**
        * @description The header name for the column.   If it is not set, the default is to format the "index" value.
@@ -660,7 +688,12 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * set to a function name to customize formatting of header text.  The custom function takes in two parameters,
        * "index" and "headerText", and returns the formatted header text.
        */
-      headerAutoFormat?: 'disabled' | 'functionName' | string;
+      headerAutoFormat?: 'disabled' | string;
+
+      /**
+       * @description Sets the header icon position in the header cells
+       */
+      headerIconPosition?: 'left' | 'right' | 'after-text';
 
       /**
        * @description Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon
@@ -676,11 +709,6 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description Specifies the icon to use for the header tooltip trigger icon
        */
       headerTooltipIcon?: string;
-
-      /**
-       * @description Sets the header icon position in the header cells
-       */
-      headerTooltipIconPosition?: 'left' | 'right' | 'after-text';
 
       /**
        * @description Sets the tooltip icon position for the tooltip icon in the header cells
@@ -769,7 +797,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Turns on column resizing for single column.  Set to "disabled" to turn off resizing on a single column.
        */
-      resizable?: 'disabled';
+      resizable?: 'disabled' | boolean;
 
       /**
        * @description Sets the maximum width the column can be set to when resizing
@@ -828,7 +856,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description The type of the data stored in the column.  The column renderer/editor will behave based on the column type.
        */
       type?: 'aggregate' | 'boolean' | 'button' | 'checkbox' | 'color' | 'currency' | 'custom' | 'date' | 'duplicate' | 'editor' | 'element' | 'email' | 'emoji' | 'icon' | 'image' | 'iframe' 
-        | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
+        | 'number' | 'password' | 'percentage' | 'radio' | 'range' | 'remover' | 'row-details' | 'row-group' | 'row-number' | 'select' | 'selector' | 'tel' | 'text' | 'toggle' | 'url';
 
       /**
        * @description Presence of attribute ignores the column in aggregation calculations
@@ -838,7 +866,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description The token or aggregate value to use to display if the column is an aggregation column
        */
-      typeAggregateValue?: 'sum' | 'avg' | 'max' | 'min' | 'count' | 'tokenized string' | 'functionName' | string;
+      typeAggregateValue?: 'sum' | 'avg' | 'max' | 'min' | 'count' | string;
 
       /**
        * @description Presence of attribute sets the button to be in a disabled state. Can also set to "true" or "false".
@@ -884,12 +912,12 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Disable the default color swatch UI preview with a false value.
        */
-      typeColorPreview?: boolean;
+      typeColorPreview?: 'disabled';
 
       /**
        * @description By default, spaces are added into the color when in RGB or HSL mode.  Turn the spaces off by setting to "disabled"
        */
-      typeColorSpaces?: string;
+      typeColorSpaces?: 'disabled';
 
       /**
        * @description The currency to be used in currency formatting.
@@ -979,7 +1007,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description When the column type is set to "radio", use "typeRadioOptions" to add rendered radio options in the cell.
        * Can also set as array of name/value pairs where the name is displayed for the given value
        */
-      typeRadioOptions?: any[] | string;
+      typeRadioOptions?: unknown[] | string;
 
       /**
        * @description Maximum value for the input box. Used with the "range" type column in edit mode.
@@ -997,6 +1025,19 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       typeRangeStep?: number;
 
       /**
+       * @description Renderer for the row details component
+       * To use a custom renderer, the attribute should be set to the name of the function.
+       * The renderer function takes in the following arguments, "recordData", "domRowDetails", and "rowObject"
+       * The returned value of the renderer function is set as the innerHTML of the zg-row-details component.
+       */
+      typeRowDetailsRenderer?: string;
+
+      /**
+       * @description Points to an external template element to be used as the template for the row's details
+       */
+      typeRowDetailsTemplate?: string;
+
+      /**
        * @description The default value of a new record.  The select box in the create record will default to the specified value.
        */
       typeSelectDefaultValue?: string;
@@ -1011,7 +1052,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description To set the options for the select box for a "select" column when "editor" is enabled on "<zing-grid>".
        * Can also set as array of name/value pairs where the name is displayed for the given value
        */
-      typeSelectOptions?: string | any[];
+      typeSelectOptions?: unknown[] | string;
 
       /**
        * @description Keeps the selected rows selected even on page change.  This means that rows can be selected and not on the current page.
@@ -1021,7 +1062,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description When the column type is set to "toggle", use "typeToggleOptions" to set the list of options for the display.
        */
-      typeToggleOptions?: any[];
+      typeToggleOptions?: unknown[];
 
       /**
        * @description When the column type is set, the render and value will be the same.  This prevents the default creating of true/false for toggles.
@@ -1061,20 +1102,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       validationRequiredMessage?: string;
 
       /**
-       * @description Sets the validation method for the column.  Overrides the default for the column type
+       * @description Sets the width of the column. Can also be any custom string representing a percentage value (10%) or pixel value (150px).
        */
-      validator?: string | string;
-
-      /**
-       * @description Used in the case of automatically removing columns on resize.  Columns without a "visibility-priority" never
-       * gets removed. The rest of the columns are removed from highest "visibility-priority" value to the lowest.
-       */
-      visibilityPriority?: number;
-
-      /**
-       * @description Sets the width of the column.
-       */
-      width?: 'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | 'min-content' | 'max-content' | string | number;
+      width?: 'fit' | 'fitheader' | 'fitcontent' | 'max-content' | 'min-content' | 'stretch' | string | number;
     }
 
     interface ZGData {
@@ -1082,13 +1112,13 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description Adapter is a shortcut to set known options for specific third party datasets.  Currently supports "graphql" and  "firebase".
        * Developers could register their own custom adapters.  For more information on custom adapters, visit Guides > ZingGrid Object > registerAdapter().
        */
-      adapter?: string;
+      adapter?: 'firebase' | 'graphql' | string;
 
       /**
        * @description Data for the grid presented as an array or object.  If set as an attribute value, the
        * data needs to be in JSON format.
        */
-      data?: any;
+      data?: unknown[] | Record<string, unknown>;
 
       /**
        * @description In the case of non-key based objects, the idKey can be set to indicate the id to send back to the datasource on CRUD commands.
@@ -1100,7 +1130,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description Used to set "<zg-param>", the configuration data for "<zg-data>".  This should never be used directly as an attribute and
        * is meant for object instantiation and for setting in JavaScript.
        */
-      options?: any;
+      options?: Record<string, unknown>;
 
       /**
        * @description Specifies the absolute or relative URL to fetch data from to populate the grid
@@ -1136,7 +1166,10 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Sets the icon type of "<zg-icon>"
        */
-      name?: string;
+      name?: 'batchedit' | 'batcheditcancel' | 'batcheditsave' | 'cancel' | 'cancelrecord' | 'checked' | 'checkmark' | 'close' | 'createrecord' | 'down' | 'duplicaterecord' | 'edit' | 
+        'editrecord' | 'error' | 'error-tmp' | 'filter' | 'firstpage' | 'fixedmenu' | 'info' | 'lastpage' | 'layoutcard' | 'layoutrow' | 'link' | 'menu' | 'nextpage' | 'outsidearrow' | 
+        'prevpage' | 'reload' | 'remove' | 'removerecord' | 'clearfilter' | 'closefilterrow' | 'openfilterrow' | 'search' | 'sort' | 'submitrecord' | 'success' | 'unchecked' | 
+        'undoremoverecord' | 'up' | 'warning';
     }
 
     interface ZGInput {
@@ -1205,7 +1238,15 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
       /**
        * @description Name of parameter
        */
-      name?: string;
+      name?: 'adapter' | 'idKey' | 'newIndexPath' | 'recordPath' | 'nodePath' | 'searchKey' | 'search' | 'serverFilter' | 'filterFunction' | 'sortByKey' | 'sortBy' | 'sortDirKey' | 'sortDir' 
+        | 'batchEditStatus' | 'startAtKey' | 'startAtValue' | 'limitToKey' | 'limitTo' | 'offsetKey' | 'offsetValue' | 'pageKey' | 'countPath' | 'cursor' | 'loadByPage' | 'loadByScroll' 
+        | 'hasNextPath' | 'nextPath' | 'nextIDPath' | 'nextIDKey' | 'hasPrevPath' | 'prevPath' | 'prevIDPath' | 'prevIDKey' | 'pageBase' | 'selectorKey' | 'csvCaption' | 'csvDelimiter' 
+        | 'csvHeader' | 'csvLineSeparator' | 'tableHide' | 'tableHead' | 'tableDataFormat' | 'tableHeadFormat' | 'collection' | 'subscription' | 'dataTable' | 'createOptions' | 
+        'readOptions' | 'updateRowOptions' | 'updateCellOptions' | 'updateOptions' | 'deleteOptions' | 'src' | 'createSrc' | 'readSrc' | 'updateRowSrc' | 'updateCellSrc' | 'deleteSrc' | 
+        'restmode' | 'method' | 'createMethod' | 'readMethod' | 'updateRowMethod' | 'updateCellMethod' | 'deleteMethod' | 'headers' | 'queryString' | 'body' | 'bodyMethodSuffix' | 
+        'createBody' | 'readBody' | 'updateRowBody' | 'updateCellBody' | 'deleteBody' | 'createCustomFunction' | 'readCustomFunction' | 'updateCellCustomFunction' | 
+        'updateRowCustomFunction' | 'deleteCustomFunction' | 'serverErrorMessage' | 'serverErrorPath' | 'exclude' | 'cdataEscape' | 'requestType' | 'responseType' | 'dataType' | 
+        'urlSuffix' | 'mode';
 
       /**
        * @description The value for given data key.  If the value is an object, format as JSON encoded version of string.
@@ -1242,711 +1283,9 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
        * @description Specifies what value to generate in text field.  Current built-in options are
        * pager-related information.
        */
-      value?: string;
+      value?: 'currpage' | 'pagecount' | 'pagesize' | 'startrow' | 'endrow' | 'rowcount';
     }
 
-    interface ZingGrid {
-      /**
-       * @description Adds aggregate column and sets the type-aggregate-value to the specified value
-       */
-      aggregate?: string;
-
-      /**
-       * @description Aligns the contents of the grid's text
-       */
-      align?: 'center' | 'left' | 'right';
-
-      /**
-       * @description Presence of attribute indicates the grid allows batch editing and displays the controls.
-       * In batch edit mode, changes can be made to cells that do not have edit disabled or are not a part of the "recordkey" column.
-       */
-      batchEdit?: boolean;
-
-      /**
-       * @description Sets the message to display when making batch edits.
-       * Can use the following tokens: [[changes]], [[deleted]], [[fieldsEdited]], [[inserted]], [[modified]], [[recordsEdited]].
-       * Can append 'Message' to any of the above for a string description.
-       */
-      batchEditStatus?: string;
-
-      /**
-       * @description Turns off the tooltips on all buttons in the grid
-       */
-      buttonTooltipDisabled?: boolean;
-
-      /**
-       * @description The caption for the grid
-       */
-      caption?: string;
-
-      /**
-       * @description Specifies the defined "<zg-card>" of the grid.  More appropriate to use "<zg-card>" in most cases or set the property programmatically.
-       */
-      card?: any;
-
-      /**
-       * @description The type of "word-break" style for body cells. When not set, "cell-break" style is "normal" by default.
-       * If the width of a column is set, "cell-break" is "word" by default.
-       * To overwrite "cell-break" for cells in a specific column, set "cell-break" for that column.
-       */
-      cellBreak?: 'all' | 'ellipsis' | 'normal' | 'word';
-
-      /**
-       * @description Adds a class to each "<zg-cell>" in the grid. This attribute can be applied to both
-       * "<zing-grid>" or "<zg-column>". If the attribute is applied to both, "<zg-column>"'s "cell-class" overwrites "<zing-grid>"'s "cell-class".
-       * To set a class conditionally, set "cell-class" to the name of the function, which takes in the arguments: "cellData", "domContainer", "cellObject".
-       */
-      cellClass?: string;
-
-      /**
-       * @description Turns cell editing on or off. Automatically turned on when setting "editor" or "editor-controls".
-       */
-      cellEditor?: 'disabled' | boolean;
-
-      /**
-       * @description Turns off keyboard nav cell focus if set to disabled
-       */
-      cellFocus?: 'disabled';
-
-      /**
-       * @description Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon
-       */
-      cellTooltipAction?: 'click' | 'hover';
-
-      /**
-       * @description Sets the hover delay in milliseconds before displaying the tooltip. If delay is not specified,
-       * it is 1000ms on cell tooltips without an icon and 0ms on cell tooltips with an icon.
-       */
-      cellTooltipDelay?: number;
-
-      /**
-       * @description Specifies the icon to use for the info column types
-       */
-      cellTooltipIcon?: string;
-
-      /**
-       * @description Sets the tooltip-position for the cell
-       */
-      cellTooltipPosition?: 'top' | 'left' | 'right' | 'bottom';
-
-      /**
-       * @description Gets the name of the user's custom render function, on window, to use the function's return value as the tooltip content
-       */
-      cellTooltipRenderer?: string;
-
-      /**
-       * @description Points to an external template element to be used as the template for the tooltip display
-       */
-      cellTooltipTemplate?: string;
-
-      /**
-       * @description Sets the style to use for the tooltips.  Uses the "default" style by default.  Can set to "system" to match the tooltips used on icons throughout "<zing-grid>".
-       */
-      cellTooltipType?: 'default' | 'system';
-
-      /**
-       * @description Adds a class to each "<zg-cell>" in targeted "<zg-column>". To
-       * apply a class conditionally, set the value to the name of the function to run
-       * on each cell value. The function takes the parameters "fieldIndex", "domContainer",
-       * and "colObject", and returns a string which is the class name to apply.
-       */
-      colClass?: string;
-
-      /**
-       * @description Enables column dragging
-       */
-      columnDrag?: boolean;
-
-      /**
-       * @description Specifies the action of dragging allowed.  By default, if "column-drag" is
-       * enabled then "column-drag-action" is set ""both"".  This property will turn on column-drag if not already set.
-       */
-      columnDragAction?: 'reorder' | 'hide' | 'both';
-
-      /**
-       * @description Presence of attribute turns on column resizing for all columns.
-       * This excludes internal column types (), which requires setting ZGColumn[resizable] on the column.
-       */
-      columnResizable?: boolean;
-
-      /**
-       * @description Sets the maximum width columns can be set to when resizing
-       */
-      columnResizableMaxWidth?: number;
-
-      /**
-       * @description Sets the minimum width columns can be set to when resizing
-       */
-      columnResizableMinWidth?: number;
-
-      /**
-       * @description Presence of attribute displays column resizing for all columns without hover
-       */
-      columnResizablePersistent?: boolean;
-
-      /**
-       * @description Sets the width each of the columns
-       */
-      columnWidth?: 'fit' | 'fitheader' | 'fitcontent' | 'stretch' | '10%' | '150px' | '150' | string | number;
-
-      /**
-       * @description Specifies the columns of the grid.  More appropriate to use "<zg-column>" in most cases or set the property programmatically.
-       */
-      columns?: ZGColumn[];
-
-      /**
-       * @description Presence of attribute turns on the menu to show and hide columns
-       */
-      columnsControl?: boolean;
-
-      /**
-       * @description Augments internal themes to a compact mode
-       */
-      compact?: boolean;
-
-      /**
-       * @description Used to set multiple grid properties at once.  This should never be used directly.
-       * This is meant for object instantiation.
-       */
-      config?: any;
-
-      /**
-       * @description Turns off delete confirmation if set to disable
-       */
-      confirmDelete?: 'disabled';
-
-      /**
-       * @description Sets which confirmation dialogs to display on batch editing and deleting
-       */
-      confirmations?: 'batch-edit' | 'batch-edit-discard' | 'delete' | 'disabled' | 'all';
-
-      /**
-       * @description Enables the default "<zing-grid>" context menu or set to the id name of a custom "<zg-menu>".  If
-       * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context menu.
-       * Otherwise the contents of the custom menu is appended to the end of context menu.
-       * Can also set to ""browser"" to use the browser's built in context-menu
-       * Note that the ""browser"" context-menu cannot be used together with a custom static-menu.
-       */
-      contextMenu?: string | boolean;
-
-      /**
-       * @description Sets the create editor to modal (default) or inline.
-       */
-      creator?: 'inline' | boolean;
-
-      /**
-       * @description Data for the grid presented as an array or object
-       */
-      data?: any;
-
-      /**
-       * @description The data to display in each cell where the data value is null or undefined
-       */
-      defaultDisplay?: string;
-
-      /**
-       * @description Sets "<zg-dialog>" to display dialog and mask within the grid dimensions instead of the whole screen
-       */
-      dialog?: boolean;
-
-      /**
-       * @description The HTML standard direction to indicate direction of grid's columns and text
-       */
-      dir?: string;
-
-      /**
-       * @description Turns on the grid editor.  Enables single cell editing via double click.
-       * Sets the editor to inline (default) or modal.
-       */
-      editor?: 'modal' | boolean;
-
-      /**
-       * @description Adds columns for the editor controls.  If it is added, default is "all".
-       */
-      editorControls?: 'editor' | 'remover' | 'creator' | 'all' | boolean;
-
-      /**
-       * @description Comma separated list of indexes to turn off editor functionality on.  Mimes the functionality of ["editor=disabled"] on "<zg-column>"
-       */
-      editorDisabledFields?: 'fieldIndex' | boolean;
-
-      /**
-       * @description Enables filtering for all columns.  Can be turned on/off individually via column.  Can be set to "inline" or "menu"  Default is "menu"
-       */
-      filter?: string | boolean;
-
-      /**
-       * @description Comma separated list of buttons to display in the specified order on the filter menu
-       */
-      filterButtons?: string | any[];
-
-      /**
-       * @description The list of conditions to present as options in the filter menu condition select.  Use "break" to display the horizontal separator.  Use "default" to use the built in default.
-       */
-      filterConditions?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name' | 'break' | 'default' | 'trueVal' | 'falseVal';
-
-      /**
-       * @description Number of conditions to display in the filter menu on menu open
-       */
-      filterConditionsDisplay?: number;
-
-      /**
-       * @description Max number of conditions to display in the filter menu
-       */
-      filterConditionsMax?: number;
-
-      /**
-       * @description The condition to initially display on filter menu open
-       */
-      filterDefaultCondition?: 'none' | 'empty' | 'notEmpty' | 'equals' | 'notEquals' | 'beginsWith' | 'endsWith' | 'contains' | 'notContains' | 'between' | 'notBetween' | 'greaterThan' | 'greaterEqualThan' | 
-        'lessThan' | 'lessEqualThan' | 'before' | 'after' | 'betweenDate' | 'today' | 'yesterday' | 'tomorrow' | 'custom filter name';
-
-      /**
-       * @description The areas to display in the filter menu.  Can be conditions, selectbox, or both
-       */
-      filterMenuAreas?: 'conditions' | 'selectbox' | 'both';
-
-      /**
-       * @description Determines if the filter comparison should be against the raw values or the rendered.
-       * This only applies to conditionals in the filter menu.
-       * For iframe column type, it is restricted to raw values.
-       * For aggregate column type, it is restricted to rendered values.
-       */
-      filterOn?: 'raw' | 'rendered';
-
-      /**
-       * @description Determines if the selectbox in the filter menu should display the values as raw or rendered values.
-       */
-      filterSelectboxDisplay?: 'raw' | 'rendered';
-
-      /**
-       * @description Action that fires the filter event from the filter menu.
-       */
-      filterTrigger?: 'button' | 'change';
-
-      /**
-       * @description Adds a class to each "<zg-cell>" in the "<zg-foot>". To
-       * apply a class conditionally, set the value to the name of the function to run
-       * on each cell value. The function takes the parameters "fieldIndex", "domContainer",
-       * and "colObject", and returns a string which is the class name to apply.
-       */
-      footClass?: string;
-
-      /**
-       * @description Sets the number of columns to freeze to the left
-       */
-      frozenColumnsLeft?: number;
-
-      /**
-       * @description Sets the number of columns to freeze to the right
-       */
-      frozenColumnsRight?: number;
-
-      /**
-       * @description Adds a class to each "<zg-row>" element. To
-       * apply a class conditionally, set the value to the name of the function to run
-       * on each cell value. The function takes the parameters "data", "rowIndex" (1-based),
-       *  "domRow", and "rowObject", "rowParent", and returns a string which is the class name to apply.
-       */
-      frozenRowClass?: string;
-
-      /**
-       * @description Sets the number of rows to freeze to the bottom
-       */
-      frozenRowsBottom?: number;
-
-      /**
-       * @description Sets the number of rows to freeze to the top
-       */
-      frozenRowsTop?: number;
-
-      /**
-       * @description Sets vertical, horizontal or both grid lines to the grid
-       */
-      gridlines?: 'both' | 'horz' | 'horizontal' | 'vert' | 'vertical';
-
-      /**
-       * @description Sets the index fields to group on.
-       */
-      groupBy?: string;
-
-      /**
-       * @description Adds a class to each "<zg-cell>" in the "<zg-head>". To
-       * apply a class conditionally, set the value to the name of the function to run
-       * on each cell value. The function takes the parameters "fieldIndex", "domContainer",
-       * and "colObject", and returns a string which is the class name to apply.
-       */
-      headClass?: string;
-
-      /**
-       * @description Converts camel, dash, and kebab case to properly spaced and capitalized typography.
-       * Setting to "disabled" will turn off formatting on headers.  Set to a function name to customize formatting of headers.
-       */
-      headerAutoFormat?: string;
-
-      /**
-       * @description Hides any header rows
-       */
-      headerRowHide?: string;
-
-      /**
-       * @description Sets the execution method of custom 'icon' type tooltips to either activate on hover or click of the icon
-       */
-      headerTooltipAction?: 'click' | 'hover';
-
-      /**
-       * @description Sets the hover delay in milliseconds before displaying the header tooltip
-       */
-      headerTooltipDelay?: number;
-
-      /**
-       * @description Specifies the icon to use for the header tooltip trigger icon
-       */
-      headerTooltipIcon?: string;
-
-      /**
-       * @description Sets the tooltip icon position for the tooltip icon in the header cells
-       */
-      headerTooltipIconPosition?: 'left' | 'right' | 'after-text';
-
-      /**
-       * @description Sets the tooltip-position for the header cell
-       */
-      headerTooltipPosition?: 'top' | 'left' | 'right' | 'bottom';
-
-      /**
-       * @description Gets the name of the user's custom render function, on window, to use the function's return value as the tooltip content
-       */
-      headerTooltipRenderer?: string;
-
-      /**
-       * @description Points to an external template element to be used as the template for the tooltip display
-       */
-      headerTooltipTemplate?: string;
-
-      /**
-       * @description Sets what part of the header triggers the tooltip.  If set to 'icon', an info icon is added to the header.
-       */
-      headerTooltipTrigger?: 'text' | 'icon';
-
-      /**
-       * @description Sets the style to use for the tooltips.  Uses the "default" style by default.  Can set to "system" to match the tooltips used on icons throughout "<zing-grid>".
-       */
-      headerTooltipType?: 'default' | 'system';
-
-      /**
-       * @description Sets the height of the grid.  If the height is less than the size of the content, scrolling is added
-       * to grid body.
-       */
-      height?: string | number;
-
-      /**
-       * @description Allows the user to change the grid icon set to an allowed 3rd-party type (e.g., Font-Awesome).
-       * To use a custom icon set, the icon set must first be registered.
-       */
-      iconSet?: string;
-
-      /**
-       * @description Sets the language to use for the grid
-       */
-      lang?: string;
-
-      /**
-       * @description Sets the grid layout to be either "card" or "row" and adds "<zg-layout-controls>" to the grid.
-       * The default is based on the size of the user's screen, unless "layout" is set.
-       */
-      layout?: 'card' | 'row';
-
-      /**
-       * @description When "layout" is set, by default "layout-controls" is enabled.
-       * To hide, set "layout-controls" to "disabled".  Presence of this attribute will enable
-       * "<zg-layout-controls>" even if "layout" is not set.
-       */
-      layoutControls?: 'disabled' | boolean;
-
-      /**
-       * @description Presence of attribute adds loading state to grid, which triggers "<zg-load-mask>" to show.
-       * This attribute allows styling the height of the grid (via CSS) before the data has loaded in the grid.
-       */
-      loading?: boolean;
-
-      /**
-       * @description Sets the text to display in the "<zg-load-mask>" on data load
-       */
-      loadingText?: string;
-
-      /**
-       * @description Set "loadmask="disabled"" to prevent the "<zg-load-mask>" from showing on data load.
-       */
-      loadmask?: 'disabled';
-
-      /**
-       * @description Indicates separator that should be used for nested headers and data paths.  By default, the '.' is used: 'fullName.first'
-       * Setting to "disabled" will turn off parsing for nested headers and will not look at pathing for data
-       */
-      nestedDataSeparator?: string;
-
-      /**
-       * @description Sets the message that appears in the "<zg-no-data>" element when there are no records
-       */
-      noData?: string;
-
-      /**
-       * @description Sets the number of records or rows to display per page. Can be set only if "pager" is set.
-       */
-      pageSize?: number;
-
-      /**
-       * @description Sets the number of cards to display per page when in card mode. Can be set only if "pager" is set.
-       */
-      pageSizeCard?: number;
-
-      /**
-       * @description Sets the options for page size in "zg-option-list". Can be set only if "pager" is set.
-       */
-      pageSizeOptions?: string;
-
-      /**
-       * @description Sets the number of rows to display per page when in row mode. Can be set only if "pager" is set.
-       */
-      pageSizeRow?: number;
-
-      /**
-       * @description Adds pagination functionality and controls to the grid
-       */
-      pager?: boolean;
-
-      /**
-       * @description Determines max number of page buttons to display.  Default is 5.
-       */
-      pagerButtonLimit?: number;
-
-      /**
-       * @description Sets pager position. Note: "pager" attribute or "<zg-pager>" must be present in
-       * order to position pager.
-       */
-      pagerPosition?: 'top' | 'bottom';
-
-      /**
-       * @description Determines which type of pagination to use, input or buttons
-       */
-      pagerType?: 'button-text' | 'button-arrows';
-
-      /**
-       * @description Name/Value pairs of "<zg-param>" values.  More appropriate to use "<zg-param>" in most cases.
-       */
-      params?: any;
-
-      /**
-       * @description The ID to use as the key in storing the state.  Each grid should have a unique ID or else the state data
-       * will be shared across grids.
-       */
-      preserveStateId?: string;
-
-      /**
-       * @description The method to call when state is ready to be retrieved.  Must also set preserveStateSave and preserveStateId
-       */
-      preserveStateLoad?: string;
-
-      /**
-       * @description Comma separated list of features to save in state preservation.
-       * Options are 'columnfrozen', 'columnposition', 'columnvisibility', 'columnwidth', 'filter', 'rowgroup', 'layout', 'page', 'pagesize', 'rowfrozen', 'rowgroup', 'rowselector', 'search', 'selector', 'sort'
-       * NOTE:  If columnfrozen is set, then columnposition will implicitly be set as well
-       */
-      preserveStateOptions?: string;
-
-      /**
-       * @description The method to call when state is ready to be saved.  Must also set preserveStateLoad and preserveStateId.
-       */
-      preserveStateSave?: string;
-
-      /**
-       * @description Sets the total record count.  Useful for "loadByPage" when the response packet
-       * does not return total count of records.
-       */
-      recordCount?: number;
-
-      /**
-       * @description Adds the duplicate control to the end of the row before the edit controls
-       */
-      recordDuplicate?: boolean;
-
-      /**
-       * @description Adds the record key column to the grid.  If set to a string, the string is the header text.
-       */
-      recordKey?: string | boolean;
-
-      /**
-       * @description Adds a class to each "<zg-row>" element. To
-       * apply a class conditionally, set the value to the name of the function to run
-       * on each cell value. The function takes the parameters "data", "rowIndex" (1-based),
-       *  "domRow", and "rowObject", "rowParent", "bodyRowIndex" (1 based), and returns a string which is the class name to apply.
-       */
-      rowClass?: string;
-
-      /**
-       * @description Renderer for the row details component
-       * To use a custom renderer, the attribute should be set to the name of the function.
-       * The renderer function takes in the following arguments, "recordData", "domRowDetails", and "rowObject"
-       * The returned value of the renderer function is set as the innerHTML of the zg-row-details component.
-       */
-      rowDetailsRenderer?: string;
-
-      /**
-       * @description Points to an external template element to be used as the template for the row's details
-       */
-      rowDetailsTemplate?: string;
-
-      /**
-       * @description Sets the height of each data row.  By default, the body row height is set to 'auto' where it will auto fit the content.
-       * If you wish to apply the height to rows besides data row, specify with the "[rowHeightScope]" attribute.
-       */
-      rowHeight?: string | number;
-
-      /**
-       * @description If "[rowHeight]"  is set, it specifies which rows to apply row height to.
-       * Choices are "data", "headers, and "all".  Can combine with comma separated list
-       */
-      rowHeightScope?: string;
-
-      /**
-       * @description Adds "selector" type column to the rows as the first column
-       */
-      rowSelector?: boolean;
-
-      /**
-       * @description Turns on the search feature and adds "<zg-search>" to the grid.
-       * The search button appears in the caption header.
-       */
-      search?: boolean;
-
-      /**
-       * @description Turns on the selector feature on the grid and adds
-       * "<zg-selector-mask>" to the grid
-       */
-      selector?: boolean;
-
-      /**
-       * @description Indicates that the grid was completely rendered on the server and embedded in the page
-       */
-      serverRendered?: boolean;
-
-      /**
-       * @description Enables sorting on all columns.  It is possible to disable specific columns
-       * via the column's object or setting "sort="disabled"" to specified columns.
-       */
-      sort?: boolean;
-
-      /**
-       * @description Overrides default behavior for international sorting.  Turn off international sorting with "sort-intl="disabled"".
-       */
-      sortIntl?: 'disabled';
-
-      /**
-       * @description Override the column sorting by passing in method name of sort function instead.  Sorter function
-       * takes in two values (a, b) and returns 1, -1, or 0 indicating if "a > b", "a < b", or "a = b".
-       */
-      sorter?: string;
-
-      /**
-       * @description Defines the source of the data in the grid. Adds the "<zg-source>" element.
-       */
-      source?: string;
-
-      /**
-       * @description Specifies the absolute or relative URL to fetch data from to populate the grid
-       */
-      src?: string;
-
-      /**
-       * @description Adds a display button that launches the contextmenu.  If
-       * set to a custom menu and "<zg-menu>" has the "replace" attribute present, then the custom menu will replace the context-menu.
-       * Otherwise the contents of the custom menu is appended to the end of context menu.
-       * Note that custom static-menu cannot not be used together with a ""browser"" context-menu.
-       */
-      staticMenu?: boolean;
-
-      /**
-       * @description Changes the duration a status message will remain visible until it automatically closes (in milliseconds)
-       */
-      statusDelay?: number;
-
-      /**
-       * @description Prevents status messages from automatically closing after a delay
-       */
-      statusPersist?: boolean;
-
-      /**
-       * @description Positions the status message in one of nine positions relative to the grid
-       */
-      statusPosition?: 'top left' | 'center left' | 'bottom left' | 'top center' | 'center' | 'bottom center' | 'top right' | 'center right' | 'bottom right' | 'bar';
-
-      /**
-       * @description Defines the regex expression for closing data binding
-       */
-      templateEndDelimiter?: string;
-
-      /**
-       * @description Defines the regex expression for starting data binding
-       */
-      templateStartDelimiter?: string;
-
-      /**
-       * @description Sets the theme of the grid.  Built-in themes are specified by keyword, but custom theme
-       * names are also accepted by setting a URL path to your custom css theme file.  For custom themes, on load set "theme"
-       * to the path to the custom theme file.  After, set to theme name to switch themes.
-       */
-      theme?: 'android' | 'black' | 'default' | 'dark' | 'ios' | 'urlToThemeFile' | 'customThemeName' | string;
-
-      /**
-       * @description If there is a selector column, it maintains selection between pages.  This means that rows can be selected and not on the current page.
-       */
-      typeSelectorPagePersist?: boolean;
-
-      /**
-       * @description Sets the default validation error message
-       */
-      validationErrorMessage?: string;
-
-      /**
-       * @description Sets the default validation required message
-       */
-      validationRequiredMessage?: string;
-
-      /**
-       * @description Internal attribute.  Should not be set.
-       */
-      viewport?: string;
-
-      /**
-       * @description Keeps current value of "viewport" and freezes the breakpoint
-       */
-      viewportPause?: boolean;
-
-      /**
-       * @description Removes "viewport" attribute, disabling viewport resizing
-       */
-      viewportStop?: boolean;
-
-      /**
-       * @description Sets custom "viewport" breakpoints (value string-object must be valid JSON).
-       * NOTE: If you don't set "mobile", the grid won't auto-set card or row mode.
-       */
-      viewportTypes?: string;
-
-      /**
-       * @description Sets the width of the grid.  If the width is less than the size of the content, scroll is added to "<zg-body>".
-       */
-      width?: string | number;
-
-      /**
-       * @description Presence of attribute adds the classes, "zebra-1" and "zebra-2", alternating on "<zg-row>" elements.  Setting to a
-       * list of class names will assign classes in sequential order.  For conditional zebra classes, "zebra" also accepts name of function that
-       * returns a class name to use for zebra striping.
-       */
-      zebra?: string;
-    }
   }
 
   type ZingGridConfig = ZingGridAttributes.ZingGrid;
@@ -1956,14 +1295,6 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Presence of attribute hides the column
      */
     hidden: boolean;
-    /**
-     * @description The HTML standard direction to indicate direction of grid's columns and text
-     */
-    dir: string;
-    /**
-     * @description Sets the language to use for the grid
-     */
-    lang: string;
   }
 
   interface ZGBatchEdit extends CatchAll, HTMLElement {}
@@ -1980,10 +1311,11 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'command_event' | 'contentEditable' | 'dataset'
     | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
     | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
-    | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
-    | 'load_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth'
-    | 'outerText' | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
-    | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
+    | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'interest_event' | 'isContentEditable'
+    | 'lang' | 'load_event' | 'loseinterest_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent'
+    | 'offsetTop' | 'offsetWidth' | 'outerText' | 'popover' | 'showPopover' | 'spellcheck' | 'style'
+    | 'tabIndex' | 'title' | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'
+   >, CatchAll, HTMLElement {}
   interface ZGColumnResize extends CatchAll, HTMLElement {}
   interface ZGControlBar extends CatchAll, HTMLElement {}
   interface ZGData extends ZingGridAttributes.ZGData, CatchAll, HTMLElement {}
@@ -1991,6 +1323,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGEditorRow extends CatchAll, HTMLElement {}
   interface ZGFilter extends CatchAll, HTMLElement {}
   interface ZGFilterMenu extends CatchAll, HTMLElement {}
+  interface ZGFilterSummary extends CatchAll, HTMLElement {}
   interface ZGFocus extends CatchAll, HTMLElement {}
   interface ZGFoot extends CatchAll, HTMLElement {}
   interface ZGFooter extends CatchAll, HTMLElement {}
@@ -2020,7 +1353,6 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
   interface ZGTable extends CatchAll, HTMLElement {}
   interface ZGText extends ZingGridAttributes.ZGText, CatchAll, HTMLElement {}
   interface ZGTooltip extends CatchAll, HTMLElement {}
-  class ZingGrid {
     constructor(config: ZingGridConfig, ref: HTMLElement | Element);
     constructor(ref: HTMLElement | Element, config: ZingGridConfig);
     addEventListener<K extends keyof ZingGridElementEventMap>(type: K, listener: (this: ZingGrid, ev: ZingGridElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
@@ -2042,14 +1374,14 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * cancel (text for the cancel button), confirm (text for the confirm button),
      * title: (title to display on the dialog)
      */
-    customizeDialog: (type: string, config: any) => ZingGrid;
+    customizeDialog: (type: string, config: Record<string, unknown>) => ZingGrid;
 
     // ZGColumn
     /**
      * @description Fetches the targeted column.
      * @param fieldIndex Field index of column to fetch.
      */
-    column: (fieldIndex: string) => any;
+    column: (fieldIndex: string) => Record<string, unknown>;
 
     /**
      * @description Filters the column specified by column index. Note: "filter" attribute must be present for
@@ -2073,6 +1405,17 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param filter.selectItems Array of items to select in the filter menu selectbox
      */
     filterMenuColumn: (fieldIndex: string, filter: {conditionals?: {condition?: string, val1?: string, val2?: string}[], boolean?: string, matchCase?: boolean, selectItems?: string[]}) => ZingGrid;
+
+    /**
+     * @description Filters the column via its filter summary. Performs exact-term matching.
+     * For categorical charts (bar/pie), pass "[sFilterTerm]" (a single value).
+     * For distribution charts (histogram), pass "[rangeStart, rangeEnd]".
+     * Boolean pie uses the rendered "True"/"False" labels.
+     * "NaN" filters for empty values.
+     * @param sFieldIndex Field index of column.
+     * @param aFilterTerms Filter terms. For bar/pie: [sFilterTerm]. For histogram: [rangeStart, rangeEnd].
+     */
+    filterSummaryColumn: (sFieldIndex: string, aFilterTerms: unknown[]) => ZingGrid;
 
     /**
      * @description Gets the value of the "col-class" attribute
@@ -2127,7 +1470,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "columns" property
      * @param columns Array of column objects
      */
-    setColumns: (columns: any[]) => ZingGrid;
+    setColumns: (columns: unknown[]) => ZingGrid;
 
     /**
      * @description Sets the "columns-control" attribute
@@ -2170,7 +1513,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param columnIndex Index of column to sort
      * @param direction Sort Direction: asc, desc, or none
      */
-    sortColumn: (columnIndex: string, direction: string) => ZingGrid;
+    sortColumn: (columnIndex: string, direction: "asc" | "desc" | "none") => ZingGrid;
 
     /**
      * @description Toggles the visibility of a column by index
@@ -2222,7 +1565,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     /**
      * @description Returns an array of selected rows
      */
-    getSelectedRows: () => any[];
+    getSelectedRows: () => unknown[];
 
     /**
      * @description Gets the value of the "selector" attribute
@@ -2358,7 +1701,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * cols (set to 'all' or 'visible' to return all or only visible columns),
      * rows (set to 'all' or 'visible' to return all or only visible rows)
      */
-    getData: (config?: any) => any;
+    getData: (config?: Record<string, unknown>) => unknown[] | Record<string, unknown>;
 
     /**
      * @description Gets the value of the "src" attribute
@@ -2381,7 +1724,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param id If the id is already set on the new record, pass it in here
      * @param noDataSource If you only want to do a local insert, set "noDataSource" to "true"
      */
-    insertRow: (data?: any, id?: string, noDataSource?: boolean) => ZingGrid;
+    insertRow: (data?: Record<string, unknown>, id?: string, noDataSource?: boolean) => ZingGrid;
 
     /**
      * @description Refreshes all cells. Note: if using static data, original cell value will be restored.
@@ -2412,7 +1755,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param data JSON data
      * @param bKeepSort If true, the grid will try to maintain the sort on the new data.
      */
-    setData: (data: any, bKeepSort: boolean) => ZingGrid;
+    setData: (data: unknown[] | Record<string, unknown>, bKeepSort: boolean) => ZingGrid;
 
     /**
      * @description Sets the "src" attribute
@@ -2457,7 +1800,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRecord: (id?: string, data?: any, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
+    updateRecord: (id?: string, data?: Record<string, unknown>, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
 
     /**
      * @description Updates a row in the grid
@@ -2466,7 +1809,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param noDataSource If you only want to update the grid and not the external datasource, set "noDataSource" to "true"
      * @param noRefresh If you only do not want the display to do an refresh after updating the record, set "noRefresh" to "true".  NOTE:  Any data change will NOT be reflected in the grid if this is set to "true"
      */
-    updateRow: (rowIndex: string, data: any, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
+    updateRow: (rowIndex: string, data: Record<string, unknown>, noDataSource?: boolean, noRefresh?: boolean) => ZingGrid;
 
     // ZGCellOverflow
     /**
@@ -2499,7 +1842,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param rowContainerIndex The index of the row to fetch.
      * @param columnContainerIndex The index of the column fetch.
      */
-    cell: (rowContainerIndex: number, columnContainerIndex: number) => any;
+    cell: (rowContainerIndex: number, columnContainerIndex: number) => Record<string, unknown>;
 
     /**
      * @description Get the value of the "cell-break" attribute.
@@ -2514,7 +1857,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     /**
      * @description Fetches all cells
      */
-    getCells: () => any[];
+    getCells: () => unknown[];
 
     /**
      * @description Gets the value of the "default-display" attribute
@@ -2525,7 +1868,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "cell-break" attribute
      * @param type Type of cell-break
      */
-    setCellBreak: (type: 'all' | 'ellipsis' | 'word') => ZingGrid;
+    setCellBreak: (type: 'all' | 'ellipsis' | 'normal' | 'word') => ZingGrid;
 
     /**
      * @description Sets the "cell-class" attribute
@@ -2569,7 +1912,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Fetches the targeted row.
      * @param rowContainerIndex The index of the row to fetch.
      */
-    row: (rowContainerIndex: number) => any;
+    row: (rowContainerIndex: number) => Record<string, unknown>;
 
     /**
      * @description Sets the "frozen-row-class" attribute
@@ -2704,7 +2047,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "static-menu" attribute
      * @param activate Value to add or remove
      */
-    setStaticMenu: (activate: boolean) => ZingGrid;
+    setStaticMenu: (activate: boolean | string) => ZingGrid;
 
     // ZingGrid
     /**
@@ -2713,7 +2056,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @param options The options to be used in calculating the value.  Currently fieldIndex is only option.
      * @param data The data to calculate the value on.  If this is not set, it uses the grids full dataset
      */
-    calculate: (method: string, options: any, data: any[]) => string;
+    calculate: (method: string, options: Record<string, unknown>, data: unknown[]) => string;
 
     /**
      * @description Clears the grid state
@@ -2773,7 +2116,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     /**
      * @description Exposes the Constants object for the user to customize
      */
-    getConstants: () => any;
+    getConstants: () => Record<string, unknown>;
 
     /**
      * @description Gets the dir setting for the grid
@@ -2858,7 +2201,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * If the build code is not set on page load, it is possible to set it through this API Method.
      * @param buildcode The buildcode array
      */
-    setBuildCode: (buildcode: any[]) => ZingGrid;
+    setBuildCode: (buildcode: unknown[]) => ZingGrid;
 
     /**
      * @description Sets the "column-drag" attribute
@@ -2870,7 +2213,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "column-drag-action" attribute
      * @param type Type of drag to enable
      */
-    setColumnDragAction: (type: 'reorder' | 'remove' | 'both') => ZingGrid;
+    setColumnDragAction: (type: 'reorder' | 'hide' | 'both') => ZingGrid;
 
     /**
      * @description Sets the "compact" attribute
@@ -2913,7 +2256,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * If the license is not set on page load, it is possible to set it through this API Method
      * @param license The license array
      */
-    setLicense: (license: any[]) => ZingGrid;
+    setLicense: (license: unknown[]) => ZingGrid;
 
     /**
      * @description Sets the "preserve-state-id" attribute
@@ -2949,13 +2292,13 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "row-height" attribute
      * @param height CSS height to set for the row height
      */
-    setRowHeight: (height: string) => ZingGrid;
+    setRowHeight: (height: 'auto' | string | number) => ZingGrid;
 
     /**
      * @description Sets the "row-height-scope" attribute
      * @param scope Set to 'data', 'headers', or 'all'
      */
-    setRowHeightScope: (scope: void) => ZingGrid;
+    setRowHeightScope: (scope: 'data' | 'headers' | 'all') => ZingGrid;
 
     /**
      * @description Sets the grid state with the options passed in
@@ -3016,7 +2359,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "filter" attribute
      * @param activate Value to add or remove
      */
-    setFilter: (activate: boolean) => ZingGrid;
+    setFilter: (activate: 'menu' | 'inline' | 'both' | 'disabled' | boolean) => ZingGrid;
 
     // ZGFoot
     /**
@@ -3098,7 +2441,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
     /**
      * @description Gets the current sorted column as well as the sort direction
      */
-    getSortedColumn: () => any;
+    getSortedColumn: () => Record<string, unknown>;
 
     /**
      * @description Gets the value of the "sorter" attribute
@@ -3139,7 +2482,7 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      * @description Sets the "theme" attribute
      * @param theme Value to indicate which theme to set
      */
-    setTheme: (theme: string) => ZingGrid;
+    setTheme: (theme: 'default' | 'android' | 'ios' | 'dark' | string) => ZingGrid;
 
     // ZGViewport
     /**
@@ -3181,16 +2524,6 @@ The event handler can modify the data in ZGData.copiedValue to store in the clip
      */
     setCardTemplate: (id: string) => ZingGrid;
   }
-
-  interface ZingGrid extends NonoptionalAttributes, Omit<ZingGridAttributes.ZingGrid, 'accessKey'
-    | 'accessKeyLabel' | 'anchorElement' | 'attachInternals' | 'attributeStyleMap' | 'autocapitalize' | 'autocorrect' | 'autofocus'
-    | 'beforetoggle_event' | 'blur' | 'change_event' | 'click' | 'command_event' | 'contentEditable' | 'dataset'
-    | 'dir' | 'drag_event' | 'dragend_event' | 'dragenter_event' | 'dragexit_event' | 'draggable' | 'dragleave_event'
-    | 'dragover_event' | 'dragstart_event' | 'drop_event' | 'editContext' | 'enterKeyHint' | 'error_event' | 'focus'
-    | 'hidden' | 'hidePopover' | 'inert' | 'innerText' | 'inputMode' | 'isContentEditable' | 'lang'
-    | 'load_event' | 'nonce' | 'offsetHeight' | 'offsetLeft' | 'offsetParent' | 'offsetTop' | 'offsetWidth'
-    | 'outerText' | 'popover' | 'showPopover' | 'spellcheck' | 'style' | 'tabIndex' | 'title'
-    | 'togglePopover' | 'toggle_event' | 'translate' | 'virtualKeyboardPolicy' | 'writingSuggestions'>, CatchAll, HTMLElement {}
 }
 
 interface HTMLElementTagNameMap {
@@ -3211,6 +2544,7 @@ interface HTMLElementTagNameMap {
   'zg-editor-row': ZSoft.ZGEditorRow;
   'zg-filter': ZSoft.ZGFilter;
   'zg-filter-menu': ZSoft.ZGFilterMenu;
+  'zg-filter-summary': ZSoft.ZGFilterSummary;
   'zg-focus': ZSoft.ZGFocus;
   'zg-foot': ZSoft.ZGFoot;
   'zg-footer': ZSoft.ZGFooter;
@@ -3240,7 +2574,6 @@ interface HTMLElementTagNameMap {
   'zg-table': ZSoft.ZGTable;
   'zg-text': ZSoft.ZGText;
   'zg-tooltip': ZSoft.ZGTooltip;
-  'zing-grid': ZSoft.ZingGrid;
 }
 
 declare namespace JSX {
@@ -3279,6 +2612,8 @@ declare namespace JSX {
     ZGFilter: ZSoft.CatchAll;
     'zg-filter-menu': ZSoft.CatchAll;
     ZGFilterMenu: ZSoft.CatchAll;
+    'zg-filter-summary': ZSoft.CatchAll;
+    ZGFilterSummary: ZSoft.CatchAll;
     'zg-focus': ZSoft.CatchAll;
     ZGFocus: ZSoft.CatchAll;
     'zg-foot': ZSoft.CatchAll;
@@ -3337,8 +2672,6 @@ declare namespace JSX {
     ZGText: ZSoft.ZingGridAttributes.ZGText | ZSoft.CatchAll;
     'zg-tooltip': ZSoft.CatchAll;
     ZGTooltip: ZSoft.CatchAll;
-    'zing-grid': KebabKeys<ZSoft.ZingGridAttributes.ZingGrid> | ZSoft.ZingGridEventHandlers |ZSoft.CatchAll;
-    ZingGrid: ZSoft.ZingGridAttributes.ZingGrid | ZSoft.ZingGridEventHandlers |ZSoft.CatchAll;
   }
 }
 
@@ -3376,7 +2709,7 @@ declare namespace ZingGrid {
    * <li>label: Label to display on the Dialog
    * </ul>
    */
-  function customizeDialog(type: string, config: any): ZingGrid;
+  function customizeDialog(type: string, config: Record<string, unknown>): ZingGrid;
 
   /**
    * @description Formats a Date
@@ -3403,7 +2736,7 @@ declare namespace ZingGrid {
    * @param oOptions Option list of of adapter variables you want to define. You can define ANY
    * zg-param name value pair here in this option. Refer to the Store.js variable this.oDefaultDataFormat
    */
-  function registerAdapter(sType: string, oOptions?: any): void;
+  function registerAdapter(sType: string, oOptions?: Record<string, unknown>): void;
 
   /**
    * @description Register a custom column type to reduce redundant markup and re-use
@@ -3411,7 +2744,7 @@ declare namespace ZingGrid {
    * @param sType Name of cell type.
    * @param oOptions An object to define the renderer and/or editor for the cell type.
    */
-  function registerCellType(sType: string, oOptions: any): void;
+  function registerCellType(sType: string, oOptions: Record<string, unknown>): void;
 
   /**
    * @description Register a third party client or library to make it available to ZingGrid for JS adapter calls.
@@ -3420,7 +2753,7 @@ declare namespace ZingGrid {
    * @param clientUse The client or library use to identify the library.
    * 'primary' | 'subscription' | 'subscriptionEventObject' current choices.  Default is primary
    */
-  function registerClient(client: any, clientUse: string): void;
+  function registerClient(client: Record<string, unknown>, clientUse: string): void;
 
   /**
    * @description Registers the custom filter method.
@@ -3439,7 +2772,7 @@ declare namespace ZingGrid {
    * </ul>
    * @param oScope Scope of the filter method
    */
-  function registerCustomFilterMethod(key: string, oCustomFilterObj: any, oScope?: any): void;
+  function registerCustomFilterMethod(key: string, oCustomFilterObj: Record<string, unknown>, oScope?: Record<string, unknown>): void;
 
   /**
    * @description Register the life cycle hooks for cell editing. This allows you to import
@@ -3448,7 +2781,7 @@ declare namespace ZingGrid {
    * @param sName String name of custom editor
    * @param oScope Scope of the editor
    */
-  function registerEditor(oConfig: any, sName: string, oScope?: any): void;
+  function registerEditor(oConfig: Record<string, unknown>, sName: string, oScope?: Record<string, unknown>): void;
 
   /**
    * @description Register the life cycle hooks for filterer. This allows you to import
@@ -3457,7 +2790,7 @@ declare namespace ZingGrid {
    * @param sName String name of the filterer
    * @param oScope Scope of the filterer method
    */
-  function registerFilterer(oConfig: any, sName: string, oScope?: any): void;
+  function registerFilterer(oConfig: Record<string, unknown>, sName: string, oScope?: Record<string, unknown>): void;
 
   /**
    * @description Register a method to make it available to ZingGrid even if it outside the window scope.
@@ -3469,7 +2802,7 @@ declare namespace ZingGrid {
    * in the grid. Optional.
    * @param scope The scope of the method.  When the method is called "this" will be set to the "scope" value. Optional.
    */
-  function registerMethod(method: any, name?: string, scope?: any): void;
+  function registerMethod(method: any, name?: string, scope?: Record<string, unknown>): void;
 
   /**
    * @description Register a namespace to make it available to ZingGrid even if it outside the window scope.
@@ -3479,7 +2812,7 @@ declare namespace ZingGrid {
    * @param scope The scope of the namespace.  When a method within the namespace is called, "this" will be set to the "scope" value.
    * Defaults to the namespace itself. Optional.
    */
-  function registerNamespace(namespace: any, name?: string, scope?: any): void;
+  function registerNamespace(namespace: any, name?: string, scope?: Record<string, unknown>): void;
 
   /**
    * @description Register the life cycle hooks for cell validation. This allows you to import
@@ -3488,7 +2821,7 @@ declare namespace ZingGrid {
    * @param sName The name to refer to the validator. Optional.
    * @param oScope The scope of the validator.  When the validator is called "this" will be set to the "scope" value. Optional.
    */
-  function registerValidator(oValidator: any, sName?: string, oScope?: any): void;
+  function registerValidator(oValidator: Record<string, unknown>, sName?: string, oScope?: Record<string, unknown>): void;
 
   /**
    * @description Searches for table element(s) with the "[is="zing-grid"]" attribute to
