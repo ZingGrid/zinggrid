@@ -17,8 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.14]
- 
+        node-version: [22]
+
+    permissions:
+      id-token: write
+      contents: read
+
     steps:
       - name: Set Tag Version ENV Variable
         run: echo "ZG_VERSION=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
@@ -58,13 +62,9 @@ jobs:
       - name: Publish Canary TagTo NPM
         if: github.event.release.prerelease == true
         run: npm publish --tag canary --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Publish To NPM
         if: github.event.release.prerelease == false
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   # publish-nuget:
   #   name: Nuget Publish
